@@ -217,8 +217,14 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
         
         //CONSULTA SQL 
         String consultaSql = "select * from usuarios where usuario =? and password = ?";
-      try
+         
+        String  updateHoraSesion ="update  usuarios set last_sesion = ? where id=?";
+  
+          try
         {
+            
+            // SE BUSCA EN LA BASE DE DATOS SI EL USUARIO SE ENCUENTRA REGISTRADO
+            
             //1. se manda a preparar la consulta
             ps = getConexion().prepareStatement(consultaSql);
             
@@ -232,12 +238,25 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
             //4.llena el modelo con los datos de la bd
             if(rs.next())
             {
+               //ACTUALIZA LA FECHA Y HORA EN QUE INRESO EL USUARIO AL SISTEMA
+                ps= getConexion().prepareStatement(updateHoraSesion);
+                ps.setString(1,usu.getUltimaSesion());
+                ps.setString(2,rs.getString("id") );
+                
+                JOptionPane.showMessageDialog(null,"last sesion desde USUARIOS"+ usu.getUltimaSesion());
+                
+                JOptionPane.showMessageDialog(null, "id= "+rs.getString(1));
+                ps.execute();
+                
+                
+                
                 usu.setId(Integer.parseInt(rs.getString("id")));
                 usu.setId_rol(Integer.parseInt(rs.getString("id_rol")));
                 usu.setNombre(rs.getString("nombre"));
                 usu.setCorreo(rs.getString("correo"));
                 usu.setUsuario(rs.getString("usuario"));
                 usu.setPassword(rs.getString("password"));
+              //  usu.setUltimaSesion(rs.getString("last_sesion"));
                 
                 return true;
                 
