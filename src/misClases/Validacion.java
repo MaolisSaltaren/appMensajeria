@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 public class Validacion {
     
-    
+    // validacion de que la cajas de texto solo admitan numeros 
     public void isNumeric(KeyEvent e)
     {
         
@@ -17,6 +17,7 @@ public class Validacion {
           
      }
     
+    //solo se permite ingresar letras en el jtextfield
     public void isLetter( KeyEvent e)
     {
     
@@ -26,6 +27,7 @@ public class Validacion {
             
     }
     
+    //ayuda avalidar letras numeros y  loc caracteres "-" "_"
     public void isLetterAndCaracterNoGuion( KeyEvent e)
     {
     
