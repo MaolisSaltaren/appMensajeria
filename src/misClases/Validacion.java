@@ -1,4 +1,4 @@
-
+//////
 package misClases;
 
 import java.awt.event.KeyEvent;
@@ -6,6 +6,10 @@ import javax.swing.JOptionPane;
 
 
 public class Validacion {
+    
+    
+   
+    
     
     //rama de desarrollo 
     // validacion de que la cajas de texto solo admitan numeros 
@@ -45,7 +49,7 @@ public class Validacion {
     char caracter = e.getKeyChar();
         if((caracter < '0') ||(caracter > '9')&&(caracter <'a'||caracter>'z')&&(caracter <'A'|| caracter >'Z') && caracter!= e.VK_SPACE && caracter!= 'ñ'&& caracter != '-'&& caracter != '_'&& caracter != 'Ñ')
              e.consume();
-        // comentac
+        
             
     }
     
