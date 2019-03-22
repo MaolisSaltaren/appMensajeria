@@ -1,17 +1,12 @@
-//////
+
 package misClases;
 
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
-
 
 public class Validacion {
-    
-    
-   //COMIT DE PARTIDA 4
-    //ESTE ES UNA MODIFICACION DESDE EL COMMIT DE PARTIDA 
-    
-    
+
+   //COMMIT DEFINITIVO
+ 
     //rama de desarrollo 
     // validacion de que la cajas de texto solo admitan numeros 
     public void isNumeric(KeyEvent e)
@@ -23,7 +18,7 @@ public class Validacion {
           
      }
     
-    //COMIT DE PARTIDA 
+    //COMIT DE  NUMERO 3
     
     //solo se permite ingresar letras en el jtextfield
     public void isLetter( KeyEvent e)
