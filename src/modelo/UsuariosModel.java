@@ -8,12 +8,22 @@ public class UsuariosModel {
     
     
     public int id;
-    public  String nombre;
-    public  int id_rol;
+    public String nombre;
+    public int    id_rol;
+ 
     public String telefono;
     public String correo;
     public String usuario;
     public String password;
+    public String ultimaSesion;
+
+    public String getUltimaSesion() {
+        return ultimaSesion;
+    }
+
+    public void setUltimaSesion(String ultimaSesion) {
+        this.ultimaSesion = ultimaSesion;
+    }
 
     public int getId() {
         return id;
@@ -70,6 +80,7 @@ public class UsuariosModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
     
     
 }

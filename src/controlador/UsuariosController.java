@@ -103,13 +103,13 @@ public class UsuariosController implements ActionListener,KeyListener{
                    modelUsu.setPassword(frmUsuario.txtPass.getText());
 
 
-                   //1.2.llama al metodo insertar de la claseUsuariosCrud
-                   //----------
-                   if(usuCRUD.insertarUsuario(modelUsu))
-                   JOptionPane.showMessageDialog(null,"El registro se guardo exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
-                   else
-                       JOptionPane.showMessageDialog(null," No se guardaron los datos","informe de error ",JOptionPane.ERROR );
-                   //----------
+                        //1.2.llama al metodo insertar de la claseUsuariosCrud
+                        //----------
+                        if(usuCRUD.insertarUsuario(modelUsu))
+                        JOptionPane.showMessageDialog(null,"El registro se guardo exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
+                        else
+                            JOptionPane.showMessageDialog(null," No se guardaron los datos","informe de error ",JOptionPane.ERROR );
+                        //----------
                    }
                    else 
                    {

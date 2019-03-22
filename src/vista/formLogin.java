@@ -6,9 +6,11 @@
 package vista;
 
 import controlador.UsuariosController;
-import java.text.NumberFormat;
+import java.text.DateFormat;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.text.NumberFormatter;
 import modelo.UsuariosCRUD;
 import modelo.UsuariosModel;
 
@@ -136,30 +138,41 @@ public class formLogin extends javax.swing.JFrame {
         //1. validamos de que los formularios de registros no esten abiertos
          
        try{
+
+           //objetos de las clases
+        UsuariosModel modelUsu = new UsuariosModel();
+        formUsuarios frmUsuario = new formUsuarios();
+        UsuariosCRUD usuCRUD = new UsuariosCRUD();
         
-            UsuariosModel modelUsu = new UsuariosModel();
-            formUsuarios frmUsuario = new formUsuarios();
-            UsuariosCRUD usuCRUD = new UsuariosCRUD();
-            
-            
-            UsuariosController ctrl= new UsuariosController(modelUsu,frmUsuario,usuCRUD);
-            //ctrl.iniciar();
+    //aggarra la fecha y hora del sistema para saber la ultima sesion del usuario
+       Date fecha = new Date();
+       DateFormat fechaHoraSistema = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       
+                
+        UsuariosController ctrl= new UsuariosController(modelUsu,frmUsuario,usuCRUD);
+        ctrl.iniciar();
         
         //2.1 llena el modelo 
          modelUsu.setUsuario(txtUsuario.getText());
          modelUsu.setPassword(txtpass.getText());
+         modelUsu.setUltimaSesion(fechaHoraSistema.format(fecha).toString()); 
          
          if(usuCRUD.loginUsuario(modelUsu)== true)
          {
-             JOptionPane.showMessageDialog(null, "Bienvenico señor(a)"+modelUsu.getNombre());
-         //llama al formulario principal 
-            if(frmPrincipal == null )
-          {
-              frmPrincipal = new formPrincipal();
-              frmPrincipal.setVisible(true);
-              this.dispose();
+             //1. actualiza la ultima sesion del usuario 
+              
+               
+             JOptionPane.showMessageDialog(null, "last sesion login:)"+ modelUsu.getUltimaSesion());
+             JOptionPane.showMessageDialog(null, "Bienvenico señor(a)"+ modelUsu.getNombre());
+         
+            //llama al formulario principal 
+               if(frmPrincipal == null )
+             {
+                 frmPrincipal = new formPrincipal();
+                 frmPrincipal.setVisible(true);
+                 this.dispose();
 
-          }
+             }
          }
          else 
          {
@@ -172,19 +185,11 @@ public class formLogin extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(null, "AHocurrido un eror "+e.toString(),"ERROR",JOptionPane.ERROR);
       
        }
-               
-             
-       
-                       
-        
-        
-       
-        
-        
+     
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        
       
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -192,43 +197,13 @@ public class formLogin extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new formLogin().setVisible(true);
                 
             }
         });
-        
-        
-        
-   
 
     }
 

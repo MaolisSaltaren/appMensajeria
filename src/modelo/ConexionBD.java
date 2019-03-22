@@ -77,14 +77,16 @@ public class ConexionBD {
             Class.forName(driver);
             conn=DriverManager.getConnection(url,usuario,pass);  
           //  JOptionPane.showMessageDialog(null,"usuario"+usuario+" "+pass );
-          
+    
          
        }
        catch (HeadlessException | ClassNotFoundException | SQLException ex ){
            ex.printStackTrace();
-           JOptionPane.showMessageDialog(null, "coneccion fallida","Error",JOptionPane.ERROR);
+           JOptionPane.showMessageDialog(null, " coneccion fallida" );
        }
        return conn;
+
+    
    }
    
 }
