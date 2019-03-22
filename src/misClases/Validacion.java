@@ -2,14 +2,14 @@
 package misClases;
 
 import java.awt.event.KeyEvent;
-
+import javax.swing.JOptionPane;
 
 
 public class Validacion {
     
     
-   //COMMIT DE NUMERO 3
-
+   //COMIT DE PARTIDA 4
+    //ESTE ES UNA MODIFICACION DESDE EL COMMIT DE PARTIDA 
     
     
     //rama de desarrollo 
@@ -23,7 +23,7 @@ public class Validacion {
           
      }
     
-    //COMIT DE  NUMERO 3
+    //COMIT DE PARTIDA 
     
     //solo se permite ingresar letras en el jtextfield
     public void isLetter( KeyEvent e)
