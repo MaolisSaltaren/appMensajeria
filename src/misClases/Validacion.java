@@ -8,7 +8,8 @@ import javax.swing.JOptionPane;
 public class Validacion {
     
     
-   //
+   //COMIT DE PARTIDA 
+    //ESTE ES UNA MODIFICACION DESDE EL COMMIT DE PARTIDA 
     
     
     //rama de desarrollo 
@@ -21,6 +22,8 @@ public class Validacion {
           e.consume();
           
      }
+    
+    //COMIT DE PARTIDA 
     
     //solo se permite ingresar letras en el jtextfield
     public void isLetter( KeyEvent e)
