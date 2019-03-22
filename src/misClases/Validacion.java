@@ -8,8 +8,8 @@ import javax.swing.JOptionPane;
 public class Validacion {
     
     
-   //COMIT DE PARTIDA 
-    //ESTE ES UNA MODIFICACION DESDE EL COMMIT DE PARTIDA 
+   //COMMIT DE SEGUNDA INSTANCIA 
+
     
     
     //rama de desarrollo 
