@@ -33,7 +33,6 @@ public class formUsuarios extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtIdUsuario = new javax.swing.JTextField();
-        txtNombreUsuario = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtCorreoUsuario = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -54,6 +53,7 @@ public class formUsuarios extends javax.swing.JFrame {
         btnBuscarUsu = new javax.swing.JButton();
         txtRol = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
+        txtNombreUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -180,7 +180,7 @@ public class formUsuarios extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(txtTelefonoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -215,7 +215,7 @@ public class formUsuarios extends javax.swing.JFrame {
                     .addComponent(btnActualizarUsu)
                     .addComponent(btnBuscarUsu)
                     .addComponent(btnCancelarUsu))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

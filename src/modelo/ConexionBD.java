@@ -60,7 +60,7 @@ public class ConexionBD {
            
        }
        catch(IOException e ){
-           JOptionPane.showMessageDialog(null, "Error= "+e.toString());      
+           JOptionPane.showMessageDialog(null, "Error de conexion con la base de datos, descripcion= "+e.toString(),"No se pudo conectar a la base de datos",JOptionPane.ERROR_MESSAGE);      
        }
 
    }
@@ -76,13 +76,10 @@ public class ConexionBD {
        {
             Class.forName(driver);
             conn=DriverManager.getConnection(url,usuario,pass);  
-          //  JOptionPane.showMessageDialog(null,"usuario"+usuario+" "+pass );
-    
-         
        }
        catch (HeadlessException | ClassNotFoundException | SQLException ex ){
            ex.printStackTrace();
-           JOptionPane.showMessageDialog(null, " coneccion fallida" );
+           JOptionPane.showMessageDialog(null, " CONEXION FALLIDA, ERROR= " +ex.toString(),"Error",JOptionPane.ERROR_MESSAGE);
        }
        return conn;
 

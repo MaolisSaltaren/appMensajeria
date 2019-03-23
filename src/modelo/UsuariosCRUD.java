@@ -116,7 +116,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
         
         
         //CONSULTA SQL 
-        String consultaSql = "DELETe FROM USUARIOS WHERE ID = ? "
+        String consultaSql = "DELETE FROM USUARIOS WHERE ID = ? "
                ;
       try
         {
