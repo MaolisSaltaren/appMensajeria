@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import modelo.SesionModel;
 import modelo.UsuariosCRUD;
 import modelo.UsuariosModel;
 
@@ -27,10 +28,12 @@ public class formLogin extends javax.swing.JFrame {
  
     public static  formPrincipal frmPrincipal= null;
     public static formLogin frmLogin= null;
+       
     
     public formLogin() {
         initComponents();
         setLocationRelativeTo(null);
+     
         
     }
 
@@ -132,7 +135,7 @@ public class formLogin extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        
+        SesionModel modelSesion = new SesionModel();
       
               //haciendo patron singleton 
         //1. validamos de que los formularios de registros no esten abiertos
@@ -141,6 +144,9 @@ public class formLogin extends javax.swing.JFrame {
 
            //objetos de las clases
         UsuariosModel modelUsu = new UsuariosModel();
+    
+        
+        
         formUsuarios frmUsuario = new formUsuarios();
         UsuariosCRUD usuCRUD = new UsuariosCRUD();
         
@@ -152,23 +158,22 @@ public class formLogin extends javax.swing.JFrame {
         UsuariosController ctrl= new UsuariosController(modelUsu,frmUsuario,usuCRUD);
         ctrl.iniciar();
         
-        //2.1 llena el modelo 
+        //2.1 llena el modelocon los datos ingresados en el login 
          modelUsu.setUsuario(txtUsuario.getText());
          modelUsu.setPassword(txtpass.getText());
+         
+         //2.2 se llena en el modelo la  hora actual del sistema como ultima sesion activa
          modelUsu.setUltimaSesion(fechaHoraSistema.format(fecha).toString()); 
          
-         if(usuCRUD.loginUsuario(modelUsu)== true)
+         if(usuCRUD.loginUsuario(modelUsu,modelSesion)== true)
          {
-             //1. actualiza la ultima sesion del usuario 
-              
-               
-             JOptionPane.showMessageDialog(null, "last sesion login:)"+ modelUsu.getUltimaSesion());
-             JOptionPane.showMessageDialog(null, "Bienvenico señor(a)"+ modelUsu.getNombre());
+            
+           //JOptionPane.showMessageDialog(null, "Bienvenico señor(a)"+ modelUsu.getNombre());
          
             //llama al formulario principal 
                if(frmPrincipal == null )
              {
-                 frmPrincipal = new formPrincipal();
+                 frmPrincipal = new formPrincipal(modelSesion);
                  frmPrincipal.setVisible(true);
                  this.dispose();
 
@@ -176,14 +181,13 @@ public class formLogin extends javax.swing.JFrame {
          }
          else 
          {
-              JOptionPane.showMessageDialog(null, "Usuario y contraseña incorrectos");
+              JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrectos");
       
          }
        }
        catch(Exception e )
        {
-           JOptionPane.showMessageDialog(null, "AHocurrido un eror "+e.toString(),"ERROR",JOptionPane.ERROR);
-      
+           JOptionPane.showMessageDialog(null, "Error "+e.toString());
        }
      
     }//GEN-LAST:event_btnIngresarActionPerformed

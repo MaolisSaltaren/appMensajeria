@@ -180,6 +180,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
                 usu.setCorreo(rs.getString("correo"));
                 usu.setUsuario(rs.getString("usuario"));
                 usu.setPassword(rs.getString("password"));
+                usu.setTelefono(rs.getString("telefono"));
                 
                 return true;
                 
@@ -207,7 +208,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
     }
            ////////////////////////////////////////////////////////////////////////////////////////
     //METODO DE logueo del usuario 
-        public boolean loginUsuario(UsuariosModel usu)
+        public boolean loginUsuario(UsuariosModel usu, SesionModel sesMod)
     {
      
         PreparedStatement ps = null;
@@ -215,8 +216,13 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
         ResultSet rs = null ; 
         
         
+      //  SesionModel sesMod= new SesionModel();
+       
+        
+        
+        
         //CONSULTA SQL 
-        String consultaSql = "select * from usuarios where usuario =? and password = ?";
+        String consultaSql = " select usuarios.id as id_usuario,usuarios.nombre as nombre_usuario, roles.nombre as nombre_rol from usuarios inner join roles on usuarios.id_rol = roles.id where usuarios.usuario= ? and usuarios.password=?";
          
         String  updateHoraSesion ="update  usuarios set last_sesion = ? where id=?";
   
@@ -241,23 +247,17 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
                //ACTUALIZA LA FECHA Y HORA EN QUE INRESO EL USUARIO AL SISTEMA
                 ps= getConexion().prepareStatement(updateHoraSesion);
                 ps.setString(1,usu.getUltimaSesion());
-                ps.setString(2,rs.getString("id") );
+                ps.setString(2,rs.getString("id_usuario") );
                 
-                JOptionPane.showMessageDialog(null,"last sesion desde USUARIOS"+ usu.getUltimaSesion());
-                
-                JOptionPane.showMessageDialog(null, "id= "+rs.getString(1));
                 ps.execute();
                 
+                sesMod.setNombre_usuario(rs.getString("nombre_usuario"));
+                sesMod.setRol_nombre(rs.getString("nombre_rol"));
                 
+                usu.setNombre(rs.getString("nombre_usuario"));
+                JOptionPane.showMessageDialog(null, "Bienvenido al sistema señor(a) "+sesMod.getNombre_usuario()+ " ha entrado con el rol de  "+sesMod.getRol_nombre(),"Inicio de sesion ",JOptionPane.INFORMATION_MESSAGE );
                 
-                usu.setId(Integer.parseInt(rs.getString("id")));
-                usu.setId_rol(Integer.parseInt(rs.getString("id_rol")));
-                usu.setNombre(rs.getString("nombre"));
-                usu.setCorreo(rs.getString("correo"));
-                usu.setUsuario(rs.getString("usuario"));
-                usu.setPassword(rs.getString("password"));
-              //  usu.setUltimaSesion(rs.getString("last_sesion"));
-                
+
                 return true;
                 
             }

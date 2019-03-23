@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
 import misClases.Validacion;
+import modelo.SesionModel;
 import modelo.UsuariosCRUD;
 import modelo.UsuariosModel;
 import vista.formUsuarios;
@@ -19,6 +20,7 @@ public class UsuariosController implements ActionListener,KeyListener{
      private final UsuariosModel modelUsu;
      private final formUsuarios frmUsuario;
      private final UsuariosCRUD usuCRUD;
+  
      
      //objeto de la clase validacion
      Validacion validarNumero = new Validacion();
@@ -30,6 +32,7 @@ public class UsuariosController implements ActionListener,KeyListener{
         this.modelUsu= modelo;
         this.usuCRUD=crud;
         this.frmUsuario=frmUsuario;
+       
         
      
    
@@ -210,14 +213,14 @@ public class UsuariosController implements ActionListener,KeyListener{
 //       isletter= valida que solo se ingresen mayusculas y caracteres especiales 
        
         if (e.getSource()== frmUsuario.txtIdUsuario  || 
-            e.getSource()== frmUsuario.txtRol  ) 
+            e.getSource()== frmUsuario.txtRol ||
+            e.getSource()== frmUsuario.txtTelefonoUsuario  ) 
          validarNumero.isNumeric(e);
         
         //se valida que solo se ingresen letras
         
         else if (
-                e.getSource()== frmUsuario.txtCorreoUsuario ||
-                e.getSource()== frmUsuario.txtDireccionUsuario ||
+               
                 e.getSource()== frmUsuario.txtNombreUsuario ||
                 e.getSource()== frmUsuario.txtCorreoUsuario ||
                 e.getSource()== frmUsuario.txtTelefonoUsuario  
@@ -227,16 +230,13 @@ public class UsuariosController implements ActionListener,KeyListener{
         else if (e.getSource()==frmUsuario.txtUsuario)
             validarNumero.isLetterAndCaracter(e);
         
-         else if (e.getSource()==frmUsuario.txtPass || e.getSource()==frmUsuario.txtRepPass) 
+         else if (
+                 e.getSource()== frmUsuario.txtCorreoUsuario ||
+                 e.getSource()== frmUsuario.txtDireccionUsuario ||
+                 e.getSource()==frmUsuario.txtPass || e.getSource()==frmUsuario.txtRepPass) 
              validarNumero.isLetterAndCaracterNoGuion(e);
         
-     
-    
 
-    
-        
-    
-      
     }
 
     @Override
