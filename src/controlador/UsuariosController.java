@@ -6,7 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import javax.swing.JOptionPane;
+import misClases.EncriptarPass;
 import misClases.Validacion;
 import modelo.UsuariosCRUD;
 import modelo.UsuariosModel;
@@ -91,8 +94,9 @@ public class UsuariosController implements ActionListener,KeyListener{
             //2.comparamos que las contraseñas sean iguales
              if(pass.equals(confirmaPass))
                    {
-
-
+                   //SE INCRIPTA LA CONTRASELÑA CON EL HASH SHA1    
+                   EncriptarPass passhash= new EncriptarPass();
+                   String passEncrip= passhash.sha1(pass);
            //      1.1 se llena el modelo 
                    modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
                    modelUsu.setNombre(frmUsuario.txtNombreUsuario.getText());
@@ -100,7 +104,7 @@ public class UsuariosController implements ActionListener,KeyListener{
                    modelUsu.setCorreo(frmUsuario.txtCorreoUsuario.getText());
                    modelUsu.setUsuario(frmUsuario.txtUsuario.getText());
                    modelUsu.setId_rol(Integer.parseInt(frmUsuario.txtRol.getText()));
-                   modelUsu.setPassword(frmUsuario.txtPass.getText());
+                   modelUsu.setPassword(passEncrip);
 
 
                         //1.2.llama al metodo insertar de la claseUsuariosCrud
@@ -222,9 +226,10 @@ public class UsuariosController implements ActionListener,KeyListener{
         }
     }
   //================================================================================================
-    else if(e.getSource()==frmUsuario.btnCancelarUsu)
-        limpiarTxt();
+    else if(e.getSource()==frmUsuario.btnCancelarUsu){
      
+      limpiarTxt();
+    }
      }//fin de actionlistener 
     
     
