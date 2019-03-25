@@ -14,6 +14,7 @@ public class UsuariosModel {
     public String telefono;
     public String correo;
     public String usuario;
+    public String nombre_rol;
     public String password;
     public String ultimaSesion;
 
@@ -79,6 +80,14 @@ public class UsuariosModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getNombre_rol() {
+        return nombre_rol;
+    }
+
+    public void setNombre_rol(String nombre_rol) {
+        this.nombre_rol = nombre_rol;
     }
 
     

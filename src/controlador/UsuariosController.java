@@ -1,14 +1,17 @@
 
 package controlador;
 
-import static com.sun.javafx.tk.Toolkit.getToolkit;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.math.BigInteger;
-import java.security.MessageDigest;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import misClases.EncriptarPass;
 import misClases.Validacion;
 import modelo.UsuariosCRUD;
@@ -16,7 +19,7 @@ import modelo.UsuariosModel;
 import vista.formUsuarios;
 
 
-public class UsuariosController implements ActionListener,KeyListener{
+public class UsuariosController implements ActionListener,KeyListener,MouseListener{
     
     //llamando a las clases creadas
      private final UsuariosModel modelUsu;
@@ -53,19 +56,26 @@ public class UsuariosController implements ActionListener,KeyListener{
         this.frmUsuario.txtRol.addKeyListener(this);
         this.frmUsuario.txtTelefonoUsuario.addKeyListener(this);
         this.frmUsuario.txtUsuario.addKeyListener(this);
-      
+        this.frmUsuario.txtBuscar.addKeyListener(this);
         
-      
+        //evento de escucha al popop menu
+this.frmUsuario.popoDetallle.addActionListener(this);
+        
+        //coloca a el jtable a la escucha de los eventos del mouse
+        this.frmUsuario.jtableUsuarios.addMouseListener(this);
     }
- 
- 
     
 //    metodo que inicia la vista 
-    public void iniciar()
+    public void iniciar() 
     {
         frmUsuario.setTitle("Usuarios");
         frmUsuario.setLocationRelativeTo(null);
+        limpiarTxt();
+     //   String ValorBuscado="";
+        mostrarUsuarios("");
+
       
+        //carga los datos en el jtable
         
     }
     
@@ -139,6 +149,10 @@ public class UsuariosController implements ActionListener,KeyListener{
             JOptionPane.showMessageDialog(null, " El id del usuario no puede estar vacio", "app ", JOptionPane.WARNING_MESSAGE);  
         else
         {
+              int respuesta= JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea eliminar este registro?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+     
+            if(respuesta==0)
+            {
             //2.1 llena el modelo 
              modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
 
@@ -148,6 +162,9 @@ public class UsuariosController implements ActionListener,KeyListener{
                limpiarTxt();JOptionPane.showConfirmDialog(null,"El registro se elimino exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
             }else
                 JOptionPane.showMessageDialog(null,"Operacion no realizada","informe de error ",JOptionPane.ERROR_MESSAGE );
+       
+            
+            }
         }
         
     }
@@ -175,6 +192,10 @@ public class UsuariosController implements ActionListener,KeyListener{
             //2.comparamos que las contraseñas sean iguales
              if(pass.equals(confirmaPass))
                    {
+                        int respuesta= JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea actualizar este registro?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+
+                       if(respuesta==0)
+                       {
                         //      3.1 se llena el modelo 
                        modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
                        modelUsu.setNombre(frmUsuario.txtNombreUsuario.getText());
@@ -190,6 +211,7 @@ public class UsuariosController implements ActionListener,KeyListener{
                            limpiarTxt(); JOptionPane.showMessageDialog(null,"El registro se ha actualizado exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
                        }   
                         else JOptionPane.showMessageDialog(null," No se guardaron los datos","informe de error ",JOptionPane.ERROR_MESSAGE);
+                        }
                    }
              else
                  JOptionPane.showMessageDialog(null, "Las cajas de texto no pueden estar vacias ", " ", JOptionPane.WARNING_MESSAGE);
@@ -229,6 +251,36 @@ public class UsuariosController implements ActionListener,KeyListener{
     else if(e.getSource()==frmUsuario.btnCancelarUsu){
      
       limpiarTxt();
+    }
+    
+    
+    ///================================================================================================
+    //CLIC EN EL MENO DEL JTABLE 
+    else if(e.getSource()==frmUsuario.popoDetallle)
+    {   
+        //obtiene la fila de la jtable
+        int fila = frmUsuario.jtableUsuarios.getSelectedRow();
+        //guarda el id de la fila seleccionada
+        String id= String.valueOf(frmUsuario.jtableUsuarios.getValueAt(fila, 0).toString().trim());
+        
+        //1.se llena el modelo con el id ingresado en la caja de texto 
+            modelUsu.setId(Integer.parseInt(id));
+
+            //2. si se encontró algun resultado los carja en los jtextfield correspondientes
+            if(usuCRUD.buscarUsuario(modelUsu))  
+            { 
+                //lleva los datos a las cjas de texto
+            frmUsuario.txtIdUsuario.setText(String.valueOf(modelUsu.id));
+            frmUsuario.txtRol.setText(String.valueOf(modelUsu.id_rol));
+            frmUsuario.txtNombreUsuario.setText(modelUsu.nombre);
+            frmUsuario.txtUsuario.setText(String.valueOf(modelUsu.usuario));
+            frmUsuario.txtPass.setText(String.valueOf(modelUsu.password));
+            frmUsuario.txtCorreoUsuario.setText(String.valueOf(modelUsu.correo));
+            frmUsuario.txtTelefonoUsuario.setText(String.valueOf(modelUsu.telefono));
+            frmUsuario.txtRepPass.setText(String.valueOf(modelUsu.password));
+            }
+         
+     
     }
      }//fin de actionlistener 
     
@@ -275,6 +327,9 @@ public class UsuariosController implements ActionListener,KeyListener{
         
         else if (e.getSource()==frmUsuario.txtPass || e.getSource()==frmUsuario.txtRepPass)
             validarCaja.validaPass(e);
+        else if (e.getSource()==frmUsuario.txtBuscar){
+            mostrarUsuarios(frmUsuario.txtBuscar.getText());
+        }
         
             
         
@@ -288,10 +343,65 @@ public class UsuariosController implements ActionListener,KeyListener{
     @Override
     public void keyReleased(KeyEvent e) {
       }
-        
-    
 
- 
+  //==============================================================================
+//METODOS QYE SE ACTIVAN CUANDO SE PRESIONA CLIC CON EL MAUSE 
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //JOptionPane.showMessageDialog(null, "", " ", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+      }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+      }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+     }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+  
+    }
+
+   public void mostrarUsuarios( String valor) 
+   {
+       
+        DefaultTableModel modelo = new  DefaultTableModel();
+        //crea una instancia de la clase UsuariosCrud
+        UsuariosCRUD usuCR= new UsuariosCRUD();
+        ResultSet rs =usuCR.listarUsuario(valor);
+        modelo.setColumnIdentifiers(new Object[]{
+            "Id USUARIO","USUARIO ", "ID ROL","NOMBRE ROL "});
+        
+       if(rs!=null)
+        {
+            try 
+            {
+            while(rs.next())
+            {
+                modelo.addRow(new Object[]{
+                        rs.getString("id_usuario"),
+                        rs.getString("nombre_usuario"),
+                        rs.getString("id_rol"),
+                        rs.getString("nombre_rol")
+//                    
+                      
+                });
+            }
+            frmUsuario.jtableUsuarios.setModel(modelo);
+            }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+      
+            } 
+        }
+   }
 
    
    

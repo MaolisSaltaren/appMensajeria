@@ -206,6 +206,50 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
 
         }
     }
+    ////////////////////////////////////////////////////////////////////////////////////////
+    //ListarUsuarios
+        public static ResultSet listarUsuario( String valorBuscado)
+    {
+     
+        PreparedStatement ps = null;
+        Connection con=getConexion();
+        ResultSet rs = null ; 
+        
+        
+        //CONSULTA SQL 
+        String consultaSql = "select usuarios.id as id_usuario,usuarios.nombre as nombre_usuario,roles.id as id_rol,roles.nombre as nombre_rol from roles inner join usuarios on usuarios.id_rol = roles.id where usuarios.nombre like concat('%','"+valorBuscado+"','%');";
+      try
+        {
+            //1. se manda a preparar la consulta
+            ps = getConexion().prepareStatement(consultaSql);
+            
+            //2.se le enbian los parametros a la consulta sql
+           // ps.setString(1, "");
+            
+             //.3 se ejecuta la consulta 
+            rs= ps.executeQuery();
+            
+            //4.llena el modelo con los datos de la bd
+          
+            return rs;
+                
+        }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+            return null;
+        } 
+        finally
+        {
+            try{
+                con.close();
+            }
+            catch(SQLException e)
+            {
+                JOptionPane.showMessageDialog(null,"Error"+e.toString());
+            } 
+
+        }
+    }
            ////////////////////////////////////////////////////////////////////////////////////////
     //METODO DE logueo del usuario 
         public boolean loginUsuario(UsuariosModel usu, SesionModel sesMod)
