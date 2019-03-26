@@ -317,6 +317,7 @@
     <Component class="javax.swing.JButton" name="btnEliminarUsu">
       <Properties>
         <Property name="text" type="java.lang.String" value="ELIMINAR"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -325,6 +326,7 @@
     <Component class="javax.swing.JButton" name="btnActualizarUsu">
       <Properties>
         <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

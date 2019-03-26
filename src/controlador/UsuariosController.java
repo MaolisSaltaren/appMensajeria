@@ -121,6 +121,11 @@ this.frmUsuario.popoDetallle.addActionListener(this);
                         //----------
                         if(usuCRUD.insertarUsuario(modelUsu))
                         {limpiarTxt();
+                        frmUsuario.btnEliminarUsu.setEnabled(false);
+                        frmUsuario.btnGuardarUsu.setEnabled(true);
+                        frmUsuario.btnBuscarUsu.setEnabled(true);
+                        frmUsuario.btnActualizarUsu.setEnabled(false);
+                            mostrarUsuarios("");
                         JOptionPane.showMessageDialog(null,"El registro se guardo exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
                         }
                         else
@@ -160,6 +165,11 @@ this.frmUsuario.popoDetallle.addActionListener(this);
 
             if(usuCRUD.eliminarUsuario(modelUsu)){        
                limpiarTxt();JOptionPane.showConfirmDialog(null,"El registro se elimino exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
+            frmUsuario.btnEliminarUsu.setEnabled(false);
+            frmUsuario.btnGuardarUsu.setEnabled(true);
+            frmUsuario.btnBuscarUsu.setEnabled(true);
+            frmUsuario.btnActualizarUsu.setEnabled(false);
+                mostrarUsuarios("");
             }else
                 JOptionPane.showMessageDialog(null,"Operacion no realizada","informe de error ",JOptionPane.ERROR_MESSAGE );
        
@@ -209,6 +219,11 @@ this.frmUsuario.popoDetallle.addActionListener(this);
 
                        if(usuCRUD.actualizarUsuario(modelUsu)){
                            limpiarTxt(); JOptionPane.showMessageDialog(null,"El registro se ha actualizado exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
+                        frmUsuario.btnEliminarUsu.setEnabled(false);
+                        frmUsuario.btnGuardarUsu.setEnabled(true);
+                        frmUsuario.btnBuscarUsu.setEnabled(true);
+                        frmUsuario.btnActualizarUsu.setEnabled(false);
+                           mostrarUsuarios("");
                        }   
                         else JOptionPane.showMessageDialog(null," No se guardaron los datos","informe de error ",JOptionPane.ERROR_MESSAGE);
                         }
@@ -242,6 +257,11 @@ this.frmUsuario.popoDetallle.addActionListener(this);
             frmUsuario.txtCorreoUsuario.setText(String.valueOf(modelUsu.correo));
             frmUsuario.txtTelefonoUsuario.setText(String.valueOf(modelUsu.telefono));
             frmUsuario.txtRepPass.setText(String.valueOf(modelUsu.password));
+            
+            frmUsuario.btnEliminarUsu.setEnabled(true);
+            frmUsuario.btnGuardarUsu.setEnabled(false);
+            frmUsuario.btnBuscarUsu.setEnabled(true);
+            frmUsuario.btnActualizarUsu.setEnabled(true);
             }
             else
                 JOptionPane.showMessageDialog(null, "No se encontró el usuario buscado", " usuario no encontrado", JOptionPane.ERROR_MESSAGE);        
@@ -251,6 +271,11 @@ this.frmUsuario.popoDetallle.addActionListener(this);
     else if(e.getSource()==frmUsuario.btnCancelarUsu){
      
       limpiarTxt();
+      
+            frmUsuario.btnEliminarUsu.setEnabled(false);
+            frmUsuario.btnGuardarUsu.setEnabled(true);
+            frmUsuario.btnBuscarUsu.setEnabled(true);
+            frmUsuario.btnActualizarUsu.setEnabled(false);
     }
     
     
@@ -278,6 +303,11 @@ this.frmUsuario.popoDetallle.addActionListener(this);
             frmUsuario.txtCorreoUsuario.setText(String.valueOf(modelUsu.correo));
             frmUsuario.txtTelefonoUsuario.setText(String.valueOf(modelUsu.telefono));
             frmUsuario.txtRepPass.setText(String.valueOf(modelUsu.password));
+            frmUsuario.btnEliminarUsu.setEnabled(true);
+            frmUsuario.btnGuardarUsu.setEnabled(false);
+            frmUsuario.btnBuscarUsu.setEnabled(false);
+            frmUsuario.btnActualizarUsu.setEnabled(true);
+            
             }
          
      

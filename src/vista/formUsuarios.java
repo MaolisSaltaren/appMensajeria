@@ -114,8 +114,10 @@ public class formUsuarios extends javax.swing.JFrame {
         btnCancelarUsu.setText("CANCELAR");
 
         btnEliminarUsu.setText("ELIMINAR");
+        btnEliminarUsu.setEnabled(false);
 
         btnActualizarUsu.setText("ACTUALIZAR");
+        btnActualizarUsu.setEnabled(false);
 
         btnBuscarUsu.setText("BUSCAR");
 
