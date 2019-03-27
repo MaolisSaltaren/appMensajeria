@@ -153,7 +153,7 @@ public class formLogin extends javax.swing.JFrame {
     //aggarra la fecha y hora del sistema para saber la ultima sesion del usuario
        Date fecha = new Date();
        DateFormat fechaHoraSistema = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-       
+        
                 
         UsuariosController ctrl= new UsuariosController(modelUsu,frmUsuario,usuCRUD);
         ctrl.iniciar();
@@ -163,14 +163,14 @@ public class formLogin extends javax.swing.JFrame {
          modelUsu.setPassword(txtpass.getText());
          
          //2.2 se llena en el modelo la  hora actual del sistema como ultima sesion activa
-         modelUsu.setUltimaSesion(fechaHoraSistema.format(fecha).toString()); 
+       //  modelUsu.setUltimaSesion(fechaHoraSistema.format(fecha).toString()); 
          
          if(usuCRUD.loginUsuario(modelUsu,modelSesion)== true)
          {
             
            //JOptionPane.showMessageDialog(null, "Bienvenico señor(a)"+ modelUsu.getNombre());
          
-            //llama al formulario principal 
+           // llama al formulario principal 
                if(frmPrincipal == null )
              {
                  frmPrincipal = new formPrincipal(modelSesion);
@@ -178,6 +178,7 @@ public class formLogin extends javax.swing.JFrame {
                  this.dispose();
 
              }
+         
          }
          else 
          {

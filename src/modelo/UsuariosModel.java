@@ -8,15 +8,16 @@ public class UsuariosModel {
     
     
     public int id;
+    public int id_sede;
+    
+    public String fecha_nacimiento;
     public String nombre;
-    public int    id_rol;
- 
     public String telefono;
-    public String correo;
     public String usuario;
     public String nombre_rol;
     public String password;
     public String ultimaSesion;
+    public String direccion_usuario;
 
     public String getUltimaSesion() {
         return ultimaSesion;
@@ -28,6 +29,14 @@ public class UsuariosModel {
 
     public int getId() {
         return id;
+    }
+
+    public String getDireccion_usuario() {
+        return direccion_usuario;
+    }
+
+    public void setDireccion_usuario(String direccion_usuario) {
+        this.direccion_usuario = direccion_usuario;
     }
 
     public void setId(int id) {
@@ -42,13 +51,7 @@ public class UsuariosModel {
         this.nombre = nombre;
     }
 
-    public int getId_rol() {
-        return id_rol;
-    }
-
-    public void setId_rol(int id_rol) {
-        this.id_rol = id_rol;
-    }
+  
 
     public String getTelefono() {
         return telefono;
@@ -58,13 +61,6 @@ public class UsuariosModel {
         this.telefono = telefono;
     }
 
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
 
     public String getUsuario() {
         return usuario;
@@ -88,6 +84,22 @@ public class UsuariosModel {
 
     public void setNombre_rol(String nombre_rol) {
         this.nombre_rol = nombre_rol;
+    }
+
+    public int getId_sede() {
+        return id_sede;
+    }
+
+    public void setId_sede(int id_sede) {
+        this.id_sede = id_sede;
+    }
+
+    public String getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(String fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
     }
 
     

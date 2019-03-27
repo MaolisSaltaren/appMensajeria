@@ -43,9 +43,17 @@ public class formPrincipal extends javax.swing.JFrame {
         btnGestionUsu = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        lblUsuario = new javax.swing.JLabel();
+        lblIdUsuario = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblRol = new javax.swing.JLabel();
+        lblIdSede = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblCiudad = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblNombreSede = new javax.swing.JLabel();
+        lblNombre_usuario = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -102,20 +110,36 @@ public class formPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("USUARIO");
+        jLabel3.setText("ID USUARIO");
 
-        lblUsuario.setText("XXX");
+        lblIdUsuario.setText("XXX");
 
         jLabel5.setText("ROL:");
 
         lblRol.setText("XXX");
+
+        lblIdSede.setText("XXX");
+
+        jLabel4.setText("CIUDAD");
+
+        jLabel6.setText("SEDE  ID ");
+
+        lblCiudad.setText("XXX");
+
+        jLabel7.setText("SEDE NOMBRE");
+
+        lblNombreSede.setText("XXX");
+
+        lblNombre_usuario.setText("XXX");
+
+        jLabel9.setText("USUARIO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(542, Short.MAX_VALUE)
+                .addContainerGap(517, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
@@ -123,11 +147,27 @@ public class formPrincipal extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(43, 43, 43)
-                                .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(43, 43, 43)
+                                .addComponent(lblIdSede, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblNombreSede, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblNombre_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCerrarSesion)))
                 .addGap(68, 68, 68))
@@ -144,14 +184,30 @@ public class formPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCerrarSesion)
                     .addComponent(jLabel3)
-                    .addComponent(lblUsuario))
+                    .addComponent(lblIdUsuario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(lblNombre_usuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRol)
                     .addComponent(jLabel5))
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblCiudad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblIdSede)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreSede)
+                    .addComponent(jLabel7))
+                .addGap(78, 78, 78)
                 .addComponent(jLabel1)
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(122, 122, 122)
@@ -234,11 +290,17 @@ public class formPrincipal extends javax.swing.JFrame {
         //pone el formulario centrado 
         setLocationRelativeTo(null);
         
-        String varNombre;
+  
      
         
-        lblUsuario.setText(modSesion.getNombre_usuario());
+        lblIdUsuario.setText(String.valueOf(modSesion.getId_trabajador()));
+        lblNombre_usuario.setText(modSesion.getNombre_trabajador());
         lblRol.setText(modSesion.getRol_nombre());
+        lblCiudad.setText(modSesion.getCiudad_sede());
+        lblIdSede.setText(String.valueOf(modSesion.getId_sede()));
+        lblNombreSede.setText(modSesion.getSede_nombre());
+    
+        
         
     
         
@@ -251,9 +313,17 @@ public class formPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblCiudad;
+    private javax.swing.JLabel lblIdSede;
+    private javax.swing.JLabel lblIdUsuario;
+    private javax.swing.JLabel lblNombreSede;
+    private javax.swing.JLabel lblNombre_usuario;
     private javax.swing.JLabel lblRol;
-    private javax.swing.JLabel lblUsuario;
     private javax.swing.JDesktopPane panelEscritorio;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import misClases.EncriptarPass;
@@ -47,13 +49,13 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
         this.frmUsuario.btnBuscarUsu.addActionListener(this);
         
         //coloca los texbox a la escucha del evento de presionar un boton 
-        this.frmUsuario.txtIdUsuario.addKeyListener(this);
+        this.frmUsuario.txtIdSede.addKeyListener(this);
         this.frmUsuario.txtNombreUsuario.addKeyListener(this);
-        this.frmUsuario.txtCorreoUsuario.addKeyListener(this);
+       
         this.frmUsuario.txtDireccionUsuario.addKeyListener(this);
         this.frmUsuario.txtPass.addKeyListener(this);
         this.frmUsuario.txtRepPass.addKeyListener(this);
-        this.frmUsuario.txtRol.addKeyListener(this);
+        
         this.frmUsuario.txtTelefonoUsuario.addKeyListener(this);
         this.frmUsuario.txtUsuario.addKeyListener(this);
         this.frmUsuario.txtBuscar.addKeyListener(this);
@@ -72,7 +74,7 @@ this.frmUsuario.popoDetallle.addActionListener(this);
         frmUsuario.setLocationRelativeTo(null);
         limpiarTxt();
      //   String ValorBuscado="";
-        mostrarUsuarios("");
+       // mostrarUsuarios("");
 
       
         //carga los datos en el jtable
@@ -91,9 +93,9 @@ this.frmUsuario.popoDetallle.addActionListener(this);
         String confirmaPass = frmUsuario.txtRepPass.getText();
         
 //    1. verifimamos de que los campos de texto no esten vacios
-         if(frmUsuario.txtCorreoUsuario.getText().equals("")||frmUsuario.txtDireccionUsuario.getText().equals("") ||frmUsuario.txtIdUsuario.getText().equals("") ||
+         if(frmUsuario.txtFecha_nacimiento.getDate()==null||frmUsuario.txtDireccionUsuario.getText().equals("") ||frmUsuario.txtIdSede.getText().equals("") ||
             frmUsuario.txtNombreUsuario.getText().equals("") ||frmUsuario.txtPass.getText().equals("") ||frmUsuario.txtRepPass.getText().equals("") ||
-            frmUsuario.txtRol.getText().equals("") ||frmUsuario.txtTelefonoUsuario.getText().equals("") ||frmUsuario.txtUsuario.getText().equals("") )
+            frmUsuario.txtNombre_rol.getSelectedItem().equals("Seleccionar") ||frmUsuario.txtTelefonoUsuario.getText().equals("") ||frmUsuario.txtUsuario.getText().equals("") )
          {
                   JOptionPane.showMessageDialog(null, "Los campos de texto no pueden estar vacios","Advertencia",JOptionPane.WARNING_MESSAGE);
 
@@ -107,14 +109,24 @@ this.frmUsuario.popoDetallle.addActionListener(this);
                    //SE INCRIPTA LA CONTRASELÑA CON EL HASH SHA1    
                    EncriptarPass passhash= new EncriptarPass();
                    String passEncrip= passhash.sha1(pass);
-           //      1.1 se llena el modelo 
-                   modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
+                   
+                   //optiene la fecha del jcalendar 
+                     DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                    String FechaNacimiento;
+                    FechaNacimiento = formatoFecha.format(frmUsuario.txtFecha_nacimiento.getDate());
+       
+                   
+           //      1.1 se llena el modelo  de los usuarios trabajadores 
+                   modelUsu.setId(Integer.parseInt(frmUsuario.txtIdSede.getText()));
                    modelUsu.setNombre(frmUsuario.txtNombreUsuario.getText());
                    modelUsu.setTelefono(frmUsuario.txtTelefonoUsuario.getText());
-                   modelUsu.setCorreo(frmUsuario.txtCorreoUsuario.getText());
                    modelUsu.setUsuario(frmUsuario.txtUsuario.getText());
-                   modelUsu.setId_rol(Integer.parseInt(frmUsuario.txtRol.getText()));
                    modelUsu.setPassword(passEncrip);
+                   modelUsu.setFecha_nacimiento(FechaNacimiento);
+                   modelUsu.setDireccion_usuario(frmUsuario.txtDireccionUsuario.getText());
+                   modelUsu.setId_sede(Integer.parseInt(frmUsuario.txtIdSede.getText()));
+                   modelUsu.setNombre_rol(frmUsuario.txtNombre_rol.getSelectedItem().toString());
+                   
 
 
                         //1.2.llama al metodo insertar de la claseUsuariosCrud
@@ -150,7 +162,7 @@ this.frmUsuario.popoDetallle.addActionListener(this);
      else if (e.getSource()==frmUsuario.btnEliminarUsu)     
     {
         // 2.0 verifica que el id del usuario no este vacio
-        if(frmUsuario.txtIdUsuario.getText().equals(""))
+        if(frmUsuario.txtIdSede.getText().equals(""))
             JOptionPane.showMessageDialog(null, " El id del usuario no puede estar vacio", "app ", JOptionPane.WARNING_MESSAGE);  
         else
         {
@@ -159,7 +171,7 @@ this.frmUsuario.popoDetallle.addActionListener(this);
             if(respuesta==0)
             {
             //2.1 llena el modelo 
-             modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
+             modelUsu.setId(Integer.parseInt(frmUsuario.txtIdSede.getText()));
 
            //2.2.llama al metodo eliminar de la claseUsuariosCrud
 
@@ -189,9 +201,9 @@ this.frmUsuario.popoDetallle.addActionListener(this);
           String confirmaPass = frmUsuario.txtRepPass.getText();
         
 //    1. verifimamos de que los campos de texto no esten vacios
-         if(frmUsuario.txtCorreoUsuario.getText().equals("")||frmUsuario.txtDireccionUsuario.getText().equals("") ||frmUsuario.txtIdUsuario.getText().equals("") ||
+         if(frmUsuario.txtFecha_nacimiento.getDate()==null||frmUsuario.txtDireccionUsuario.getText().equals("") ||frmUsuario.txtIdSede.getText().equals("") ||
             frmUsuario.txtNombreUsuario.getText().equals("") ||frmUsuario.txtPass.getText().equals("") ||frmUsuario.txtRepPass.getText().equals("") ||
-            frmUsuario.txtRol.getText().equals("") ||frmUsuario.txtTelefonoUsuario.getText().equals("") ||frmUsuario.txtUsuario.getText().equals("") )
+            frmUsuario.txtNombre_rol.getSelectedItem().equals("Seleccionar") ||frmUsuario.txtTelefonoUsuario.getText().equals("") ||frmUsuario.txtUsuario.getText().equals("") )
          {
                   JOptionPane.showMessageDialog(null, "Los campos de texto no pueden estar vacios","Advertencia",JOptionPane.WARNING_MESSAGE);
 
@@ -207,12 +219,12 @@ this.frmUsuario.popoDetallle.addActionListener(this);
                        if(respuesta==0)
                        {
                         //      3.1 se llena el modelo 
-                       modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
+                       modelUsu.setId(Integer.parseInt(frmUsuario.txtIdSede.getText()));
                        modelUsu.setNombre(frmUsuario.txtNombreUsuario.getText());
                        modelUsu.setTelefono(frmUsuario.txtTelefonoUsuario.getText());
-                       modelUsu.setCorreo(frmUsuario.txtCorreoUsuario.getText());
+                    
                        modelUsu.setUsuario(frmUsuario.txtUsuario.getText());
-                       modelUsu.setId_rol(Integer.parseInt(frmUsuario.txtRol.getText()));
+                     //  modelUsu.setId_rol(Integer.parseInt(frmUsuario.txtRol.getText()));
                        modelUsu.setPassword(frmUsuario.txtPass.getText());
 
                        //3.2. llama al metodo insertar de la claseUsuariosCrud
@@ -238,23 +250,23 @@ this.frmUsuario.popoDetallle.addActionListener(this);
     else if ( e.getSource()==frmUsuario.btnBuscarUsu )
     {
         //validacion de que el id del usuario no este vacion 
-        if (frmUsuario.txtIdUsuario.getText().equals("")) {
+        if (frmUsuario.txtIdSede.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Por favor ingresa el id del usuario", " ", JOptionPane.WARNING_MESSAGE);
         }
         else{
            //1.se llena el modelo con el id ingresado en la caja de texto 
-            modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
+            modelUsu.setId(Integer.parseInt(frmUsuario.txtIdSede.getText()));
 
             //2. si se encontró algun resultado los carja en los jtextfield correspondientes
             if(usuCRUD.buscarUsuario(modelUsu))  
             { 
                 //lleva los datos a las cjas de texto
-            frmUsuario.txtIdUsuario.setText(String.valueOf(modelUsu.id));
-            frmUsuario.txtRol.setText(String.valueOf(modelUsu.id_rol));
+            frmUsuario.txtIdSede.setText(String.valueOf(modelUsu.id));
+          //  frmUsuario.txtRol.setText(String.valueOf(modelUsu.id_rol));
             frmUsuario.txtNombreUsuario.setText(modelUsu.nombre);
             frmUsuario.txtUsuario.setText(String.valueOf(modelUsu.usuario));
             frmUsuario.txtPass.setText(String.valueOf(modelUsu.password));
-            frmUsuario.txtCorreoUsuario.setText(String.valueOf(modelUsu.correo));
+           // frmUsuario.txtCorreoUsuario.setText(String.valueOf(modelUsu.correo));
             frmUsuario.txtTelefonoUsuario.setText(String.valueOf(modelUsu.telefono));
             frmUsuario.txtRepPass.setText(String.valueOf(modelUsu.password));
             
@@ -295,12 +307,12 @@ this.frmUsuario.popoDetallle.addActionListener(this);
             if(usuCRUD.buscarUsuario(modelUsu))  
             { 
                 //lleva los datos a las cjas de texto
-            frmUsuario.txtIdUsuario.setText(String.valueOf(modelUsu.id));
-            frmUsuario.txtRol.setText(String.valueOf(modelUsu.id_rol));
+            frmUsuario.txtIdSede.setText(String.valueOf(modelUsu.id));
+          //  frmUsuario.txtRol.setText(String.valueOf(modelUsu.id_rol));
             frmUsuario.txtNombreUsuario.setText(modelUsu.nombre);
             frmUsuario.txtUsuario.setText(String.valueOf(modelUsu.usuario));
             frmUsuario.txtPass.setText(String.valueOf(modelUsu.password));
-            frmUsuario.txtCorreoUsuario.setText(String.valueOf(modelUsu.correo));
+           // frmUsuario.txtCorreoUsuario.setText(String.valueOf(modelUsu.correo));
             frmUsuario.txtTelefonoUsuario.setText(String.valueOf(modelUsu.telefono));
             frmUsuario.txtRepPass.setText(String.valueOf(modelUsu.password));
             frmUsuario.btnEliminarUsu.setEnabled(true);
@@ -318,11 +330,11 @@ this.frmUsuario.popoDetallle.addActionListener(this);
      
    public void  limpiarTxt()
    {
-       frmUsuario.txtIdUsuario.setText("");
+       frmUsuario.txtIdSede.setText("");
        frmUsuario.txtNombreUsuario.setText("");
-       frmUsuario.txtRol.setText("");
+       //frmUsuario.txtRol.setText("");
        frmUsuario.txtTelefonoUsuario.setText("");
-       frmUsuario.txtCorreoUsuario.setText("");
+       //frmUsuario.txtCorreoUsuario.setText("");
        frmUsuario.txtDireccionUsuario.setText("");
        frmUsuario.txtPass.setText("");
        frmUsuario.txtRepPass.setText("");
@@ -337,8 +349,8 @@ this.frmUsuario.popoDetallle.addActionListener(this);
     @Override
     public void keyTyped(KeyEvent e) {
         
-        if( e.getSource()==frmUsuario.txtIdUsuario  ||
-            e.getSource()==frmUsuario.txtRol ||
+        if( e.getSource()==frmUsuario.txtIdSede  ||
+          //  e.getSource()==frmUsuario.txtRol ||
             e.getSource()==frmUsuario.txtTelefonoUsuario)
            
             validarCaja.isNumeric(e);
@@ -346,8 +358,8 @@ this.frmUsuario.popoDetallle.addActionListener(this);
         else if (e.getSource ()==frmUsuario.txtNombreUsuario) 
             validarCaja.isLetter(e);
         
-        else if (e.getSource()==frmUsuario.txtCorreoUsuario)
-            validarCaja.validarCorreo(e);
+       // else if (e.getSource()==frmUsuario.txtCorreoUsuario)
+        //    validarCaja.validarCorreo(e);
         
         else if (e.getSource()==frmUsuario.txtDireccionUsuario)
             validarCaja.validarDireccion(e);
