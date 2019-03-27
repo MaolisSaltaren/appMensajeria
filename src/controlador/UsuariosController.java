@@ -114,7 +114,13 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
         JOptionPane.showMessageDialog(null, "La  fecha de nacimiento  NO TIENE  el formato aaaa-mm-yy, corrige el error e intenta nuevamente","Advertencia",JOptionPane.ERROR_MESSAGE);
 
          }
-         else
+           else  if(frmUsuario.lblDisponible.getText()=="¡Ocupado!")
+         {
+        JOptionPane.showMessageDialog(null, "El nombre de usuario ya se encuentra ocupado por otra persona","Advertencia",JOptionPane.ERROR_MESSAGE);
+
+         }
+         else 
+         
          {
                
             //2.comparamos que las contraseñas sean iguales
@@ -224,10 +230,15 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
 
          }
          else  if(frmUsuario.txtFecha_nac.getDate()==null)
-         {
+         
              JOptionPane.showMessageDialog(null, "La  fecha de nacimiento  NO TIENE  el formato aaaa-mm-yy, corrige el error e intenta nuevamente","Advertencia",JOptionPane.ERROR_MESSAGE);
 
-         }
+          else  if(frmUsuario.lblDisponible.getText()=="¡Ocupado!")
+         
+        JOptionPane.showMessageDialog(null, "El nombre de usuario ya se encuentra ocupado por otra persona","Advertencia",JOptionPane.ERROR_MESSAGE);
+
+         
+         
          else
          {
                
@@ -427,6 +438,8 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
        frmUsuario.txtRepPass.setText("");
        frmUsuario.txtUsuario.setText("");
        frmUsuario.txtNombre_rol.setSelectedItem("Seleccionar");
+       frmUsuario.lblDisponible.setText("...");
+       
 }
    
    //======================================================================================
@@ -481,7 +494,7 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
                         }
                     else
                     {
-                        frmUsuario.lblDisponible.setText("¡ocupado!");
+                        frmUsuario.lblDisponible.setText("¡Ocupado!");
                           frmUsuario.lblDisponible.setForeground(Color.RED);
                     }
                         
