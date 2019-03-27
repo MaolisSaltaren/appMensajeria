@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import misClases.EncriptarPass;
 import misClases.Validacion;
+import modelo.SesionModel;
 import modelo.UsuariosCRUD;
 import modelo.UsuariosModel;
 import vista.formUsuarios;
@@ -25,6 +27,7 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
     
     //llamando a las clases creadas
      private final UsuariosModel modelUsu;
+     private final SesionModel modelSesion;
      private final formUsuarios frmUsuario;
      private final UsuariosCRUD usuCRUD;
      
@@ -33,11 +36,13 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
    
     
     //creando el constructor de la clase 
-    public  UsuariosController( UsuariosModel modelo ,formUsuarios frmUsuario,UsuariosCRUD crud)
+    public  UsuariosController(SesionModel ses, UsuariosModel modelo ,formUsuarios frmUsuario,UsuariosCRUD crud)
     {
         this.modelUsu= modelo;
+        this.modelSesion= ses;
         this.usuCRUD=crud;
         this.frmUsuario=frmUsuario;
+        
         
      
    
@@ -61,10 +66,11 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
         this.frmUsuario.txtBuscar.addKeyListener(this);
         
         //evento de escucha al popop menu
-this.frmUsuario.popoDetallle.addActionListener(this);
+         this.frmUsuario.popoDetallle.addActionListener(this);
         
         //coloca a el jtable a la escucha de los eventos del mouse
         this.frmUsuario.jtableUsuarios.addMouseListener(this);
+        
     }
     
 //    metodo que inicia la vista 
@@ -74,10 +80,12 @@ this.frmUsuario.popoDetallle.addActionListener(this);
         frmUsuario.setLocationRelativeTo(null);
         limpiarTxt();
      //   String ValorBuscado="";
-       // mostrarUsuarios("");
+         mostrarUsuarios("");
 
       
         //carga los datos en el jtable
+        frmUsuario.txtIdSede.setText(String.valueOf(modelSesion.getId_sede()));
+        frmUsuario.txtNombreSede.setText(modelSesion.getSede_nombre());
         
     }
     
@@ -93,11 +101,16 @@ this.frmUsuario.popoDetallle.addActionListener(this);
         String confirmaPass = frmUsuario.txtRepPass.getText();
         
 //    1. verifimamos de que los campos de texto no esten vacios
-         if(frmUsuario.txtFecha_nacimiento.getDate()==null||frmUsuario.txtDireccionUsuario.getText().equals("") ||frmUsuario.txtIdSede.getText().equals("") ||
+         if(frmUsuario.txtDireccionUsuario.getText().equals("") ||frmUsuario.txtIdSede.getText().equals("") ||
             frmUsuario.txtNombreUsuario.getText().equals("") ||frmUsuario.txtPass.getText().equals("") ||frmUsuario.txtRepPass.getText().equals("") ||
             frmUsuario.txtNombre_rol.getSelectedItem().equals("Seleccionar") ||frmUsuario.txtTelefonoUsuario.getText().equals("") ||frmUsuario.txtUsuario.getText().equals("") )
          {
                   JOptionPane.showMessageDialog(null, "Los campos de texto no pueden estar vacios","Advertencia",JOptionPane.WARNING_MESSAGE);
+
+         }
+         else  if(frmUsuario.txtFecha_nac.getDate()==null)
+         {
+        JOptionPane.showMessageDialog(null, "La  fecha de nacimiento  NO TIENE  el formato aaaa-mm-yy, corrige el error e intenta nuevamente","Advertencia",JOptionPane.ERROR_MESSAGE);
 
          }
          else
@@ -113,18 +126,18 @@ this.frmUsuario.popoDetallle.addActionListener(this);
                    //optiene la fecha del jcalendar 
                      DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
                     String FechaNacimiento;
-                    FechaNacimiento = formatoFecha.format(frmUsuario.txtFecha_nacimiento.getDate());
+                    FechaNacimiento = formatoFecha.format(frmUsuario.txtFecha_nac.getDate());
        
-                   
+
            //      1.1 se llena el modelo  de los usuarios trabajadores 
-                   modelUsu.setId(Integer.parseInt(frmUsuario.txtIdSede.getText()));
+                   modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
                    modelUsu.setNombre(frmUsuario.txtNombreUsuario.getText());
                    modelUsu.setTelefono(frmUsuario.txtTelefonoUsuario.getText());
                    modelUsu.setUsuario(frmUsuario.txtUsuario.getText());
                    modelUsu.setPassword(passEncrip);
                    modelUsu.setFecha_nacimiento(FechaNacimiento);
                    modelUsu.setDireccion_usuario(frmUsuario.txtDireccionUsuario.getText());
-                   modelUsu.setId_sede(Integer.parseInt(frmUsuario.txtIdSede.getText()));
+                   modelUsu.setId_sede(modelSesion.getId_sede());
                    modelUsu.setNombre_rol(frmUsuario.txtNombre_rol.getSelectedItem().toString());
                    
 
@@ -137,7 +150,7 @@ this.frmUsuario.popoDetallle.addActionListener(this);
                         frmUsuario.btnGuardarUsu.setEnabled(true);
                         frmUsuario.btnBuscarUsu.setEnabled(true);
                         frmUsuario.btnActualizarUsu.setEnabled(false);
-                            mostrarUsuarios("");
+                        mostrarUsuarios("");
                         JOptionPane.showMessageDialog(null,"El registro se guardo exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
                         }
                         else
@@ -162,7 +175,7 @@ this.frmUsuario.popoDetallle.addActionListener(this);
      else if (e.getSource()==frmUsuario.btnEliminarUsu)     
     {
         // 2.0 verifica que el id del usuario no este vacio
-        if(frmUsuario.txtIdSede.getText().equals(""))
+        if(frmUsuario.txtIdUsuario.getText().equals(""))
             JOptionPane.showMessageDialog(null, " El id del usuario no puede estar vacio", "app ", JOptionPane.WARNING_MESSAGE);  
         else
         {
@@ -171,12 +184,13 @@ this.frmUsuario.popoDetallle.addActionListener(this);
             if(respuesta==0)
             {
             //2.1 llena el modelo 
-             modelUsu.setId(Integer.parseInt(frmUsuario.txtIdSede.getText()));
+             modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
 
            //2.2.llama al metodo eliminar de la claseUsuariosCrud
 
             if(usuCRUD.eliminarUsuario(modelUsu)){        
-               limpiarTxt();JOptionPane.showConfirmDialog(null,"El registro se elimino exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
+               limpiarTxt();
+               JOptionPane.showMessageDialog(null,"El registro se elimino exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
             frmUsuario.btnEliminarUsu.setEnabled(false);
             frmUsuario.btnGuardarUsu.setEnabled(true);
             frmUsuario.btnBuscarUsu.setEnabled(true);
@@ -196,16 +210,21 @@ this.frmUsuario.popoDetallle.addActionListener(this);
      //3. SE HA PULSADO EL BOTON DE ACTUALIZAR
      else if (e.getSource()==frmUsuario.btnActualizarUsu)
      {
-         
+         //captura el usuario y la confirmacion de la contraseña para mas adelante hacer la validacion 
           String pass = frmUsuario.txtPass.getText();
           String confirmaPass = frmUsuario.txtRepPass.getText();
         
 //    1. verifimamos de que los campos de texto no esten vacios
-         if(frmUsuario.txtFecha_nacimiento.getDate()==null||frmUsuario.txtDireccionUsuario.getText().equals("") ||frmUsuario.txtIdSede.getText().equals("") ||
+         if(frmUsuario.txtFecha_nac.getDate()==null||frmUsuario.txtDireccionUsuario.getText().equals("") ||frmUsuario.txtIdSede.getText().equals("") ||
             frmUsuario.txtNombreUsuario.getText().equals("") ||frmUsuario.txtPass.getText().equals("") ||frmUsuario.txtRepPass.getText().equals("") ||
             frmUsuario.txtNombre_rol.getSelectedItem().equals("Seleccionar") ||frmUsuario.txtTelefonoUsuario.getText().equals("") ||frmUsuario.txtUsuario.getText().equals("") )
          {
                   JOptionPane.showMessageDialog(null, "Los campos de texto no pueden estar vacios","Advertencia",JOptionPane.WARNING_MESSAGE);
+
+         }
+         else  if(frmUsuario.txtFecha_nac.getDate()==null)
+         {
+             JOptionPane.showMessageDialog(null, "La  fecha de nacimiento  NO TIENE  el formato aaaa-mm-yy, corrige el error e intenta nuevamente","Advertencia",JOptionPane.ERROR_MESSAGE);
 
          }
          else
@@ -214,34 +233,82 @@ this.frmUsuario.popoDetallle.addActionListener(this);
             //2.comparamos que las contraseñas sean iguales
              if(pass.equals(confirmaPass))
                    {
-                        int respuesta= JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea actualizar este registro?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
 
-                       if(respuesta==0)
+                        //optiene la fecha del jcalendar 
+                        DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                       String FechaNacimiento;
+                       FechaNacimiento = formatoFecha.format(frmUsuario.txtFecha_nac.getDate());
+
+                       // comprobar que la contraseña no se ha cambiado 
+                       if(modelUsu.getPassword().equals(frmUsuario.txtPass.getText()))
                        {
-                        //      3.1 se llena el modelo 
-                       modelUsu.setId(Integer.parseInt(frmUsuario.txtIdSede.getText()));
-                       modelUsu.setNombre(frmUsuario.txtNombreUsuario.getText());
-                       modelUsu.setTelefono(frmUsuario.txtTelefonoUsuario.getText());
-                    
-                       modelUsu.setUsuario(frmUsuario.txtUsuario.getText());
-                     //  modelUsu.setId_rol(Integer.parseInt(frmUsuario.txtRol.getText()));
-                       modelUsu.setPassword(frmUsuario.txtPass.getText());
+                            modelUsu.setPassword(frmUsuario.txtPass.getText());
+                        //     3.1 se llena el modelo  de los usuarios trabajadores sin modificar la contraseña del usuario
+                               modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
+                               modelUsu.setNombre(frmUsuario.txtNombreUsuario.getText());
+                               modelUsu.setTelefono(frmUsuario.txtTelefonoUsuario.getText());
+                               modelUsu.setUsuario(frmUsuario.txtUsuario.getText());                          
+                               modelUsu.setFecha_nacimiento(FechaNacimiento);
+                               modelUsu.setDireccion_usuario(frmUsuario.txtDireccionUsuario.getText());
+                               modelUsu.setId_sede(modelSesion.getId_sede());
+                               modelUsu.setNombre_rol(frmUsuario.txtNombre_rol.getSelectedItem().toString());
 
-                       //3.2. llama al metodo insertar de la claseUsuariosCrud
 
-                       if(usuCRUD.actualizarUsuario(modelUsu)){
-                           limpiarTxt(); JOptionPane.showMessageDialog(null,"El registro se ha actualizado exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
-                        frmUsuario.btnEliminarUsu.setEnabled(false);
-                        frmUsuario.btnGuardarUsu.setEnabled(true);
-                        frmUsuario.btnBuscarUsu.setEnabled(true);
-                        frmUsuario.btnActualizarUsu.setEnabled(false);
-                           mostrarUsuarios("");
-                       }   
-                        else JOptionPane.showMessageDialog(null," No se guardaron los datos","informe de error ",JOptionPane.ERROR_MESSAGE);
-                        }
+                                //3.2. llama al metodo insertar de la claseUsuariosCrud
+
+                                if(usuCRUD.actualizarUsuario(modelUsu)){
+                                    limpiarTxt(); JOptionPane.showMessageDialog(null,"El registro se ha actualizado exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
+                                 frmUsuario.btnEliminarUsu.setEnabled(false);
+                                 frmUsuario.btnGuardarUsu.setEnabled(true);
+                                 frmUsuario.btnBuscarUsu.setEnabled(true);
+                                 frmUsuario.btnActualizarUsu.setEnabled(false);
+                                    mostrarUsuarios("");
+                                }   
+                                 else JOptionPane.showMessageDialog(null," No se guardaron los datos","informe de error ",JOptionPane.ERROR_MESSAGE);            
+
+                            
+
+                       }
+                       else {
+                           // se ha detectado cambio en la contraseña 
+                            int respuesta= JOptionPane.showConfirmDialog(null, "Se ha detectado que la contraseña ha cambiado, por seguridad,se procederá a encriptarla, por favor asegurese de memorizarla \n ¿ Desea Continuar?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+
+                               if(respuesta==0)
+                               {
+                                          //SE  detecto un cambio en la contraseña se INCRIPTA LA CONTRASELÑA CON EL HASH SHA1    
+                                         EncriptarPass passhash= new EncriptarPass();
+                                        String passEncrip= passhash.sha1(frmUsuario.txtPass.getText());
+                                         modelUsu.setPassword(passEncrip);
+                                           //     3.1 se llena el modelo  de los usuarios trabajadores 
+                                            modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
+                                            modelUsu.setNombre(frmUsuario.txtNombreUsuario.getText());
+                                            modelUsu.setTelefono(frmUsuario.txtTelefonoUsuario.getText());
+                                            modelUsu.setUsuario(frmUsuario.txtUsuario.getText());                          
+                                            modelUsu.setFecha_nacimiento(FechaNacimiento);
+                                            modelUsu.setDireccion_usuario(frmUsuario.txtDireccionUsuario.getText());
+                                            modelUsu.setId_sede(modelSesion.getId_sede());
+                                            modelUsu.setNombre_rol(frmUsuario.txtNombre_rol.getSelectedItem().toString());
+
+
+                                             //3.2. llama al metodo insertar de la claseUsuariosCrud
+
+                                             if(usuCRUD.actualizarUsuario(modelUsu)){
+                                                 limpiarTxt(); JOptionPane.showMessageDialog(null,"El registro se ha actualizado exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
+                                              frmUsuario.btnEliminarUsu.setEnabled(false);
+                                              frmUsuario.btnGuardarUsu.setEnabled(true);
+                                              frmUsuario.btnBuscarUsu.setEnabled(true);
+                                              frmUsuario.btnActualizarUsu.setEnabled(false);
+                                                 mostrarUsuarios("");
+                                             }   
+                                              else JOptionPane.showMessageDialog(null," No se guardaron los datos","informe de error ",JOptionPane.ERROR_MESSAGE);            
+                               }
+
+
+                       }
+                              
                    }
              else
-                 JOptionPane.showMessageDialog(null, "Las cajas de texto no pueden estar vacias ", " ", JOptionPane.WARNING_MESSAGE);
+                 JOptionPane.showMessageDialog(null, "Los password no coinciden ", " ", JOptionPane.WARNING_MESSAGE);
         }
    }//fin de actualizar
          
@@ -255,25 +322,29 @@ this.frmUsuario.popoDetallle.addActionListener(this);
         }
         else{
            //1.se llena el modelo con el id ingresado en la caja de texto 
-            modelUsu.setId(Integer.parseInt(frmUsuario.txtIdSede.getText()));
+            modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
+            modelUsu.setId_sede(modelSesion.getId_sede());
 
             //2. si se encontró algun resultado los carja en los jtextfield correspondientes
             if(usuCRUD.buscarUsuario(modelUsu))  
             { 
                 //lleva los datos a las cjas de texto
-            frmUsuario.txtIdSede.setText(String.valueOf(modelUsu.id));
-          //  frmUsuario.txtRol.setText(String.valueOf(modelUsu.id_rol));
-            frmUsuario.txtNombreUsuario.setText(modelUsu.nombre);
-            frmUsuario.txtUsuario.setText(String.valueOf(modelUsu.usuario));
-            frmUsuario.txtPass.setText(String.valueOf(modelUsu.password));
-           // frmUsuario.txtCorreoUsuario.setText(String.valueOf(modelUsu.correo));
-            frmUsuario.txtTelefonoUsuario.setText(String.valueOf(modelUsu.telefono));
-            frmUsuario.txtRepPass.setText(String.valueOf(modelUsu.password));
-            
-            frmUsuario.btnEliminarUsu.setEnabled(true);
-            frmUsuario.btnGuardarUsu.setEnabled(false);
-            frmUsuario.btnBuscarUsu.setEnabled(true);
-            frmUsuario.btnActualizarUsu.setEnabled(true);
+                frmUsuario.txtIdSede.setText(String.valueOf(modelUsu.getId_sede()));
+                frmUsuario.txtNombreSede.setText(modelSesion.getSede_nombre());
+                frmUsuario.txtNombreUsuario.setText(modelUsu.nombre);
+                frmUsuario.txtTelefonoUsuario.setText(String.valueOf(modelUsu.telefono));
+                frmUsuario.txtDireccionUsuario.setText(String.valueOf(modelUsu.direccion_usuario));
+                frmUsuario.txtFecha_nac.setDate(Date.valueOf(modelUsu.getFecha_nacimiento()));
+                frmUsuario.txtNombre_rol.setSelectedItem(modelUsu.getNombre_rol());
+                frmUsuario.txtUsuario.setText(String.valueOf(modelUsu.usuario));
+                frmUsuario.txtPass.setText(String.valueOf(modelUsu.password));
+                frmUsuario.txtIdSede.setText(String.valueOf(modelUsu.id));
+                frmUsuario.txtRepPass.setText(String.valueOf(modelUsu.password));
+
+                frmUsuario.btnEliminarUsu.setEnabled(true);
+                frmUsuario.btnGuardarUsu.setEnabled(false);
+                frmUsuario.btnBuscarUsu.setEnabled(true);
+                frmUsuario.btnActualizarUsu.setEnabled(true);
             }
             else
                 JOptionPane.showMessageDialog(null, "No se encontró el usuario buscado", " usuario no encontrado", JOptionPane.ERROR_MESSAGE);        
@@ -300,21 +371,30 @@ this.frmUsuario.popoDetallle.addActionListener(this);
         //guarda el id de la fila seleccionada
         String id= String.valueOf(frmUsuario.jtableUsuarios.getValueAt(fila, 0).toString().trim());
         
-        //1.se llena el modelo con el id ingresado en la caja de texto 
+          //1.se llena el modelo con el id ingresado en la caja de texto 
             modelUsu.setId(Integer.parseInt(id));
-
+            modelUsu.setId_sede(modelSesion.getId_sede());
+            try {
             //2. si se encontró algun resultado los carja en los jtextfield correspondientes
             if(usuCRUD.buscarUsuario(modelUsu))  
             { 
-                //lleva los datos a las cjas de texto
-            frmUsuario.txtIdSede.setText(String.valueOf(modelUsu.id));
-          //  frmUsuario.txtRol.setText(String.valueOf(modelUsu.id_rol));
-            frmUsuario.txtNombreUsuario.setText(modelUsu.nombre);
-            frmUsuario.txtUsuario.setText(String.valueOf(modelUsu.usuario));
-            frmUsuario.txtPass.setText(String.valueOf(modelUsu.password));
-           // frmUsuario.txtCorreoUsuario.setText(String.valueOf(modelUsu.correo));
-            frmUsuario.txtTelefonoUsuario.setText(String.valueOf(modelUsu.telefono));
-            frmUsuario.txtRepPass.setText(String.valueOf(modelUsu.password));
+            //lleva los datos a las cjas de texto
+         
+  
+                frmUsuario.txtIdSede.setText(String.valueOf(modelUsu.getId_sede()));
+                frmUsuario.txtNombreSede.setText(modelSesion.getSede_nombre());
+                frmUsuario.txtNombreUsuario.setText(modelUsu.nombre);
+                frmUsuario.txtTelefonoUsuario.setText(modelUsu.telefono);
+                frmUsuario.txtDireccionUsuario.setText(modelUsu.direccion_usuario);
+                frmUsuario.txtFecha_nac.setDate(Date.valueOf(modelUsu.getFecha_nacimiento()));
+                frmUsuario.txtNombre_rol.setSelectedItem(modelUsu.getNombre_rol());
+                frmUsuario.txtUsuario.setText(modelUsu.usuario);
+                frmUsuario.txtPass.setText(modelUsu.password);
+                frmUsuario.txtRepPass.setText(modelUsu.password);
+                frmUsuario.txtIdUsuario.setText(id);
+
+            
+            
             frmUsuario.btnEliminarUsu.setEnabled(true);
             frmUsuario.btnGuardarUsu.setEnabled(false);
             frmUsuario.btnBuscarUsu.setEnabled(false);
@@ -323,25 +403,29 @@ this.frmUsuario.popoDetallle.addActionListener(this);
             }
          
      
-    }
-     }//fin de actionlistener 
+    }// fin frl try 
+    
+    catch  (Exception ex)
+            {
+            
+            }
+    }//fin del else if 
+ }//fin de actionlistener 
     
     
      
    public void  limpiarTxt()
    {
-       frmUsuario.txtIdSede.setText("");
+       //frmUsuario.txtIdSede.setText("");
        frmUsuario.txtNombreUsuario.setText("");
-       //frmUsuario.txtRol.setText("");
+       frmUsuario.txtIdUsuario.setText("");
+       frmUsuario.txtFecha_nac.setDate(null);
        frmUsuario.txtTelefonoUsuario.setText("");
-       //frmUsuario.txtCorreoUsuario.setText("");
        frmUsuario.txtDireccionUsuario.setText("");
        frmUsuario.txtPass.setText("");
        frmUsuario.txtRepPass.setText("");
        frmUsuario.txtUsuario.setText("");
-       
- 
-
+       frmUsuario.txtNombre_rol.setSelectedItem("Seleccionar");
 }
    
    //======================================================================================
@@ -349,12 +433,10 @@ this.frmUsuario.popoDetallle.addActionListener(this);
     @Override
     public void keyTyped(KeyEvent e) {
         
-        if( e.getSource()==frmUsuario.txtIdSede  ||
-          //  e.getSource()==frmUsuario.txtRol ||
-            e.getSource()==frmUsuario.txtTelefonoUsuario)
-           
+        if( e.getSource()==frmUsuario.txtIdUsuario|| e.getSource()==frmUsuario.txtTelefonoUsuario)
+     
             validarCaja.isNumeric(e);
-        
+           
         else if (e.getSource ()==frmUsuario.txtNombreUsuario) 
             validarCaja.isLetter(e);
         
@@ -365,7 +447,22 @@ this.frmUsuario.popoDetallle.addActionListener(this);
             validarCaja.validarDireccion(e);
         
         else if (e.getSource()==frmUsuario.txtUsuario)
-            validarCaja.validarUsuario(e);
+        {
+           // validarCaja.validarUsuario(e);
+            JOptionPane.showMessageDialog(null, "", " ", JOptionPane.INFORMATION_MESSAGE);
+            String usuario=frmUsuario.txtNombreUsuario.getText();
+            //valida  la disponibilidad del usuario
+            if(usuCRUD.disponibilidadUsuario(usuario)== true)
+                {
+                  frmUsuario.lblDisponible.setText("¡Ocupado!");
+                }
+                else 
+                {
+                    frmUsuario.lblDisponible.setText("¡Disponible!");
+                }
+        }
+           
+        
         
         else if (e.getSource()==frmUsuario.txtPass || e.getSource()==frmUsuario.txtRepPass)
             validarCaja.validaPass(e);
@@ -380,6 +477,7 @@ this.frmUsuario.popoDetallle.addActionListener(this);
     }
     @Override
     public void keyPressed(KeyEvent e) {
+    
         }
 
     @Override
@@ -417,21 +515,24 @@ this.frmUsuario.popoDetallle.addActionListener(this);
         DefaultTableModel modelo = new  DefaultTableModel();
         //crea una instancia de la clase UsuariosCrud
         UsuariosCRUD usuCR= new UsuariosCRUD();
-        ResultSet rs =usuCR.listarUsuario(valor);
+        ResultSet rs =usuCR.listarUsuario(valor,modelSesion.getId_sede());
         modelo.setColumnIdentifiers(new Object[]{
-            "Id USUARIO","USUARIO ", "ID ROL","NOMBRE ROL "});
-        
+            "Id EMPLEADO","NOMBRE ", " USUARIO","NOMBRE ROL ","ULTIMA SESION "});
+        String ultimaSesion ;
        if(rs!=null)
         {
             try 
             {
             while(rs.next())
             {
+                ultimaSesion= String.valueOf( rs.getTimestamp("TRABA_LAST_SESION"));
+               // JOptionPane.showMessageDialog(null, "sesion ultima="+ juan, " ", JOptionPane.INFORMATION_MESSAGE);
                 modelo.addRow(new Object[]{
-                        rs.getString("id_usuario"),
-                        rs.getString("nombre_usuario"),
-                        rs.getString("id_rol"),
-                        rs.getString("nombre_rol")
+                        rs.getString("traba_id"),
+                        rs.getString("TRABA_NOMBRE"),
+                        rs.getString("TRABA_USU"),
+                        rs.getString("TRABA_ROL"),
+                        ultimaSesion
 //                    
                       
                 });
@@ -444,8 +545,4 @@ this.frmUsuario.popoDetallle.addActionListener(this);
             } 
         }
    }
-
-   
-   
-   
 }

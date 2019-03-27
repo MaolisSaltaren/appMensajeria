@@ -3,6 +3,8 @@ package modelo;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion 
     
@@ -74,9 +76,16 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
         
         
         //CONSULTA SQL 
-        String consultaSql = " UPDATE USUARIOS set NOMBRE=? ,TELEFONO =?,CORREO =?,"
-                + " USUARIO=?, PASSWORD=?"
-                + "WHERE ID = ?";
+        String consultaSql = "update tbl_trabajadores set \n" +
+                            "TRABA_NOMBRE =?,\n" +
+                            "TRABA_TELEFONO =?,\n" +
+                            "TRABA_USU=?,\n" +
+                            "TRABA_PASS=?,\n" +
+                            "TRABA_ROL=?,\n" +
+                            "SEDE_ID=?,\n" +
+                            "TRAB_FECHA_NAC=?,\n" +
+                            "TRABA_DIRECCION=?\n" +
+                            "where TRABA_ID =?";
       try
         {
             //1. se manda a preparar la consulta
@@ -84,12 +93,18 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
             
             //2.se le envian los parametros a la consulta sql
          
+         
             ps.setString(1, usu.getNombre());
-            ps.setString(2, usu.getTelefono());
-          //  ps.setString(3, usu.getCorreo());
-            ps.setString(4, usu.getUsuario());
-            ps.setString(5, usu.getPassword());
-            ps.setInt(6, usu.getId());
+            ps.setString(2, usu.getTelefono()); 
+            ps.setString(3, usu.getUsuario());
+            ps.setString(4, usu.getPassword());
+            ps.setString(5, usu.getNombre_rol());
+            ps.setInt(6, usu.getId_sede());   
+            ps.setString(7, usu.getFecha_nacimiento());
+            ps.setString(8, usu.getDireccion_usuario());
+               ps.setInt(9, usu.getId());
+            
+            
             //.3 se ejecuta la consulta 
             ps.execute();
             
@@ -165,7 +180,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
         
         
         //CONSULTA SQL 
-        String consultaSql = "select * from tbl_trabajadores where traba_id =?";
+        String consultaSql = " select  * from tbl_trabajadores  where traba_id= ? and sede_id =?";
       try
         {
             //1. se manda a preparar la consulta
@@ -173,6 +188,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
             
             //2.se le enbian los parametros a la consulta sql
             ps.setInt(1, usu.getId());
+            ps.setInt(2, usu.getId_sede());
             
              //.3 se ejecuta la consulta 
             rs= ps.executeQuery();
@@ -180,15 +196,17 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
             //4.llena el modelo con los datos de la bd
             if(rs.next())
             {
-                usu.setId(Integer.parseInt(rs.getString("id")));
-               // usu.setId_rol(Integer.parseInt(rs.getString("id_rol")));
-                usu.setNombre(rs.getString("nombre"));
-               // usu.setCorreo(rs.getString("correo"));
-                usu.setUsuario(rs.getString("usuario"));
-                usu.setPassword(rs.getString("password"));
-                usu.setTelefono(rs.getString("telefono"));
-                
-                return true;
+                usu.setId(Integer.parseInt(rs.getString("traba_id")));
+                usu.setNombre(rs.getString("traba_nombre"));
+                usu.setTelefono(rs.getString("traba_telefono"));
+                usu.setUsuario(rs.getString("traba_usu"));
+                usu.setPassword(rs.getString("traba_pass"));
+                usu.setNombre_rol(rs.getString("traba_rol"));
+                usu.setId(Integer.parseInt(rs.getString("sede_id")));
+                usu.setFecha_nacimiento(rs.getString("trab_fecha_nac"));
+                usu.setDireccion_usuario(rs.getString("traba_direccion"));
+               
+        return true;
                 
             }
            
@@ -214,7 +232,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
     }
     ////////////////////////////////////////////////////////////////////////////////////////
     //ListarUsuarios
-        public static ResultSet listarUsuario( String valorBuscado)
+        public static ResultSet listarUsuario( String valorBuscado, int idSesion)
     {
      
         PreparedStatement ps = null;
@@ -223,14 +241,22 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
         
         
         //CONSULTA SQL 
-        String consultaSql = "select * from tbl_trabajadores where SEDE_ID= 1  and TRABA_NOMBRE like concat('%','','%')";
-      try
+            String consultaSql = "select "+
+                "traba_id,\n" +
+                "TRABA_NOMBRE,\n" +
+                "TRABA_USU,\n" +
+                "TRABA_ROL,\n" +
+                "TRABA_LAST_SESION,\n" +
+                "TRABA_LAST_SESION from tbl_trabajadores where SEDE_ID= ?  and TRABA_NOMBRE like concat('%','"+valorBuscado+"','%')";
+                      try
         {
             //1. se manda a preparar la consulta
             ps = getConexion().prepareStatement(consultaSql);
             
             //2.se le enbian los parametros a la consulta sql
-           // ps.setString(1, "");
+           // ps.setString(1, );
+           
+           ps.setInt(1,idSesion);
             
              //.3 se ejecuta la consulta 
             rs= ps.executeQuery();
@@ -273,16 +299,16 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
         
         //CONSULTA SQL 
         String consultaSql= "select tbl_trabajadores.TRABA_NOMBRE,\n" +
-"   tbl_trabajadores.sede_id,\n" +
-"   tbl_trabajadores.traba_id,\n" +
-"   tbl_trabajadores.traba_rol,\n" +
-"   tbl_sedes.sedes_nombre,\n" +
-"   tbl_ciudades.CIUD_NOMBRE\n" +
-" from tbl_trabajadores inner join tbl_sedes\n" +
-"on tbl_trabajadores.SEDE_ID= tbl_sedes.SEDES_ID\n" +
-" inner join tbl_ciudades on tbl_ciudades.CIUD_NOMBRE= tbl_sedes.CIUD_NOMBRE \n" +
-"where tbl_trabajadores.TRABA_USU =?\n" +
-" and tbl_trabajadores.TRABA_pass =?";
+                            " tbl_trabajadores.sede_id,\n" +
+                            " tbl_trabajadores.traba_id,\n" +
+                            " tbl_trabajadores.traba_rol,\n" +
+                            " tbl_sedes.sedes_nombre,\n" +
+                            " tbl_ciudades.CIUD_NOMBRE\n" +
+                            " from tbl_trabajadores inner join tbl_sedes\n" +
+                            "on tbl_trabajadores.SEDE_ID= tbl_sedes.SEDES_ID\n" +
+                            " inner join tbl_ciudades on tbl_ciudades.CIUD_NOMBRE= tbl_sedes.CIUD_NOMBRE \n" +
+                            "where tbl_trabajadores.TRABA_USU =?\n" +
+                            " and tbl_trabajadores.TRABA_pass =?";
         
               
         String  updateHoraSesion ="update  tbl_trabajadores set traba_last_sesion = ? where traba_id=?";
@@ -306,6 +332,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
             if(rs.next())
             {
                //ACTUALIZA LA FECHA Y HORA EN QUE INRESO EL USUARIO AL SISTEMA
+    
                 ps= getConexion().prepareStatement(updateHoraSesion);
                 ps.setString(1,usu.getUltimaSesion());
                 ps.setString(2,rs.getString("traba_id") );
@@ -324,6 +351,63 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
 
                 return true;
                 
+            }
+           
+                    
+            return false;
+            
+        }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error al iniciar logueo, detalle del error="+e.toString());
+            return false;
+        } 
+        finally
+        {
+            try{
+                con.close();
+            }
+            catch(SQLException e)
+            {
+                JOptionPane.showMessageDialog(null,"Error"+e.toString());
+            } 
+
+        }
+    }
+    
+        
+        public boolean disponibilidadUsuario(String txtUsuario)
+    {
+     
+        PreparedStatement ps = null;
+        Connection con=getConexion();
+        ResultSet rs = null ; 
+
+        //CONSULTA SQL 
+        String consultaSql= " select TRABA_USU from tbl_trabajadores where traba_usu LIKE ?";
+        
+              
+     
+          try
+        {
+            
+            // SE BUSCA EN LA BASE DE DATOS SI EL USUARIO SE ENCUENTRA REGISTRADO
+            
+            //1. se manda a preparar la consulta
+            ps = getConexion().prepareStatement(consultaSql);
+            
+            //2.se le enbian los parametros a la consulta sql
+            ps.setString(1,txtUsuario);
+            
+            
+             //.3 se ejecuta la consulta 
+            rs= ps.executeQuery();
+            
+            //4.llena el modelo con los datos de la bd
+            if(rs.next())
+            {
+                  
+                JOptionPane.showMessageDialog(null, "usuario ocupado", " ", JOptionPane.INFORMATION_MESSAGE);
+             return true;   
             }
            
                     

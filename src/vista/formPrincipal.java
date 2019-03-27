@@ -233,7 +233,7 @@ public class formPrincipal extends javax.swing.JFrame {
         UsuariosCRUD crud = new UsuariosCRUD();
         formUsuarios frm = new formUsuarios();
         
-        UsuariosController ctrl= new UsuariosController(mod,frm,crud);
+        UsuariosController ctrl= new UsuariosController(modSesion,mod,frm,crud);
         ctrl.iniciar();
         frm.setVisible(true);
          }

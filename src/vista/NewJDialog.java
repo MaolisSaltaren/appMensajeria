@@ -85,6 +85,8 @@ public class NewJDialog extends javax.swing.JDialog {
          DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         String FechaNacimiento;
         FechaNacimiento = formatoFecha.format(txtfecha.getDate());
+        
+        
        JOptionPane.showMessageDialog(null, "fecha="+FechaNacimiento, " ", JOptionPane.INFORMATION_MESSAGE);
 
       }  

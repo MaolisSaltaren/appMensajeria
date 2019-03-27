@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import misClases.EncriptarPass;
 import modelo.SesionModel;
 import modelo.UsuariosCRUD;
 import modelo.UsuariosModel;
@@ -144,9 +145,6 @@ public class formLogin extends javax.swing.JFrame {
 
            //objetos de las clases
         UsuariosModel modelUsu = new UsuariosModel();
-    
-        
-        
         formUsuarios frmUsuario = new formUsuarios();
         UsuariosCRUD usuCRUD = new UsuariosCRUD();
         
@@ -154,17 +152,23 @@ public class formLogin extends javax.swing.JFrame {
        Date fecha = new Date();
        DateFormat fechaHoraSistema = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         
+     
                 
-        UsuariosController ctrl= new UsuariosController(modelUsu,frmUsuario,usuCRUD);
+        UsuariosController ctrl= new UsuariosController(modelSesion,modelUsu,frmUsuario,usuCRUD);
         ctrl.iniciar();
         
         //2.1 llena el modelocon los datos ingresados en el login 
          modelUsu.setUsuario(txtUsuario.getText());
-         modelUsu.setPassword(txtpass.getText());
          
-         //2.2 se llena en el modelo la  hora actual del sistema como ultima sesion activa
-       //  modelUsu.setUltimaSesion(fechaHoraSistema.format(fecha).toString()); 
+           //SE INCRIPTA LA CONTRASELÑA CON EL HASH SHA1    
+            EncriptarPass passhash= new EncriptarPass();
+            String passEncrip= passhash.sha1(txtpass.getText());
+            modelUsu.setPassword(passEncrip);
          
+          //2.2 se llena en el modelo la  hora actual del sistema como ultima sesion activa
+       modelUsu.setUltimaSesion(fechaHoraSistema.format(fecha).toString()); 
+       
+        
          if(usuCRUD.loginUsuario(modelUsu,modelSesion)== true)
          {
             
