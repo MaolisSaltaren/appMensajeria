@@ -375,7 +375,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
     }
     
         
-        public boolean disponibilidadUsuario(String txtUsuario)
+        public boolean  disponibilidadUsuario(UsuariosModel usu )
     {
      
         PreparedStatement ps = null;
@@ -383,7 +383,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
         ResultSet rs = null ; 
 
         //CONSULTA SQL 
-        String consultaSql= " select TRABA_USU from tbl_trabajadores where traba_usu LIKE ?";
+        String consultaSql= "select count(SEDE_ID) as cantidad_usuario from tbl_trabajadores where traba_usu like ?";
         
               
      
@@ -396,7 +396,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
             ps = getConexion().prepareStatement(consultaSql);
             
             //2.se le enbian los parametros a la consulta sql
-            ps.setString(1,txtUsuario);
+            ps.setString(1,usu.getUsuario());
             
             
              //.3 se ejecuta la consulta 
@@ -406,8 +406,8 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
             if(rs.next())
             {
                   
-                JOptionPane.showMessageDialog(null, "usuario ocupado", " ", JOptionPane.INFORMATION_MESSAGE);
-             return true;   
+                 usu.setDisponibilidad_usuario(Integer.parseInt(rs.getString("cantidad_usuario")));
+                return true;   
             }
            
                     
@@ -415,7 +415,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
             
         }catch(SQLException e){
            
-            JOptionPane.showMessageDialog(null,"Error al iniciar logueo, detalle del error="+e.toString());
+            JOptionPane.showMessageDialog(null,"Error , detalle del error="+e.toString());
             return false;
         } 
         finally

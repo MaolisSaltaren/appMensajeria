@@ -18,6 +18,7 @@ public class UsuariosModel {
     public String password;
     public String ultimaSesion;
     public String direccion_usuario;
+    public int disponibilidad_usuario;
 
     public String getUltimaSesion() {
         return ultimaSesion;
@@ -27,6 +28,7 @@ public class UsuariosModel {
         this.ultimaSesion = ultimaSesion;
     }
 
+    
     public int getId() {
         return id;
     }
@@ -100,6 +102,14 @@ public class UsuariosModel {
 
     public void setFecha_nacimiento(String fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public int getDisponibilidad_usuario() {
+        return disponibilidad_usuario;
+    }
+
+    public void setDisponibilidad_usuario(int disponibilidad_usuario) {
+        this.disponibilidad_usuario = disponibilidad_usuario;
     }
 
     

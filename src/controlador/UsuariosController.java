@@ -2,6 +2,7 @@
 package controlador;
 
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -439,41 +440,20 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
            
         else if (e.getSource ()==frmUsuario.txtNombreUsuario) 
             validarCaja.isLetter(e);
-        
-       // else if (e.getSource()==frmUsuario.txtCorreoUsuario)
-        //    validarCaja.validarCorreo(e);
-        
+
         else if (e.getSource()==frmUsuario.txtDireccionUsuario)
             validarCaja.validarDireccion(e);
-        
         else if (e.getSource()==frmUsuario.txtUsuario)
-        {
-           // validarCaja.validarUsuario(e);
-            JOptionPane.showMessageDialog(null, "", " ", JOptionPane.INFORMATION_MESSAGE);
-            String usuario=frmUsuario.txtNombreUsuario.getText();
-            //valida  la disponibilidad del usuario
-            if(usuCRUD.disponibilidadUsuario(usuario)== true)
-                {
-                  frmUsuario.lblDisponible.setText("¡Ocupado!");
-                }
-                else 
-                {
-                    frmUsuario.lblDisponible.setText("¡Disponible!");
-                }
-        }
-           
+            validarCaja.validarUsuario(e);
         
-        
+   
         else if (e.getSource()==frmUsuario.txtPass || e.getSource()==frmUsuario.txtRepPass)
             validarCaja.validaPass(e);
         else if (e.getSource()==frmUsuario.txtBuscar){
             mostrarUsuarios(frmUsuario.txtBuscar.getText());
         }
         
-            
-        
-            
-        
+
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -482,6 +462,34 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
 
     @Override
     public void keyReleased(KeyEvent e) {
+         if (e.getSource()==frmUsuario.txtUsuario)
+        {
+          //1.lleno el modelo con el usuario ingresado 
+            modelUsu.setUsuario(frmUsuario.txtUsuario.getText());
+            
+           
+            //valida  la disponibilidad del usuario
+            if(usuCRUD.disponibilidadUsuario(modelUsu)!=false)
+                {
+                    //2. declaro la variable que determina si hay disponibilidad de nombre de usuario o no 
+                    int usus_cantidad =modelUsu.disponibilidad_usuario;
+                    
+                    if(usus_cantidad==0){
+                        frmUsuario.lblDisponible.setText("¡Disponible!");
+                        frmUsuario.lblDisponible.setForeground(Color.blue);
+          
+                        }
+                    else
+                    {
+                        frmUsuario.lblDisponible.setText("¡ocupado!");
+                          frmUsuario.lblDisponible.setForeground(Color.RED);
+                    }
+                        
+                    
+                         
+                    
+                }
+        }
       }
 
   //==============================================================================

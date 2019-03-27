@@ -211,8 +211,8 @@ public class formUsuarios extends javax.swing.JFrame {
 
         txtFecha_nac.setDateFormatString("yyyy-MM-dd");
 
-        lblDisponible.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblDisponible.setText("xxx");
+        lblDisponible.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblDisponible.setText("...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
