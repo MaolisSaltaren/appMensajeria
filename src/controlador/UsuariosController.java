@@ -335,8 +335,9 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
     else if ( e.getSource()==frmUsuario.btnBuscarUsu )
     {
         //validacion de que el id del usuario no este vacion 
-        if (frmUsuario.txtIdSede.getText().equals("")) {
+        if (frmUsuario.txtIdUsuario.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Por favor ingresa el id del usuario", " ", JOptionPane.WARNING_MESSAGE);
+        
         }
         else{
            //1.se llena el modelo con el id ingresado en la caja de texto 
