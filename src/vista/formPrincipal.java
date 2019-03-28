@@ -18,7 +18,7 @@ import modelo.UsuariosModel;
 public class formPrincipal extends javax.swing.JFrame {
 
     
-    public static formUsuarios frmUsuarios=null;
+    public static UsuariosController frmUsuarios =null;
     
      SesionModel modSesion;
     /**
@@ -391,18 +391,16 @@ public class formPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnGestionUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUsuActionPerformed
-        if(frmUsuarios==null)
+        if(frmUsuarios == null)
         {
-
             //objetos de las clases correspondientes
             UsuariosModel mod= new UsuariosModel();
-
             UsuariosCRUD crud = new UsuariosCRUD();
             formUsuarios frm = new formUsuarios();
 
             //llama al formulario correspondiente
-            UsuariosController ctrl= new UsuariosController(modSesion,mod,frm,crud);
-            ctrl.iniciar();
+             frmUsuarios= new UsuariosController(modSesion,mod,frm,crud);
+            frmUsuarios.iniciar();
             frm.setVisible(true);
         }
     }//GEN-LAST:event_btnGestionUsuActionPerformed
