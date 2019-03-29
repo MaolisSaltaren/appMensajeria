@@ -7,13 +7,17 @@ package vista;
 
 import controlador.UsuariosController;
 import controlador.ClientesController;
-import javax.swing.JOptionPane;
+import controlador.PaquetesController;
+import static controlador.UsuariosController.modelsedes;
+
 import modelo.SesionModel;
 import modelo.UsuariosCRUD;
-import modelo.UsuariosModel;
-
 import modelo.ClientesCRUD;
+import modelo.PaquetesCRUD;
+
+import modelo.UsuariosModel;
 import modelo.ClientesModel;
+import modelo.PaquetesModel;
 
 /**
  *
@@ -24,6 +28,7 @@ public class formPrincipal extends javax.swing.JFrame {
     
     public static UsuariosController frmUsuarios =null;
     public static ClientesController frmClientes =null;
+    public static PaquetesController frmPaquetes =null;
     
      SesionModel modSesion;
     /**
@@ -320,7 +325,7 @@ public class formPrincipal extends javax.swing.JFrame {
                         .addComponent(btnDespachos, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEntregas, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(390, Short.MAX_VALUE))
+                .addContainerGap(360, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,7 +431,22 @@ public class formPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaquetesActionPerformed
-        // TODO add your handling code here:
+        
+           if(frmPaquetes == null)
+        {
+            
+    
+            //objetos de las clases correspondientes
+            PaquetesModel mod= new PaquetesModel();
+            PaquetesCRUD crud = new PaquetesCRUD();
+            
+            formPaquetes frm = new formPaquetes();
+
+            //llama al formulario correspondiente
+             frmPaquetes= new PaquetesController(mod,frm,crud);
+            frmPaquetes.iniciar();
+            frm.setVisible(true);
+        }
     }//GEN-LAST:event_btnPaquetesActionPerformed
 
     private void btnAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustesActionPerformed

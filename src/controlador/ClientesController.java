@@ -28,11 +28,11 @@ import vista.formBuscarSedes;
 import vista.formClientes;
 
 
-public class ClientesController implements ActionListener,KeyListener,MouseListener{
+public class ClientesController  extends javax.swing.JDialog implements ActionListener,KeyListener,MouseListener{
     
     //llamando a las clases creadas
      private final ClientesModel modelClie;
-     private final CiudadesModel modelCiud = new CiudadesModel();
+    
 
      private final formClientes frmCliente;
      private final ClientesCRUD clieCRUD;
@@ -165,9 +165,9 @@ public class ClientesController implements ActionListener,KeyListener,MouseListe
     
      else if (e.getSource()==frmCliente.btnEliminarClie)     
     {
-        // 2.0 verifica que el id del usuario no este vacio
+        // 2.0 verifica que el id del cliente no este vacio
         if(frmCliente.txtIdCliente.getText().equals(""))
-            JOptionPane.showMessageDialog(null, " El id del usuario no puede estar vacio", "app ", JOptionPane.WARNING_MESSAGE);  
+            JOptionPane.showMessageDialog(null, " El id del cliente no puede estar vacio", "app ", JOptionPane.WARNING_MESSAGE);  
         else
         {
               int respuesta= JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea eliminar este registro?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
@@ -252,7 +252,7 @@ public class ClientesController implements ActionListener,KeyListener,MouseListe
            // SE HA PULSADO EL BOTON DE BUSCAR
     else if ( e.getSource()==frmCliente.btnBuscarClie )
     {
-        //validacion de que el id del usuario no este vacion 
+        //validacion de que el id del cliente no este vacion 
         if (frmCliente.txtIdCliente.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Por favor ingresa el id del cliente", " ", JOptionPane.WARNING_MESSAGE);
         
@@ -279,7 +279,7 @@ public class ClientesController implements ActionListener,KeyListener,MouseListe
                 frmCliente.btnActualizarClie.setEnabled(true);
             }
             else
-                JOptionPane.showMessageDialog(null, "No se encontró el usuario buscado", " usuario no encontrado", JOptionPane.ERROR_MESSAGE);        
+                JOptionPane.showMessageDialog(null, "No se encontró el cliente buscado", " cliente no encontrado", JOptionPane.ERROR_MESSAGE);        
         }
     }
   //================================================================================================
