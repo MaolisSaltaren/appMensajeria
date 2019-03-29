@@ -6,10 +6,14 @@
 package vista;
 
 import controlador.UsuariosController;
+import controlador.ClientesController;
 import javax.swing.JOptionPane;
 import modelo.SesionModel;
 import modelo.UsuariosCRUD;
 import modelo.UsuariosModel;
+
+import modelo.ClientesCRUD;
+import modelo.ClientesModel;
 
 /**
  *
@@ -19,6 +23,7 @@ public class formPrincipal extends javax.swing.JFrame {
 
     
     public static UsuariosController frmUsuarios =null;
+    public static ClientesController frmClientes =null;
     
      SesionModel modSesion;
     /**
@@ -203,7 +208,7 @@ public class formPrincipal extends javax.swing.JFrame {
 
         btnGestionUsu.setBackground(new java.awt.Color(102, 102, 102));
         btnGestionUsu.setForeground(new java.awt.Color(255, 255, 255));
-        btnGestionUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/user-32.png"))); // NOI18N
+        btnGestionUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/gestionDeUsuarios.png"))); // NOI18N
         btnGestionUsu.setText("Gestion de usuarios");
         btnGestionUsu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGestionUsu.addActionListener(new java.awt.event.ActionListener() {
@@ -258,7 +263,7 @@ public class formPrincipal extends javax.swing.JFrame {
 
         btnEntregas.setBackground(new java.awt.Color(102, 102, 102));
         btnEntregas.setForeground(new java.awt.Color(255, 255, 255));
-        btnEntregas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/City-32.png"))); // NOI18N
+        btnEntregas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/entregas.png"))); // NOI18N
         btnEntregas.setText("Entregas");
         btnEntregas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEntregas.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +274,7 @@ public class formPrincipal extends javax.swing.JFrame {
 
         btnDespachos.setBackground(new java.awt.Color(102, 102, 102));
         btnDespachos.setForeground(new java.awt.Color(255, 255, 255));
-        btnDespachos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Sale-tag-32.png"))); // NOI18N
+        btnDespachos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/despachos.png"))); // NOI18N
         btnDespachos.setText("Despachos");
         btnDespachos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDespachos.addActionListener(new java.awt.event.ActionListener() {
@@ -406,7 +411,18 @@ public class formPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionUsuActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        // TODO add your handling code here:
+       if(frmClientes == null)
+        {
+            //objetos de las clases correspondientes
+            ClientesModel mod= new ClientesModel();
+            ClientesCRUD crud = new ClientesCRUD();
+            formClientes frm = new formClientes();
+
+            //llama al formulario correspondiente
+             frmClientes= new ClientesController(mod,frm,crud);
+            frmClientes.iniciar();
+            frm.setVisible(true);
+        }
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaquetesActionPerformed
