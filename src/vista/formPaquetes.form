@@ -210,7 +210,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblIdPaquete" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -222,18 +222,23 @@
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="txtIdPaquete" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
-                                          <Component id="txtNombrePaquete" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
-                                          <Component id="txtDescripcionPaquete" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="txtIdPaquete" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="276" pref="276" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="txtPrecioPaquete" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                              <Component id="txtNombrePaquete" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
+                                              <Component id="txtDescripcionPaquete" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="txtPrecioPaquete" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="btnBuscarPaquete" min="-2" pref="71" max="-2" attributes="0"/>
+                                  <Component id="btnBuscarPaquete" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="52" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="btnGuardarPaquete" min="-2" max="-2" attributes="0"/>
@@ -256,9 +261,9 @@
                   <Component id="jLabel2" min="-2" pref="16" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel4" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                      <Component id="txtIdPaquete" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnBuscarPaquete" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblIdPaquete" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="btnBuscarPaquete" alignment="3" min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="txtIdPaquete" alignment="0" min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -275,7 +280,7 @@
                       <Component id="jLabel8" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                       <Component id="txtPrecioPaquete" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnGuardarPaquete" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnActualizarPaquete" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -293,10 +298,10 @@
             <Property name="text" type="java.lang.String" value="Informacion del paquete"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="ID"/>
-          </Properties>
+        <Component class="javax.swing.JLabel" name="lblIdPaquete">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -309,6 +314,9 @@
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtIdPaquete">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
@@ -344,6 +352,7 @@
         <Component class="javax.swing.JButton" name="btnActualizarPaquete">
           <Properties>
             <Property name="text" type="java.lang.String" value="Modificar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -352,6 +361,7 @@
         <Component class="javax.swing.JButton" name="btnEliminarPaquete">
           <Properties>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -367,7 +377,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscarPaquete">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Buscar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

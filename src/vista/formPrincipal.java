@@ -8,16 +8,18 @@ package vista;
 import controlador.UsuariosController;
 import controlador.ClientesController;
 import controlador.PaquetesController;
-import static controlador.UsuariosController.modelsedes;
+import controlador.SedesController;
 
 import modelo.SesionModel;
 import modelo.UsuariosCRUD;
 import modelo.ClientesCRUD;
 import modelo.PaquetesCRUD;
+import modelo.SedesCRUD;
 
 import modelo.UsuariosModel;
 import modelo.ClientesModel;
 import modelo.PaquetesModel;
+import modelo.SedesModel;
 
 /**
  *
@@ -29,6 +31,7 @@ public class formPrincipal extends javax.swing.JFrame {
     public static UsuariosController frmUsuarios =null;
     public static ClientesController frmClientes =null;
     public static PaquetesController frmPaquetes =null;
+    public static SedesController frmSedes =null;
     
      SesionModel modSesion;
     /**
@@ -214,7 +217,7 @@ public class formPrincipal extends javax.swing.JFrame {
         btnGestionUsu.setBackground(new java.awt.Color(102, 102, 102));
         btnGestionUsu.setForeground(new java.awt.Color(255, 255, 255));
         btnGestionUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/gestionDeUsuarios.png"))); // NOI18N
-        btnGestionUsu.setText("Gestion de usuarios");
+        btnGestionUsu.setText("EMPLEADOS");
         btnGestionUsu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGestionUsu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,7 +228,7 @@ public class formPrincipal extends javax.swing.JFrame {
         btnClientes.setBackground(new java.awt.Color(102, 102, 102));
         btnClientes.setForeground(new java.awt.Color(255, 255, 255));
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/user-32.png"))); // NOI18N
-        btnClientes.setText("Clientes");
+        btnClientes.setText("CLIENTES");
         btnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,7 +239,7 @@ public class formPrincipal extends javax.swing.JFrame {
         btnPaquetes.setBackground(new java.awt.Color(102, 102, 102));
         btnPaquetes.setForeground(new java.awt.Color(255, 255, 255));
         btnPaquetes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Product-32.png"))); // NOI18N
-        btnPaquetes.setText("paquetes");
+        btnPaquetes.setText("PAQUETES");
         btnPaquetes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPaquetes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,8 +249,8 @@ public class formPrincipal extends javax.swing.JFrame {
 
         btnAjustes.setBackground(new java.awt.Color(102, 102, 102));
         btnAjustes.setForeground(new java.awt.Color(255, 255, 255));
-        btnAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cambiar.png"))); // NOI18N
-        btnAjustes.setText("ajustes");
+        btnAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/City-32.png"))); // NOI18N
+        btnAjustes.setText("SEDES");
         btnAjustes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAjustes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,7 +261,7 @@ public class formPrincipal extends javax.swing.JFrame {
         btnServicios.setBackground(new java.awt.Color(102, 102, 102));
         btnServicios.setForeground(new java.awt.Color(255, 255, 255));
         btnServicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Order-32.png"))); // NOI18N
-        btnServicios.setText("servicios");
+        btnServicios.setText("SERVICIOS");
         btnServicios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnServicios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,7 +272,7 @@ public class formPrincipal extends javax.swing.JFrame {
         btnEntregas.setBackground(new java.awt.Color(102, 102, 102));
         btnEntregas.setForeground(new java.awt.Color(255, 255, 255));
         btnEntregas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/entregas.png"))); // NOI18N
-        btnEntregas.setText("Entregas");
+        btnEntregas.setText("ENTREGAS");
         btnEntregas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEntregas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,7 +283,7 @@ public class formPrincipal extends javax.swing.JFrame {
         btnDespachos.setBackground(new java.awt.Color(102, 102, 102));
         btnDespachos.setForeground(new java.awt.Color(255, 255, 255));
         btnDespachos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/despachos.png"))); // NOI18N
-        btnDespachos.setText("Despachos");
+        btnDespachos.setText("DESPACHOS");
         btnDespachos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDespachos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -291,7 +294,7 @@ public class formPrincipal extends javax.swing.JFrame {
         btnReportes.setBackground(new java.awt.Color(102, 102, 102));
         btnReportes.setForeground(new java.awt.Color(255, 255, 255));
         btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/REPORTES.png"))); // NOI18N
-        btnReportes.setText("Reportes");
+        btnReportes.setText("REPORTES");
         btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,12 +346,12 @@ public class formPrincipal extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDespachos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEntregas, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 170, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(389, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -451,6 +454,21 @@ public class formPrincipal extends javax.swing.JFrame {
 
     private void btnAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustesActionPerformed
         // TODO add your handling code here:
+             if(frmSedes == null)
+        {
+            
+    
+            //objetos de las clases correspondientes
+            SedesModel mod= new SedesModel();
+            SedesCRUD crud = new SedesCRUD();
+            
+            formSedes frm = new formSedes();
+
+            //llama al formulario correspondiente
+             frmSedes= new SedesController(mod,frm,crud);
+             frmSedes.iniciar();
+             frm.setVisible(true);
+        }
     }//GEN-LAST:event_btnAjustesActionPerformed
 
     private void btnServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServiciosActionPerformed

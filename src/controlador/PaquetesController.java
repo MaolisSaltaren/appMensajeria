@@ -25,8 +25,8 @@ public class PaquetesController implements ActionListener,KeyListener,MouseListe
      private final formPaquetes frmPaque;
      private final PaquetesCRUD paqueCRUD;
      
-     public  static  String valorSEDE;
-     public  static  SedesModel modelsedes = new SedesModel();
+   //  public  static  String valorSEDE;
+ ///    public  static  SedesModel modelsedes = new SedesModel();
      
      
       
@@ -72,6 +72,10 @@ public class PaquetesController implements ActionListener,KeyListener,MouseListe
         limpiarTxt();
      //   String ValorBuscado="";
           mostrarPaquetes("");
+          
+          frmPaque.btnBuscarPaquete.setVisible(false);
+          frmPaque.txtIdPaquete.setVisible(false);
+          frmPaque.lblIdPaquete.setVisible(false);
    
     }
     
@@ -80,13 +84,13 @@ public class PaquetesController implements ActionListener,KeyListener,MouseListe
     @Override
     public void actionPerformed(ActionEvent e) {
     
-   //1.SE HA PULSADO EL BOTON GUARDAR clientes 
+   //1.SE HA PULSADO EL BOTON GUARDAR PAQUETES 
     if (e.getSource()== frmPaque.btnGuardarPaquete)
     {
        
         
 //    1. verifimamos de que los campos de texto no esten vacios
-         if(frmPaque.txtPrecioPaquete.getText().equals("") ||frmPaque.txtIdPaquete.getText().equals("") ||
+         if(frmPaque.txtPrecioPaquete.getText().equals("") ||
             frmPaque.txtNombrePaquete.getText().equals("") )
          
                   JOptionPane.showMessageDialog(null, "Los campos de texto no pueden estar vacios","Advertencia",JOptionPane.WARNING_MESSAGE);
@@ -100,7 +104,7 @@ public class PaquetesController implements ActionListener,KeyListener,MouseListe
           
 
            //      1.1 se llena el modelo  de los paquetes  
-                   modelPaque.setPaqueteId(Integer.parseInt(frmPaque.txtIdPaquete.getText()));
+                 //  modelPaque.setPaqueteId(Integer.parseInt(frmPaque.txtIdPaquete.getText()));
                    modelPaque.setPaquete_nombre(frmPaque.txtNombrePaquete.getText());
                    modelPaque.setPaquete_descripcion(frmPaque.txtDescripcionPaquete.getText());
                    modelPaque.setPaquete_precio(Double.parseDouble(frmPaque.txtPrecioPaquete.getText()));
@@ -171,7 +175,7 @@ public class PaquetesController implements ActionListener,KeyListener,MouseListe
          
         
 //    1. verifimamos de que los campos de texto no esten vacios
-         if(frmPaque.txtPrecioPaquete.getText().equals("") ||frmPaque.txtIdPaquete.getText().equals("") ||
+         if(frmPaque.txtPrecioPaquete.getText().equals("") ||
             frmPaque.txtNombrePaquete.getText().equals("") )
          {
                   JOptionPane.showMessageDialog(null, "Los campos de texto no pueden estar vacios","Advertencia",JOptionPane.WARNING_MESSAGE);
@@ -318,7 +322,7 @@ public class PaquetesController implements ActionListener,KeyListener,MouseListe
    
 
         else if (e.getSource()==frmPaque.txtPrecioPaquete)
-            validarCaja.validarDireccion(e);
+            validarCaja.isNumeric(e);
       
       
         else if (e.getSource()==frmPaque.txtBusquedaPaquete){

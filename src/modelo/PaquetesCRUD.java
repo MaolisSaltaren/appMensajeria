@@ -20,8 +20,8 @@ public class PaquetesCRUD extends ConexionBD{// herencia de la clase conecion
         Connection con=getConexion();
         
         String consultaSql = "INSERT INTO tbl_paquetes"
-                + "(PAQUE_ID,PAQUE_NOMBRE,PAQUE_DESCRIPCION,PAQUE_PRECIO)"
-                +"VALUES (?,?,?,?)" ;
+                + "(PAQUE_NOMBRE,PAQUE_DESCRIPCION,PAQUE_PRECIO)"
+                +"VALUES (?,?,?)" ;
         
       try
         {
@@ -29,10 +29,10 @@ public class PaquetesCRUD extends ConexionBD{// herencia de la clase conecion
             ps = getConexion().prepareStatement(consultaSql);
             
             //2.se le enbian los parametros a la consulta sql
-            ps.setInt(1, paque.getPaquete_id());
-            ps.setString(2, paque.getPaquete_nombre());
-            ps.setString(3, paque.getPaquete_descripcion());
-            ps.setDouble(4, paque.getPaquete_precio());
+ 
+            ps.setString(1, paque.getPaquete_nombre());
+            ps.setString(2, paque.getPaquete_descripcion());
+            ps.setDouble(3, paque.getPaquete_precio());
             
             //.3 se ejecuta la consulta 
             ps.execute();

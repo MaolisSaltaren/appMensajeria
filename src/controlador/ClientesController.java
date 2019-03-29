@@ -16,15 +16,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import misClases.EncriptarPass;
 import misClases.Validacion;
 import modelo.CiudadesCRUD;
 import modelo.CiudadesModel;
 import modelo.SedesModel;
-import modelo.SesionModel;
 import modelo.ClientesCRUD;
 import modelo.ClientesModel;
-import vista.formBuscarSedes;
 import vista.formClientes;
 
 

@@ -289,7 +289,7 @@ public class formBuscarSedes extends javax.swing.JDialog {
         
         //crea una instancia de la clase UsuariosCrud
         SedesCRUD sesCR= new SedesCRUD();
-        ResultSet rs =sesCR.buscarSedesById(valor);
+        ResultSet rs =sesCR.buscarSedesByNombre(valor);
         modelo.setColumnIdentifiers(new Object[]{
             "ID SEDE","NOMBRE ", " DIRECCION","CIUDAD"});
    
