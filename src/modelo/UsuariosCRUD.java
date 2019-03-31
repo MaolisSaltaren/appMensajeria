@@ -339,7 +339,7 @@ public class UsuariosCRUD extends ConexionBD{// herencia de la clase conecion
             
                 ps.execute();
                 
-                sesMod.setId_trabajador(Integer.parseInt(rs.getString("sede_id")));
+                sesMod.setId_trabajador(Integer.parseInt(rs.getString("traba_id")));
                 sesMod.setNombre_trabajador(rs.getString("traba_nombre"));
                 sesMod.setId_sede(Integer.parseInt(rs.getString("sede_id")));
                 sesMod.setRol_nombre(rs.getString("traba_rol"));

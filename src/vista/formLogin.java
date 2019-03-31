@@ -155,7 +155,7 @@ public class formLogin extends javax.swing.JFrame {
     //aggarra la fecha y hora del sistema para saber la ultima sesion del usuario
        Date fecha = new Date();
        DateFormat fechaHoraSistema = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        
+       
      
                 
         UsuariosController ctrl= new UsuariosController(modelSesion,modelUsu,frmUsuario,usuCRUD);
