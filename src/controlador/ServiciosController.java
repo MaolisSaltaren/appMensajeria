@@ -1,15 +1,14 @@
 
 package controlador;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,8 +20,14 @@ import modelo.ServiciosCRUD;
 import modelo.CiudadesCRUD;
 import modelo.ClientesCRUD;
 import modelo.ClientesModel;
+import modelo.PaquetesCRUD;
+import modelo.PaquetesModel;
+import vista.formBuscarPaquetes;
 import modelo.SesionModel;
+
 import vista.formServicios;
+import modelo.PaquetesModel;
+
 
 public class ServiciosController implements ActionListener,KeyListener,MouseListener{
     
@@ -31,7 +36,9 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
      private final formServicios frmServi;
      private final ServiciosCRUD serviCRUD;
      
-
+      public static  PaquetesModel  modelpaque =new PaquetesModel();
+     
+     public  static 
  
      //objeto de la clase validacion
      Validacion validarCaja= new Validacion();
@@ -50,16 +57,12 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
         this.frmServi.btnGuardarServicios.addActionListener(this);
         this.frmServi.btnIrClienteEmisor.addActionListener(this);
         this.frmServi.btnIrClienteReceptor.addActionListener(this);
+        this.frmServi.btnIrClientePaquete.addActionListener(this);
         this.frmServi.btnBuscarClienteEmisor.addActionListener(this);
         this.frmServi.btnBuscarClienteReceptor.addActionListener(this);
         this.frmServi.btnBuscarPaquete.addActionListener(this);
-        
-//        this.frmServi.btnCancelarSedes.addActionListener(this);
-//        this.frmServi.btnEliminarSedes.addActionListener(this);
-//        this.frmServi.btnActualizarSedes.addActionListener(this);
-//        this.frmServi.btnBuscarSedes.addActionListener(this);
-//        this.frmServi.popoDetallle.addActionListener(this);
-//     
+        this.frmServi.btnCancelar.addActionListener(this);
+         
         
         //coloca los texbox a la escucha del evento de presionar un boton 
        // this.frmServi.txtIdPaquete.addKeyListener(this);
@@ -69,10 +72,6 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
         this.frmServi.txtDireccionServicio.addKeyListener(this);
         this.frmServi.txtObservacionServicio.addKeyListener(this);
       
-//        this.frmServi.txtBusquedaSedes.addKeyListener(this);
-//        
-//        this.frmServi.jTableSedes.addMouseListener(this);
-//        
 
         
     }
@@ -90,7 +89,10 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
           
          if( serviCRUD.selectMax(modelServicio))
              frmServi.lblMaxServicio.setText(String.valueOf(modelServicio.getServi_id()));
-          
+           //2.agarra la hora del sistema y se la asigna al modelo  de servicios 
+            Date fecha = new Date();
+           DateFormat fechaHoraSistema = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+          frmServi.lblFechaActual.setText(fechaHoraSistema.format(fecha).toString());
        
         
    
@@ -108,12 +110,18 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
         
 //    1. verifimamos de que los campos de texto no esten vacios
          if(frmServi.txtIdClienteEmisor.getText().equals("") ||
-            frmServi.txtIdClienteReceptor.getText().equals("") )
+            frmServi.txtIdClienteReceptor.getText().equals("")||
+            frmServi.txtIdPaquete.getText().equals("")
+                 )
          
                   JOptionPane.showMessageDialog(null, "Los campos de texto no pueden estar vacios","Advertencia",JOptionPane.WARNING_MESSAGE);
 
           else if(frmServi.txtCiudadDestino.getSelectedItem().equals("Seleccionar") )
-                 JOptionPane.showMessageDialog(null, "Debe elegir una ciudad destino ", " ", JOptionPane.INFORMATION_MESSAGE);
+                 JOptionPane.showMessageDialog(null, "Debe elegir una ciudad destino ", " ", JOptionPane.WARNING_MESSAGE);
+         
+       
+          else if(frmServi.txtIdClienteEmisor.getText().equals(frmServi.txtIdClienteReceptor.getText()) )
+                 JOptionPane.showMessageDialog(null, " El cliente emisor debe ser diferente al cliente receptor ", " ", JOptionPane.WARNING_MESSAGE);
          
        
   
@@ -130,7 +138,6 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
                modelServicio.setServi_fecha(fechaHoraSistema.format(fecha).toString()); // llena el modelo con la fecha actual del sistema
                modelServicio.setServi_traba_id(modelSesion.getId_trabajador());// agarra el id del empleado del modelo se sesion con la que  ingreso el trabajador
                modelServicio.setServi_paque_id(Integer.parseInt(frmServi.txtIdPaquete.getText()));
-               JOptionPane.showMessageDialog(null, "id_servicio="+ modelServicio.getServi_id(), " ", JOptionPane.INFORMATION_MESSAGE);
                modelServicio.setServi_estado(frmServi.txtEstadoPaquete.getText());
                modelServicio.setServi_direccion(frmServi.txtDireccionServicio.getText());
                modelServicio.setServi_ciudad_destino(frmServi.txtCiudadDestino.getSelectedItem().toString());
@@ -189,12 +196,48 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
     //SE HA DETECTADO QUE SE PRESIONO EL BOTON DE BUSCAR ID CLIENTE RECEPTOR
     
     
+    
     else  if(e.getSource()==frmServi.btnIrClienteReceptor)
     {
           buscarCliente(frmServi.txtIdClienteReceptor, frmServi.txtNombreCliente1); 
     }
+      //=====================================================================================================================
+    //SE HA DETECTADO QUE SE PRESIONO EL BOTON DE BUSCAR ID PAQUETES
     
     
+    
+    else  if(e.getSource()==frmServi.btnIrClientePaquete)
+    {
+          irPaquetes();
+    }
+   
+    
+    
+    //=====================================================================================================================
+    //SE HA DETECTADO QUE SE PRESIONO EL BOTON DE BUSCAR ID PAQUETE    
+    
+     else  if(e.getSource()==frmServi.btnBuscarPaquete)
+    {
+        
+      
+          
+       formBuscarPaquetes buscaPaque= new formBuscarPaquetes(frmServi,true);
+ 
+        buscaPaque.setVisible(true);
+        
+      //  JOptionPane.showMessageDialog(null, " el valor lleado en el jdialog es"+ valorSEDE, " ", JOptionPane.INFORMATION_MESSAGE);
+        frmServi.txtIdPaquete.setText(String.valueOf(modelpaque.getPaquete_id()));
+       //frmServi.txtVrUnitarioPaquete.setText(""+modelpaque.getPaquete_precio());
+       // frmServi.llbl.setText(""+modelpaque.getPaquete_precio());
+       frmServi.lblTotal.setText(""+modelpaque.getPaquete_precio());
+        frmServi.txtnombrePaquete.setText(modelpaque.getPaquete_nombre());
+        
+        
+    }
+      else  if(e.getSource()==frmServi.btnCancelar)
+    {
+        limpiarTxt();
+    }
     
     
     
@@ -202,11 +245,11 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
 
       
     //=============================================================================================
-           // SE HA PULSADO EL BOTON DE BUSCAR
+           // SE HA PULSADO EL BOTON DE IR  DE PAQUETES 
     public void buscarCliente(JTextField txtIdCliente, JTextField txtNombreCliente)
    {
-        ClientesModel modelClie = new ClientesModel();
-        ClientesCRUD clieCRUD = new ClientesCRUD();
+        ClientesModel modelServi = new ClientesModel();
+        ClientesCRUD serviCRUD = new ClientesCRUD();
         
         
         
@@ -218,19 +261,59 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
            }
            else{
               //1.se llena el modelo con el id ingresado en la caja de texto 
-               modelClie.setId_cliente(Integer.parseInt(txtIdCliente.getText()));
+               modelServi.setId_cliente(Integer.parseInt(txtIdCliente.getText()));
 
 
                //2. si se encontró algun resultado los carja en los jtextfield correspondientes
-               if(clieCRUD.getClienteById(modelClie))  
+               if(serviCRUD.getClienteById(modelServi))  
                { 
                    //lleva los datos a las cjas de texto
-                   txtNombreCliente.setText(String.valueOf(modelClie.getNombre_cliente()));
+                   txtNombreCliente.setText(String.valueOf(modelServi.getNombre_cliente()));
                    
                  
                }
                else
                    JOptionPane.showMessageDialog(null, "No se encontró el cliente buscado", " cliente no encontrado", JOptionPane.ERROR_MESSAGE);        
+           }
+       
+        
+    }
+    
+    //=============================================================================================
+           // funcion que busca un paquete determinado en la base de datos y lo muestra en las cajas de texto correspondientes
+    public void irPaquetes()
+   {
+        PaquetesModel modelServi = new PaquetesModel();
+        PaquetesCRUD serviCrd = new PaquetesCRUD();
+        
+        
+        
+        
+           //validacion de que el id del cliente no este vacion 
+           if (frmServi.txtIdPaquete.getText().equals("")) {
+               JOptionPane.showMessageDialog(null, "Por favor ingresa el id del paquete", " ", JOptionPane.WARNING_MESSAGE);
+
+           }
+           else{
+              //1.se llena el modelo con el id ingresado en la caja de texto 
+              
+               modelServi.setPaqueteId(Integer.parseInt(frmServi.txtIdPaquete.getText()));
+
+
+               //2. si se encontró algun resultado los carja en los jtextfield correspondientes
+               if(serviCrd.getPaquetesById(modelServi))  
+               { 
+                   //lleva los datos a las cjas de texto
+                   frmServi.txtIdPaquete.setText(String.valueOf(modelServi.getPaquete_id()));
+                
+                   frmServi.txtnombrePaquete.setText(modelServi.getPaquete_nombre()); 
+                          frmServi.lblTotal.setText(""+modelpaque.getPaquete_precio());
+                   
+                 
+               }
+               else
+                   JOptionPane.showMessageDialog(null, "No se encontró el paquete ingresado", " cliente no encontrado", JOptionPane.ERROR_MESSAGE);        
+
            }
        
         
@@ -254,8 +337,8 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
        frmServi.txtIdClienteReceptor.setText("");
        frmServi.txtNombreCliente1.setText("");
        frmServi.txtnombrePaquete.setText("");
-       frmServi.txtVrUnitarioPaquete.setText("");
-       frmServi.txtCantidadPaquetes.setText("");
+      // frmServi.txtVrUnitarioPaquete.setText("");
+     
        frmServi.txtDireccionServicio.setText("");
        frmServi.txtObservacionServicio.setText("");
        frmServi.txtCiudadDestino.setSelectedItem("Seleccionar");
@@ -263,8 +346,39 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
    
        
 }
+   //=====================================================================================
    
-   
+   //carga en el jcombo todas las ciudades que estan registradas en la base de datos 
+   public void cargarCiudades() 
+   {
+       
+       
+     
+      //  CiudadesModel ciud= new CiudadesModel();
+        //crea una instancia de la clase ClientesCrud
+        CiudadesCRUD ciudCR= new CiudadesCRUD();
+        ResultSet rs =ciudCR.getAllCiudad();
+     
+        
+       if(rs!=null)
+        {
+            try 
+            {
+            while(rs.next())
+            {
+                
+                String resul=rs.getString("ciud_nombre");
+                frmServi.txtCiudadDestino.addItem(resul);
+
+            }
+       
+            }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+      
+            } 
+        }
+     }
    
 
    
@@ -319,36 +433,6 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
   
     }
    
-   //carga en el jcombo todas las ciudades que estan registradas en la base de datos 
-   public void cargarCiudades() 
-   {
-       
-       
-     
-      //  CiudadesModel ciud= new CiudadesModel();
-        //crea una instancia de la clase ClientesCrud
-        CiudadesCRUD ciudCR= new CiudadesCRUD();
-        ResultSet rs =ciudCR.getAllCiudad();
-     
-        
-       if(rs!=null)
-        {
-            try 
-            {
-            while(rs.next())
-            {
-                
-                String resul=rs.getString("ciud_nombre");
-                frmServi.txtCiudadDestino.addItem(resul);
-
-            }
-       
-            }catch(SQLException e){
-           
-            JOptionPane.showMessageDialog(null,"Error"+e.toString());
-      
-            } 
-        }
-     }
+   
        
 }

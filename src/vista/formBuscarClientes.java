@@ -65,7 +65,7 @@ public class formBuscarClientes extends javax.swing.JDialog {
 
         jLabel20.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 153, 102));
-        jLabel20.setText("Clic derecho robre el elemento para mas detalle");
+        jLabel20.setText("Clic sobre un registro para seleccionar un elemento ");
 
         jConboBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar por ID", "Buscar por Nombre" }));
         jConboBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

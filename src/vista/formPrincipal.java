@@ -454,22 +454,22 @@ public class formPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPaquetesActionPerformed
 
     private void btnAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustesActionPerformed
-        // TODO add your handling code here:
-//             if(frmSedes == null)
-//        {
-//            
-//    
-//            //objetos de las clases correspondientes
-//            SedesModel mod= new SedesModel();
-//            SedesCRUD crud = new SedesCRUD();
-//            
-//            formSedes frm = new formSedes();
-//
-//            //llama al formulario correspondiente
-//             frmSedes= new SedesController(mod,frm,crud);
-//             frmSedes.iniciar();
-//             frm.setVisible(true);
-//        }
+       
+             if(frmSedes == null)
+        {
+            
+    
+            //objetos de las clases correspondientes
+            SedesModel mod= new SedesModel();
+            SedesCRUD crud = new SedesCRUD();
+            
+            formSedes frm = new formSedes();
+
+            //llama al formulario correspondiente
+             frmSedes= new SedesController(mod,frm,crud);
+             frmSedes.iniciar();
+             frm.setVisible(true);
+        }
     }//GEN-LAST:event_btnAjustesActionPerformed
 
     private void btnServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServiciosActionPerformed
