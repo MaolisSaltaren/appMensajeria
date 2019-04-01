@@ -251,7 +251,7 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
    //======================================================================================
     ////////////////////////////////////////////////////////////////////////////////////////
     //ListarClientes
-        public static ResultSet getServcioNoEntregado( String campo)
+        public static ResultSet getServcioNoEntregado( String campo,String estado_servicio)
     {
      
         PreparedStatement ps = null;
@@ -261,30 +261,31 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
         
         //CONSULTA SQL 
             String consultaSql = "SELECT \n" +
-                                "  `tbl_servicios`.`SERVI_ID`,\n" +
-                                "  `tbl_servicios`.`SERV_CIUDAD_DESTINO`,\n" +
-                                "  `tbl_ciudades`.`CIUD_NOMBRE` ,\n" +
-                                "  `tbl_paquetes`.`PAQUE_NOMBRE`,\n" +
-                                "  `tbl_clientes`.`CLIE_NOMBRE`\n" +
-                                "FROM\n" +
-                                "  `tbl_ciudades`\n" +
-                                "  INNER JOIN `tbl_sedes` ON (`tbl_ciudades`.`CIUD_NOMBRE` = `tbl_sedes`.`CIUD_NOMBRE`)\n" +
-                                "  INNER JOIN `tbl_trabajadores` ON (`tbl_sedes`.`SEDES_ID` = `tbl_trabajadores`.`SEDE_ID`)\n" +
-                                "  INNER JOIN `tbl_servicios` ON (`tbl_trabajadores`.`TRABA_ID` = `tbl_servicios`.`TRABA_ID`)\n" +
-                                "  INNER JOIN `tbl_clien_servicios` ON (`tbl_servicios`.`SERVI_ID` = `tbl_clien_servicios`.`SERVI_ID`)\n" +
-                                "  INNER JOIN `tipo_cliente` ON (`tbl_clien_servicios`.`TICI_ID` = `tipo_cliente`.`TICI_ID`)\n" +
-                                "  INNER JOIN `tbl_paquetes` ON (`tbl_servicios`.`PAQUE_ID` = `tbl_paquetes`.`PAQUE_ID`)\n" +
-                                "  INNER JOIN `tbl_clientes` ON (`tbl_clien_servicios`.`CLIE_ID` = `tbl_clientes`.`CLIE_ID`)\n" +
-                                "WHERE\n" +
-                                "  (`tbl_servicios`.`SERVI_ESTADO` = 'Ingresado a  Bodega'  or `tbl_servicios`.`SERVI_ESTADO` = 'Despachado' ) and \n" +
-                                "  `tbl_clien_servicios`.`CLIE_ID` = ? AND \n" +
-                                "  `tipo_cliente`.`TICI_NOMBRE` = 'Cliente Receptor'\n" +
-                                "GROUP BY\n" +
-                                "  tbl_servicios.SERVI_ID,\n" +
-                                "  tbl_servicios.SERV_CIUDAD_DESTINO,\n" +
-                                "  tbl_servicios.SERVI_ESTADO,\n" +
-                                "  tbl_ciudades.CIUD_NOMBRE,\n" +
-                                "  tbl_sedes.SEDES_NOMBRE";
+"  `tbl_servicios`.`SERVI_ID`,\n" +
+"  `tbl_servicios`.`SERV_CIUDAD_DESTINO`,\n" +
+"  `tbl_ciudades`.`CIUD_NOMBRE`,\n" +
+"  `tbl_CLIENTES`.`CLIE_ID`,\n" +
+"  `tbl_paquetes`.`PAQUE_NOMBRE`,\n" +
+"  `tbl_clientes`.`CLIE_NOMBRE`\n" +
+"FROM\n" +
+"  `tbl_ciudades`\n" +
+"  INNER JOIN `tbl_sedes` ON (`tbl_ciudades`.`CIUD_NOMBRE` = `tbl_sedes`.`CIUD_NOMBRE`)\n" +
+"  INNER JOIN `tbl_trabajadores` ON (`tbl_sedes`.`SEDES_ID` = `tbl_trabajadores`.`SEDE_ID`)\n" +
+"  INNER JOIN `tbl_servicios` ON (`tbl_trabajadores`.`TRABA_ID` = `tbl_servicios`.`TRABA_ID`)\n" +
+"  INNER JOIN `tbl_clien_servicios` ON (`tbl_servicios`.`SERVI_ID` = `tbl_clien_servicios`.`SERVI_ID`)\n" +
+"  INNER JOIN `tipo_cliente` ON (`tbl_clien_servicios`.`TICI_ID` = `tipo_cliente`.`TICI_ID`)\n" +
+"  INNER JOIN `tbl_paquetes` ON (`tbl_servicios`.`PAQUE_ID` = `tbl_paquetes`.`PAQUE_ID`)\n" +
+"  INNER JOIN `tbl_clientes` ON (`tbl_clien_servicios`.`CLIE_ID` = `tbl_clientes`.`CLIE_ID`)\n" +
+"WHERE\n" +
+"  `tbl_clien_servicios`.`CLIE_ID` like  concat('%', ?, '%' ) AND \n" +
+"  `tipo_cliente`.`TICI_ID` = 2 AND \n" +
+"  `tbl_servicios`.`SERVI_ESTADO` = ? \n" +
+"GROUP BY\n" +
+"  tbl_servicios.SERVI_ID,\n" +
+"  tbl_servicios.SERV_CIUDAD_DESTINO,\n" +
+"  tbl_servicios.SERVI_ESTADO,\n" +
+"  tbl_ciudades.CIUD_NOMBRE,\n" +
+"  tbl_sedes.SEDES_NOMBRE";
 
             try
         {
@@ -292,7 +293,9 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
             ps = getConexion().prepareStatement(consultaSql);
             
             //2.se le enbian los parametros a la consulta sql
-            ps.setInt(1,Integer.parseInt(campo));
+               ps.setString(1,campo);
+            ps.setString(2,estado_servicio);
+         
            
          //  ps.setInt(1,idSesion);
             

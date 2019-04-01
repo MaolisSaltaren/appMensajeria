@@ -13,7 +13,9 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import misClases.Validacion;
 import modelo.ServiciosCRUD;
 import modelo.ServiciosModel;
 
@@ -33,6 +35,8 @@ public class formEntregas extends javax.swing.JDialog {
         initComponents();
          
          this.setLocationRelativeTo(null);
+             mostrarServiciosNoEntregados("", "Entregado",jtableUsuarios1);
+             mostrarServiciosNoEntregados("", "Despachado",jtableUsuarios2);
     }
 
     /**
@@ -55,16 +59,25 @@ public class formEntregas extends javax.swing.JDialog {
         jtableServi = new javax.swing.JTable();
         jLabel20 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtBuscar2 = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtableUsuarios1 = new javax.swing.JTable();
-        jLabel21 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnBuscarserv = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        txtBuscar3 = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jtableUsuarios2 = new javax.swing.JTable();
+        btnBuscarserv1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
-        popoDetallle1.setText("Detalles");
+        popoDetallle1.setText("ENTREGAR");
         popoDetallle1.setName("hola"); // NOI18N
         popoDetallle1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +124,10 @@ public class formEntregas extends javax.swing.JDialog {
             }
         });
 
+        jLabel5.setText("NUEVA ENTREGA");
+
+        jLabel7.setText("lISTADO DE TODAS LAS ENTREGAS EFECTUADAS ");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -124,36 +141,59 @@ public class formEntregas extends javax.swing.JDialog {
                                 .addComponent(jLabel20))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton1)))))
                         .addGap(0, 426, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2)))
                 .addContainerGap())
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addContainerGap(323, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(303, 303, 303)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel5)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
                         .addComponent(txtIdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(249, 249, 249))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addContainerGap(485, Short.MAX_VALUE)
+                    .addComponent(jLabel7)
+                    .addGap(207, 207, 207)))
         );
 
-        jTabbedPane1.addTab("ENTREGAS", jPanel3);
+        jTabbedPane1.addTab("REGISTRAR ENTREGA", jPanel3);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
 
         jLabel8.setText("ID CLIENTE :");
+
+        txtBuscar2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscar2KeyReleased(evt);
+            }
+        });
 
         jtableUsuarios1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,11 +211,14 @@ public class formEntregas extends javax.swing.JDialog {
         });
         jScrollPane3.setViewportView(jtableUsuarios1);
 
-        jLabel21.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 153, 102));
-        jLabel21.setText("Clic derecho robre el elemento para mas detalle");
+        btnBuscarserv.setText("BUSCAR");
+        btnBuscarserv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarservActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("BUSCAR");
+        jLabel1.setText("lISTADO DE TODAS LAS ENTREGAS EFECTUADAS ");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -184,33 +227,30 @@ public class formEntregas extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel21))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
-                        .addGap(0, 426, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscarserv)))
+                        .addGap(0, 432, Short.MAX_VALUE))
                     .addComponent(jScrollPane3))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(txtBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarserv))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -219,44 +259,113 @@ public class formEntregas extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 919, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("CONSULTAR", jPanel1);
+        jTabbedPane1.addTab("ENTREGAS EFECTUADAS", jPanel1);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+
+        jLabel9.setText("ID CLIENTE :");
+
+        txtBuscar3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscar3KeyReleased(evt);
+            }
+        });
+
+        jtableUsuarios2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jtableUsuarios2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtableUsuarios2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtableUsuarios2MouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jtableUsuarios2);
+
+        btnBuscarserv1.setText("BUSCAR");
+        btnBuscarserv1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarserv1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("lISTADO DE TODAS LAS ENTREGAS QUE SE ENCUENTRAN PENDIENTES POR ENTREGAR");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtBuscar3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscarserv1)))
+                        .addGap(0, 399, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtBuscar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarserv1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("ENTREGAS PENDIENTES", jPanel5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(493, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(171, 171, 171))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(324, 324, 324))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel3)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
@@ -273,7 +382,7 @@ public class formEntregas extends javax.swing.JDialog {
     }//GEN-LAST:event_jtableUsuarios1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        mostrarClientes(txtIdCliente.getText());
+        mostrarServiciosNoEntregados(txtIdCliente.getText(),"Despachado",jtableServi);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void popoDetallle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popoDetallle1ActionPerformed
@@ -306,11 +415,34 @@ public class formEntregas extends javax.swing.JDialog {
                 //agrega al modelo los parametros necesarios para la consulta
                 if( actualizar.actualizarEstado(modelo))
                 JOptionPane.showMessageDialog(null, "Servicio entregado con exito ", " ", JOptionPane.INFORMATION_MESSAGE);
-                mostrarClientes(txtIdCliente.getText());
+                mostrarServiciosNoEntregados(txtIdCliente.getText(),"Despachado",jtableServi);
+                mostrarServiciosNoEntregados(txtBuscar2.getText(), "Entregado",jtableUsuarios1); 
+                mostrarServiciosNoEntregados(txtBuscar3.getText(), "Despachado",jtableUsuarios2);
             }
        
       
     }//GEN-LAST:event_popoDetallle1ActionPerformed
+
+    private void txtBuscar2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar2KeyReleased
+      Validacion validar= new Validacion ();
+      validar.isNumeric(evt);
+    }//GEN-LAST:event_txtBuscar2KeyReleased
+
+    private void btnBuscarservActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarservActionPerformed
+        mostrarServiciosNoEntregados(txtBuscar2.getText(), "Entregado",jtableUsuarios1);
+    }//GEN-LAST:event_btnBuscarservActionPerformed
+
+    private void txtBuscar3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar3KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscar3KeyReleased
+
+    private void jtableUsuarios2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableUsuarios2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtableUsuarios2MouseClicked
+
+    private void btnBuscarserv1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarserv1ActionPerformed
+     mostrarServiciosNoEntregados(txtBuscar3.getText(), "Despachado",jtableUsuarios2);
+    }//GEN-LAST:event_btnBuscarserv1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -361,7 +493,7 @@ public class formEntregas extends javax.swing.JDialog {
     
     //    ===============================================================================================
     //SERVICIOS NO ENTREGADOS
-    public void mostrarClientes( String valor) 
+    public void mostrarServiciosNoEntregados( String valor,String estado_sevicio,JTable tabla) 
    {
              
         DefaultTableModel modelo = new  DefaultTableModel();
@@ -369,11 +501,11 @@ public class formEntregas extends javax.swing.JDialog {
         
      // instancia de la clase serviioscud
      ServiciosCRUD servi= new ServiciosCRUD();
-     ResultSet rs=servi.getServcioNoEntregado(valor);
+     ResultSet rs=servi.getServcioNoEntregado(valor,estado_sevicio);
    
       
         modelo.setColumnIdentifiers(new Object[]{
-            "ID SERVICIO","PAQUETE ", " CIUDAD ORIGEN"," CIUDAD DESTINO","CLIENTE"});
+            "ID SERVICIO","CLIENTE","ID CLIENTE","PAQUETE ", " CIUDAD ORIGEN"," CIUDAD DESTINO"});
  
        if(rs!=null)
         {
@@ -384,14 +516,16 @@ public class formEntregas extends javax.swing.JDialog {
             {
                       modelo.addRow(new Object[]{
                         rs.getString("SERVI_ID"),
+                        rs.getString("clie_nombre"),               
+                        rs.getString("clie_ID"),   
                         rs.getString("PAQUE_NOMBRE"),
                         rs.getString("CIUD_NOMBRE"),
                         rs.getString("SERV_CIUDAD_DESTINO"),
-                        rs.getString("clie_nombre"),               
+                                   
                       
                 });
             }
-            jtableServi.setModel(modelo);
+            tabla.setModel(modelo);
             }catch(SQLException e){
            
             JOptionPane.showMessageDialog(null,"Error"+e.toString());
@@ -402,26 +536,33 @@ public class formEntregas extends javax.swing.JDialog {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarserv;
+    private javax.swing.JButton btnBuscarserv1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPopupMenu jPopopMenu;
+    private javax.swing.JPanel jPanel5;
     public javax.swing.JPopupMenu jPopopMenu1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTable jtableServi;
     public javax.swing.JTable jtableUsuarios1;
-    private javax.swing.JMenuItem popoDetallle;
+    public javax.swing.JTable jtableUsuarios2;
     public javax.swing.JMenuItem popoDetallle1;
     public javax.swing.JTextField txtBuscar2;
+    public javax.swing.JTextField txtBuscar3;
     public javax.swing.JTextField txtIdCliente;
     // End of variables declaration//GEN-END:variables
 }
