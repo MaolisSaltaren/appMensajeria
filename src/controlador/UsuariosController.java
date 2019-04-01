@@ -123,6 +123,7 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
                  JOptionPane.showMessageDialog(null, "Debe agignar un rol a este empleado", " ", JOptionPane.INFORMATION_MESSAGE);
          
        
+        
          
            else  if(frmUsuario.lblDisponible.getText()=="¡Ocupado!")
          
@@ -157,8 +158,8 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
                    modelUsu.setId_sede(Integer.parseInt(frmUsuario.txtIdSede.getText()));
                    modelUsu.setNombre_rol(frmUsuario.txtNombre_rol.getSelectedItem().toString());
                    
-
-
+                   
+       
                         //1.2.llama al metodo insertar de la claseUsuariosCrud
                         //----------
                         if(usuCRUD.insertarUsuario(modelUsu))
@@ -198,20 +199,26 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
             {
             //2.1 llena el modelo 
              modelUsu.setId(Integer.parseInt(frmUsuario.txtIdUsuario.getText()));
+             
+              
+                if(frmUsuario.txtNombre_rol.getSelectedItem().equals("Admin") )
+               JOptionPane.showMessageDialog(null, "Los usuarios con rol Admin no pueden ser eliminados", " ", JOptionPane.INFORMATION_MESSAGE);
+                    else
+                {
 
-           //2.2.llama al metodo eliminar de la claseUsuariosCrud
+                    //2.2.llama al metodo eliminar de la claseUsuariosCrud
 
-            if(usuCRUD.eliminarUsuario(modelUsu)){        
-               limpiarTxt();
-               JOptionPane.showMessageDialog(null,"El registro se elimino exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
-            frmUsuario.btnEliminarUsu.setEnabled(false);
-            frmUsuario.btnGuardarUsu.setEnabled(true);
-            frmUsuario.btnBuscarUsu.setEnabled(true);
-            frmUsuario.btnActualizarUsu.setEnabled(false);
-                mostrarUsuarios("");
-            }else
-                JOptionPane.showMessageDialog(null,"Operacion no realizada","informe de error ",JOptionPane.ERROR_MESSAGE );
-       
+                     if(usuCRUD.eliminarUsuario(modelUsu)){        
+                        limpiarTxt();
+                        JOptionPane.showMessageDialog(null,"El registro se elimino exitosamente ","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
+                     frmUsuario.btnEliminarUsu.setEnabled(false);
+                     frmUsuario.btnGuardarUsu.setEnabled(true);
+                     frmUsuario.btnBuscarUsu.setEnabled(true);
+                     frmUsuario.btnActualizarUsu.setEnabled(false);
+                         mostrarUsuarios("");
+                     }else
+                         JOptionPane.showMessageDialog(null,"Operacion no realizada","informe de error ",JOptionPane.ERROR_MESSAGE );
+                }
             
             }
         }

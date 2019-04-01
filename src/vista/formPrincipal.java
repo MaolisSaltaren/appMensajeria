@@ -493,7 +493,11 @@ public class formPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnServiciosActionPerformed
 
     private void btnEntregasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregasActionPerformed
-        // TODO add your handling code here:
+   
+        formEntregas frmEntrega = new formEntregas(this, true);
+        frmEntrega.setVisible(true);
+        
+        
     }//GEN-LAST:event_btnEntregasActionPerformed
 
     private void btnDespachosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDespachosActionPerformed

@@ -72,6 +72,7 @@ public class SedesController implements ActionListener,KeyListener,MouseListener
           
           frmSede.btnBuscarSedes.setVisible(false);
           frmSede.txtIdSedes.setVisible(false);
+          frmSede.btnEliminarSedes.setVisible(false);
         
    
     }
@@ -279,10 +280,10 @@ public class SedesController implements ActionListener,KeyListener,MouseListener
     public void keyTyped(KeyEvent e) {
         
        
-       if (e.getSource ()==frmSede.txtNombreSedes||  e.getSource()==frmSede.txtDireccionSedes) 
-            validarCaja.validarUsuario(e);
+       if (e.getSource ()==frmSede.txtNombreSedes) 
+            validarCaja.validarDireccion(e);
        else  if (e.getSource()==frmSede.txtDireccionSedes) 
-            validarCaja.validarUsuario(e);
+            validarCaja.validarDireccion(e);
    
 
       

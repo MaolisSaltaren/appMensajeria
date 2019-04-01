@@ -156,7 +156,6 @@ public class formLogin extends javax.swing.JFrame {
        Date fecha = new Date();
        DateFormat fechaHoraSistema = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
        
-     
                 
         UsuariosController ctrl= new UsuariosController(modelSesion,modelUsu,frmUsuario,usuCRUD);
         ctrl.iniciar();

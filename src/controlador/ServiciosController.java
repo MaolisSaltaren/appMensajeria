@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import misClases.Validacion;
 import modelo.ServiciosModel;
 import modelo.ServiciosCRUD;
@@ -326,6 +327,10 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
        
         
     }
+    
+
+    
+    
     
     //=============================================================================================
            // funcion que busca un paquete determinado en la base de datos y lo muestra en las cajas de texto correspondientes

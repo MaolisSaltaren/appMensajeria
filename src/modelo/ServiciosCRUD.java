@@ -170,7 +170,8 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
         
         //CONSULTA SQL 
         String consultaSql = "update tbl_servicios set \n" +
-                            "servi_estado=?\n" +
+                            "servi_estado=?,\n" +
+                            "servi_fecha_entrega=?\n" +
                             "where SERVI_ID =?";
       try
         {
@@ -181,7 +182,8 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
          
 
            ps.setString(1,servi.getServi_estado()); 
-           ps.setInt(2, servi.getServi_paque_id());
+           ps.setString(2,servi.getServi_fecha_entrega()); 
+           ps.setInt(3, servi.getServi_id());
 
 
             
@@ -245,10 +247,152 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
         }        
       return false;
     }
-  
-        //==========================================================
-        //ESTE METODO BUSCA SI SE ENCUENTRA DISPONIBLE O NO EL NOMBRE DE USUARIO DE UN EMPLEADO
-  
+ 
+   //======================================================================================
+    ////////////////////////////////////////////////////////////////////////////////////////
+    //ListarClientes
+        public static ResultSet getServcioNoEntregado( String campo)
+    {
+     
+        PreparedStatement ps = null;
+        Connection con=getConexion();
+        ResultSet rs = null ; 
+        
+        
+        //CONSULTA SQL 
+            String consultaSql = "SELECT \n" +
+                                "  `tbl_servicios`.`SERVI_ID`,\n" +
+                                "  `tbl_servicios`.`SERV_CIUDAD_DESTINO`,\n" +
+                                "  `tbl_ciudades`.`CIUD_NOMBRE` ,\n" +
+                                "  `tbl_paquetes`.`PAQUE_NOMBRE`,\n" +
+                                "  `tbl_clientes`.`CLIE_NOMBRE`\n" +
+                                "FROM\n" +
+                                "  `tbl_ciudades`\n" +
+                                "  INNER JOIN `tbl_sedes` ON (`tbl_ciudades`.`CIUD_NOMBRE` = `tbl_sedes`.`CIUD_NOMBRE`)\n" +
+                                "  INNER JOIN `tbl_trabajadores` ON (`tbl_sedes`.`SEDES_ID` = `tbl_trabajadores`.`SEDE_ID`)\n" +
+                                "  INNER JOIN `tbl_servicios` ON (`tbl_trabajadores`.`TRABA_ID` = `tbl_servicios`.`TRABA_ID`)\n" +
+                                "  INNER JOIN `tbl_clien_servicios` ON (`tbl_servicios`.`SERVI_ID` = `tbl_clien_servicios`.`SERVI_ID`)\n" +
+                                "  INNER JOIN `tipo_cliente` ON (`tbl_clien_servicios`.`TICI_ID` = `tipo_cliente`.`TICI_ID`)\n" +
+                                "  INNER JOIN `tbl_paquetes` ON (`tbl_servicios`.`PAQUE_ID` = `tbl_paquetes`.`PAQUE_ID`)\n" +
+                                "  INNER JOIN `tbl_clientes` ON (`tbl_clien_servicios`.`CLIE_ID` = `tbl_clientes`.`CLIE_ID`)\n" +
+                                "WHERE\n" +
+                                "  (`tbl_servicios`.`SERVI_ESTADO` = 'Ingresado a  Bodega'  or `tbl_servicios`.`SERVI_ESTADO` = 'Despachado' ) and \n" +
+                                "  `tbl_clien_servicios`.`CLIE_ID` = ? AND \n" +
+                                "  `tipo_cliente`.`TICI_NOMBRE` = 'Cliente Receptor'\n" +
+                                "GROUP BY\n" +
+                                "  tbl_servicios.SERVI_ID,\n" +
+                                "  tbl_servicios.SERV_CIUDAD_DESTINO,\n" +
+                                "  tbl_servicios.SERVI_ESTADO,\n" +
+                                "  tbl_ciudades.CIUD_NOMBRE,\n" +
+                                "  tbl_sedes.SEDES_NOMBRE";
+
+            try
+        {
+            //1. se manda a preparar la consulta
+            ps = getConexion().prepareStatement(consultaSql);
+            
+            //2.se le enbian los parametros a la consulta sql
+            ps.setInt(1,Integer.parseInt(campo));
+           
+         //  ps.setInt(1,idSesion);
+            
+             //.3 se ejecuta la consulta 
+            rs= ps.executeQuery();
+            
+            //4.llena el modelo con los datos de la bd
+          
+            return rs;
+                
+        }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+            return null;
+        } 
+        finally
+        {
+            try{
+                con.close();
+            }
+            catch(SQLException e)
+            {
+                JOptionPane.showMessageDialog(null,"Error"+e.toString());
+            } 
+
+        }
+    }
+ 
+   //======================================================================================
+    ////////////////////////////////////////////////////////////////////////////////////////
+    //ListarClientes
+        public static ResultSet getServciosEntregados( String campo)
+    {
+     
+        PreparedStatement ps = null;
+        Connection con=getConexion();
+        ResultSet rs = null ; 
+        
+        
+        //CONSULTA SQL 
+            String consultaSql = "SELECT \n" +
+                                "  `tbl_servicios`.`SERVI_ID`,\n" +
+                                "  `tbl_servicios`.`SERV_CIUDAD_DESTINO`,\n" +
+                                "  `tbl_ciudades`.`CIUD_NOMBRE` ,\n" +
+                                "  `tbl_paquetes`.`PAQUE_NOMBRE`,\n" +
+                                "  `tbl_clientes`.`CLIE_NOMBRE`\n" +
+                                "FROM\n" +
+                                "  `tbl_ciudades`\n" +
+                                "  INNER JOIN `tbl_sedes` ON (`tbl_ciudades`.`CIUD_NOMBRE` = `tbl_sedes`.`CIUD_NOMBRE`)\n" +
+                                "  INNER JOIN `tbl_trabajadores` ON (`tbl_sedes`.`SEDES_ID` = `tbl_trabajadores`.`SEDE_ID`)\n" +
+                                "  INNER JOIN `tbl_servicios` ON (`tbl_trabajadores`.`TRABA_ID` = `tbl_servicios`.`TRABA_ID`)\n" +
+                                "  INNER JOIN `tbl_clien_servicios` ON (`tbl_servicios`.`SERVI_ID` = `tbl_clien_servicios`.`SERVI_ID`)\n" +
+                                "  INNER JOIN `tipo_cliente` ON (`tbl_clien_servicios`.`TICI_ID` = `tipo_cliente`.`TICI_ID`)\n" +
+                                "  INNER JOIN `tbl_paquetes` ON (`tbl_servicios`.`PAQUE_ID` = `tbl_paquetes`.`PAQUE_ID`)\n" +
+                                "  INNER JOIN `tbl_clientes` ON (`tbl_clien_servicios`.`CLIE_ID` = `tbl_clientes`.`CLIE_ID`)\n" +
+                                "WHERE\n" +
+                                "  `tbl_servicios`.`SERVI_ESTADO` = 'Ingresado a  Bodega' AND \n" +
+                                "  `tbl_clien_servicios`.`CLIE_ID` = ? AND \n" +
+                                "  `tipo_cliente`.`TICI_NOMBRE` = 'Cliente Receptor'\n" +
+                                "GROUP BY\n" +
+                                "  tbl_servicios.SERVI_ID,\n" +
+                                "  tbl_servicios.SERV_CIUDAD_DESTINO,\n" +
+                                "  tbl_servicios.SERVI_ESTADO,\n" +
+                                "  tbl_ciudades.CIUD_NOMBRE,\n" +
+                                "  tbl_sedes.SEDES_NOMBRE";
+
+            try
+        {
+            //1. se manda a preparar la consulta
+            ps = getConexion().prepareStatement(consultaSql);
+            
+            //2.se le enbian los parametros a la consulta sql
+            ps.setInt(1,Integer.parseInt(campo));
+           
+         //  ps.setInt(1,idSesion);
+            
+             //.3 se ejecuta la consulta 
+            rs= ps.executeQuery();
+            
+            //4.llena el modelo con los datos de la bd
+          
+            return rs;
+                
+        }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+            return null;
+        } 
+        finally
+        {
+            try{
+                con.close();
+            }
+            catch(SQLException e)
+            {
+                JOptionPane.showMessageDialog(null,"Error"+e.toString());
+            } 
+
+        }
+    }
  
 
          //*************************************************************************************************   
@@ -299,99 +443,157 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
         }
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     ////////////////////////////////////////////////////////////////////////////////////////
     //METODO DE ACTUALIZAR
-        public boolean actualizarServiCliente(ServiciosModel servi)
-    {
-     
-        PreparedStatement ps = null;
-        Connection con=getConexion();
-        
-        
-        //CONSULTA SQL 
-        String consultaSql = "update tbl_clien_servicios set \n" +
-                            "clie_id=?,"+
-                            "tici_id=?,\n" +
-                            "where SERVI_ID =?";
-      try
-        {
-            //1. se manda a preparar la consulta
-            ps = getConexion().prepareStatement(consultaSql);
-            
-            //2.se le envian los parametros a la consulta sql
-         
-         
-            ps.setInt(1, servi.getServi_paque_id());
-            ps.setString(2, servi.getServi_direccion()); 
-            ps.setString(3, servi.getServi_ciudad_destino());
-            ps.setInt(4, servi.getServi_id());
-            
-            
-            //.3 se ejecuta la consulta 
-            ps.execute();
-            
-            return true;
-            
-        }catch(SQLException e){
-           
-            JOptionPane.showMessageDialog(null,"Error"+e.toString());
-            return false;
-        } 
-        finally
-        {
-            try{
-                con.close();
-            }
-            catch(SQLException e)
-            {
-                JOptionPane.showMessageDialog(null,"Error"+e.toString());
-            } 
-
-        }
-    }
+//        public boolean actualizarServiCliente(ServiciosModel servi)
+//    {
+//     
+//        PreparedStatement ps = null;
+//        Connection con=getConexion();
+//        
+//        
+//        //CONSULTA SQL 
+//        String consultaSql = "update tbl_clien_servicios set \n" +
+//                            "clie_id=?,"+
+//                            "tici_id=?,\n" +
+//                            "where SERVI_ID =?";
+//      try
+//        {
+//            //1. se manda a preparar la consulta
+//            ps = getConexion().prepareStatement(consultaSql);
+//            
+//            //2.se le envian los parametros a la consulta sql
+//         
+//         
+//            ps.setInt(1, servi.getServi_paque_id());
+//            ps.setString(2, servi.getServi_direccion()); 
+//            ps.setString(3, servi.getServi_ciudad_destino());
+//            ps.setInt(4, servi.getServi_id());
+//            
+//            
+//            //.3 se ejecuta la consulta 
+//            ps.execute();
+//            
+//            return true;
+//            
+//        }catch(SQLException e){
+//           
+//            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+//            return false;
+//        } 
+//        finally
+//        {
+//            try{
+//                con.close();
+//            }
+//            catch(SQLException e)
+//            {
+//                JOptionPane.showMessageDialog(null,"Error"+e.toString());
+//            } 
+//
+//        }
+//    }
     ////////////////////////////////////////////////////////////////////////////////////////
     //METODO DE ELIMINAR
-        public boolean eliminarServiCliente(ServiciosModel servi)
-    {
-     
-        PreparedStatement ps = null;
-        Connection con=getConexion();
-        
-        
-        //CONSULTA SQL 
-        String consultaSql = "DELETE FROM tbl_clien_servicios  WHERE servi_id = ? and clie_id =? "
-               ;
-      try
-        {
-            //1. se manda a preparar la consulta
-            ps = getConexion().prepareStatement(consultaSql);
-            
-            //2.se le enbian los parametros a la consulta sql
-         
-            ps.setInt(1, servi.getServi_id());
-            //.3 se ejecuta la consulta 
-            ps.execute();
-            
-            return true;
-            
-        }catch(SQLException e){
-           
-            JOptionPane.showMessageDialog(null,"Error"+e.toString());
-            return false;
-        } 
-        finally
-        {
-            try{
-                con.close();
-            }
-            catch(SQLException e)
-            {
-                JOptionPane.showMessageDialog(null,"Error"+e.toString());
-            } 
-
-        }
-    }
-        
+//        public boolean eliminarServiCliente(ServiciosModel servi)
+//    {
+//     
+//        PreparedStatement ps = null;
+//        Connection con=getConexion();
+//        
+//        
+//        //CONSULTA SQL 
+//        String consultaSql = "DELETE FROM tbl_clien_servicios  WHERE servi_id = ? and clie_id =? "
+//               ;
+//      try
+//        {
+//            //1. se manda a preparar la consulta
+//            ps = getConexion().prepareStatement(consultaSql);
+//            
+//            //2.se le enbian los parametros a la consulta sql
+//         
+//            ps.setInt(1, servi.getServi_id());
+//            //.3 se ejecuta la consulta 
+//            ps.execute();
+//            
+//            return true;
+//            
+//        }catch(SQLException e){
+//           
+//            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+//            return false;
+//        } 
+//        finally
+//        {
+//            try{
+//                con.close();
+//            }
+//            catch(SQLException e)
+//            {
+//                JOptionPane.showMessageDialog(null,"Error"+e.toString());
+//            } 
+//
+//        }
+//    }
+//        
     
     
     
