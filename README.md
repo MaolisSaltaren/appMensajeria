@@ -1,6 +1,6 @@
 # appMensajeria
 aplicacion de sistematizacion de una empresa de envio de mensajeria 
-proyecto de ingenieria de software de la universidad Abierta y a distancia UNAD
+proyecto de la asignatura de POO de la universidad Abierta y a distancia UNAD
 el proyecto trata de una app en java de registro y monitoreo de una empresa de servicios de mensajeria , esta realizada en java y la base de datos es mysql 
 
 #IMPORTANTE
