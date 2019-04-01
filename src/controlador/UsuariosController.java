@@ -391,9 +391,12 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
        formBuscarSedes buscaSede= new formBuscarSedes(frmUsuario,true);
  
         buscaSede.setVisible(true);
+        if(modelsedes!=null)
+        {
       //  JOptionPane.showMessageDialog(null, " el valor lleado en el jdialog es"+ valorSEDE, " ", JOptionPane.INFORMATION_MESSAGE);
         frmUsuario.txtNombreSede.setText(modelsedes.getSede_nombre());
         frmUsuario.txtIdSede.setText(String.valueOf(modelsedes.getSede_id()));
+        }
         
     }
     

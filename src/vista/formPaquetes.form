@@ -234,7 +234,6 @@
                                           <Component id="txtPrecioPaquete" alignment="1" min="-2" pref="290" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btnBuscarPaquete" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -260,10 +259,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="16" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblIdPaquete" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                      <Component id="btnBuscarPaquete" alignment="3" min="-2" pref="12" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtIdPaquete" alignment="0" min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblIdPaquete" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                          <Component id="btnBuscarPaquete" alignment="3" min="-2" pref="12" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">

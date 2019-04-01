@@ -5,22 +5,30 @@
  */
 package vista;
 
+import controlador.ServiciosController;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.ClientesCRUD;
+
 /**
  *
  * @author JUAN_PC
  */
-public class formBuscarClientes extends javax.swing.JDialog {
+public class formBuscarClienteEmisor extends javax.swing.JDialog {
 
       
     /** formBuscarClientes frmBusqueda = new formBuscarClientes();
       
      * Creates new form formBuscarClientes
      */
-    public formBuscarClientes(java.awt.Frame parent, boolean modal) {
+    public formBuscarClienteEmisor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
          
          this.setLocationRelativeTo(null);
+          mostrarClientes("clie_id","");
     }
 
     /**
@@ -46,6 +54,12 @@ public class formBuscarClientes extends javax.swing.JDialog {
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
 
         jLabel6.setText("Busqueda de usuarios por nombre");
+
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
 
         jtableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -139,27 +153,32 @@ public class formBuscarClientes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableUsuariosMouseClicked
-        // TODO add your handling code here:
-        // TODO add your handling code here:
-        // toma la  fila se la seleccion
-        //int seleccion =table.rowAtPoint(evt.getPoint());
-        //        int seleccion=jtableUsuarios.getSelectedRow();
-        //
-        //        //pasa los  datos de la jtable a los campos de texto de acuerdo al indice de la columna
-        //
-        //        txtIdentificacion.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 0)));
-        //        txtNombre.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 2)));
-        //        txtTelenofo.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 3)));
-        //        txtDireccion.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 4)));
-        //        cmbSexo.addItem(String.valueOf(jtableUsuarios.getValueAt(seleccion, 6)));
-        //        txtEmail.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 5)));
-        //        txtFechaNa.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 7)));
-        //
-        //        //habilitar y deshabilitar botones
-        //        btnGuardar.setEnabled(false);
-        //        btnModificar.setEnabled(true);
-        //        btnEliminar.setEnabled(true);
+      
+           formServicios frmserv = new formServicios();
+                
+        //creamos un objeto del controlador 
+        ServiciosController crtServ = new ServiciosController(null,frmserv,null,null);
+        
+    //obtiene la fila de la jtable
+        int fila = jtableUsuarios.getSelectedRow();
+        //guarda el id de la fila seleccionada
+        int id;
+        id= Integer.parseInt(jtableUsuarios.getValueAt(fila, 0).toString().trim());
+        
+        // se llena el modelo de paquetes que se encuentraen el controlador de servicios
+       crtServ.modelclieEmisor.setId_cliente(id);
+       crtServ.modelclieEmisor.setNombre_cliente(jtableUsuarios.getValueAt(fila, 1).toString().trim());
+      
+       this.dispose();
+       
     }//GEN-LAST:event_jtableUsuariosMouseClicked
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        if (jConboBuscar.getSelectedItem().equals("Busqueda por ID"))
+            mostrarClientes("clie_id",txtBuscar.getText());
+        else
+             mostrarClientes("clie_nombre",txtBuscar.getText());
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
     /**
      * @param args the command line arguments
@@ -178,20 +197,21 @@ public class formBuscarClientes extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formBuscarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formBuscarClienteEmisor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formBuscarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formBuscarClienteEmisor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formBuscarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formBuscarClienteEmisor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formBuscarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formBuscarClienteEmisor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                formBuscarClientes dialog = new formBuscarClientes(new javax.swing.JFrame(), true);
+                formBuscarClienteEmisor dialog = new formBuscarClienteEmisor(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -202,6 +222,45 @@ public class formBuscarClientes extends javax.swing.JDialog {
             }
         });
     }
+    
+     public void mostrarClientes( String campo,String valor) 
+   {
+       
+       
+        DefaultTableModel modelo = new  DefaultTableModel();
+        
+        //crea una instancia de la clase ClientesCrud
+        ClientesCRUD usuCR= new ClientesCRUD();
+        ResultSet rs =usuCR.getAllCliente(campo,valor);
+        modelo.setColumnIdentifiers(new Object[]{
+            "Id ","NOMBRE ", " TELEFONO"," FECHA NACI..","DIRECCION","CIUDAD"});
+ 
+       if(rs!=null)
+        {
+            try 
+            {
+            while(rs.next())
+            {
+                      modelo.addRow(new Object[]{
+                        rs.getString("CLIE_ID"),
+                        rs.getString("ClIE_NOMBRE"),
+                        rs.getString("CLIE_TELEFONO"),
+                        rs.getString("CLIE_FECHA_NA"),
+                        rs.getString("CLIE_DIRECCION"),
+                        rs.getString("CIUD_NOMBRE"),
+            
+//                    
+                      
+                });
+            }
+            this.jtableUsuarios.setModel(modelo);
+            }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+      
+            } 
+        }
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jConboBuscar;

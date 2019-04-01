@@ -27,6 +27,8 @@ import modelo.SesionModel;
 
 import vista.formServicios;
 import modelo.PaquetesModel;
+import vista.formBuscarClienteEmisor;
+import vista.formBuscarClienteReceptor;
 
 
 public class ServiciosController implements ActionListener,KeyListener,MouseListener{
@@ -36,7 +38,11 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
      private final formServicios frmServi;
      private final ServiciosCRUD serviCRUD;
      
+     //modelos publicos accedibles desde las ventanas de busquedas de clientes y paquetes
       public static  PaquetesModel  modelpaque =new PaquetesModel();
+      public static  ClientesModel  modelclieEmisor =new ClientesModel();
+      public static  ClientesModel  modelclieReceptor=new ClientesModel();
+
      
      public  static 
  
@@ -214,26 +220,68 @@ public class ServiciosController implements ActionListener,KeyListener,MouseList
     
     
     //=====================================================================================================================
+    //SE HA DETECTADO QUE SE PRESIONO EL BOTON DE BUSCAR CLIENTE RECEPTOR
+    
+     else  if(e.getSource()==frmServi.btnBuscarClienteEmisor)
+    {
+        
+      
+          //1instancia de la clase buscar clientes emisores 
+        formBuscarClienteEmisor buscaClie= new formBuscarClienteEmisor(frmServi,true);
+        buscaClie.setVisible(true);
+        
+        if(modelclieEmisor!= null)
+        {
+        //2llena  las cajas de texto con el modelo que se lleno en el paso anterior
+        frmServi.txtIdClienteEmisor.setText(String.valueOf(modelclieEmisor.getId_cliente()));
+        frmServi.txtNombreCliente.setText(modelclieEmisor.getNombre_cliente());
+        }
+        
+        
+    }
+    //=====================================================================================================================
+    //SE HA DETECTADO QUE SE PRESIONO EL BOTON DE BUSCAR CLIENTE RECEPTOR  
+    
+     else  if(e.getSource()==frmServi.btnBuscarClienteReceptor)
+    {
+        
+      
+          //1instancia de la clase buscar clientes emisores 
+        formBuscarClienteReceptor buscaClie= new formBuscarClienteReceptor(frmServi,true);
+        buscaClie.setVisible(true);
+        
+        if(modelclieEmisor!= null)
+        {
+        //2llena  las cajas de texto con el modelo que se lleno en el paso anterior
+        frmServi.txtIdClienteReceptor.setText(String.valueOf(modelclieReceptor.getId_cliente()));
+        frmServi.txtNombreCliente1.setText(modelclieReceptor.getNombre_cliente());
+        }
+        
+    }
+       //=====================================================================================================================
     //SE HA DETECTADO QUE SE PRESIONO EL BOTON DE BUSCAR ID PAQUETE    
     
      else  if(e.getSource()==frmServi.btnBuscarPaquete)
     {
         
       
-          
-       formBuscarPaquetes buscaPaque= new formBuscarPaquetes(frmServi,true);
+         formBuscarPaquetes buscaPaque= new formBuscarPaquetes(frmServi,true);
  
         buscaPaque.setVisible(true);
-        
+          if(modelpaque!= null)
+        {
       //  JOptionPane.showMessageDialog(null, " el valor lleado en el jdialog es"+ valorSEDE, " ", JOptionPane.INFORMATION_MESSAGE);
         frmServi.txtIdPaquete.setText(String.valueOf(modelpaque.getPaquete_id()));
        //frmServi.txtVrUnitarioPaquete.setText(""+modelpaque.getPaquete_precio());
        // frmServi.llbl.setText(""+modelpaque.getPaquete_precio());
        frmServi.lblTotal.setText(""+modelpaque.getPaquete_precio());
         frmServi.txtnombrePaquete.setText(modelpaque.getPaquete_nombre());
-        
+        }
         
     }
+     
+     
+     
       else  if(e.getSource()==frmServi.btnCancelar)
     {
         limpiarTxt();
