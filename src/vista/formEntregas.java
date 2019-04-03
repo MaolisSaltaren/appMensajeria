@@ -35,8 +35,8 @@ public class formEntregas extends javax.swing.JDialog {
         initComponents();
          
          this.setLocationRelativeTo(null);
-             mostrarServiciosNoEntregados("", "Entregado",jtableUsuarios1);
-             mostrarServiciosNoEntregados("", "Despachado",jtableUsuarios2);
+             mostrarServiciosNoEntregados("", "Entregado",jtableUsuarios1,"FECHA ENTREGA    ");
+             mostrarServiciosNoEntregados("", "Despachado",jtableUsuarios2,"FECHA DESPACHO");
     }
 
     /**
@@ -382,7 +382,7 @@ public class formEntregas extends javax.swing.JDialog {
     }//GEN-LAST:event_jtableUsuarios1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        mostrarServiciosNoEntregados(txtIdCliente.getText(),"Despachado",jtableServi);
+        mostrarServiciosNoEntregados(txtIdCliente.getText(),"Despachado",jtableServi,"FECHA DESPACHO");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void popoDetallle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popoDetallle1ActionPerformed
@@ -415,9 +415,9 @@ public class formEntregas extends javax.swing.JDialog {
                 //agrega al modelo los parametros necesarios para la consulta
                 if( actualizar.actualizarEstado(modelo))
                 JOptionPane.showMessageDialog(null, "Servicio entregado con exito ", " ", JOptionPane.INFORMATION_MESSAGE);
-                mostrarServiciosNoEntregados(txtIdCliente.getText(),"Despachado",jtableServi);
-                mostrarServiciosNoEntregados(txtBuscar2.getText(), "Entregado",jtableUsuarios1); 
-                mostrarServiciosNoEntregados(txtBuscar3.getText(), "Despachado",jtableUsuarios2);
+                mostrarServiciosNoEntregados(txtIdCliente.getText(),"Despachado",jtableServi,"FECHA DESPACHO");
+                mostrarServiciosNoEntregados(txtBuscar2.getText(), "Entregado",jtableUsuarios1,"FECHA DE ENTREGA"); 
+                mostrarServiciosNoEntregados(txtBuscar3.getText(), "Despachado",jtableUsuarios2,"FECHA DE DESPACHO");
             }
        
       
@@ -429,7 +429,7 @@ public class formEntregas extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBuscar2KeyReleased
 
     private void btnBuscarservActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarservActionPerformed
-        mostrarServiciosNoEntregados(txtBuscar2.getText(), "Entregado",jtableUsuarios1);
+        mostrarServiciosNoEntregados(txtBuscar2.getText(), "Entregado",jtableUsuarios1,"FECHA ENTREGA");
     }//GEN-LAST:event_btnBuscarservActionPerformed
 
     private void txtBuscar3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar3KeyReleased
@@ -441,7 +441,7 @@ public class formEntregas extends javax.swing.JDialog {
     }//GEN-LAST:event_jtableUsuarios2MouseClicked
 
     private void btnBuscarserv1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarserv1ActionPerformed
-     mostrarServiciosNoEntregados(txtBuscar3.getText(), "Despachado",jtableUsuarios2);
+     mostrarServiciosNoEntregados(txtBuscar3.getText(), "Despachado",jtableUsuarios2,"FECHA DESPACHO");
     }//GEN-LAST:event_btnBuscarserv1ActionPerformed
 
     /**
@@ -493,7 +493,7 @@ public class formEntregas extends javax.swing.JDialog {
     
     //    ===============================================================================================
     //SERVICIOS NO ENTREGADOS
-    public void mostrarServiciosNoEntregados( String valor,String estado_sevicio,JTable tabla) 
+    public void mostrarServiciosNoEntregados( String valor,String estado_sevicio,JTable tabla,String nombreCelda) 
    {
              
         DefaultTableModel modelo = new  DefaultTableModel();
@@ -505,7 +505,7 @@ public class formEntregas extends javax.swing.JDialog {
    
       
         modelo.setColumnIdentifiers(new Object[]{
-            "ID SERVICIO","CLIENTE","ID CLIENTE","PAQUETE ", " CIUDAD ORIGEN"," CIUDAD DESTINO", "FECHA ENTREGA"});
+            "ID SERVICIO","CLIENTE","ID CLIENTE","PAQUETE ", " CIUDAD ORIGEN"," CIUDAD DESTINO", nombreCelda});
  
        if(rs!=null)
         {
