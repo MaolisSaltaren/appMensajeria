@@ -502,6 +502,9 @@ public class formPrincipal extends javax.swing.JFrame {
 
     private void btnDespachosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDespachosActionPerformed
         // TODO add your handling code here:
+         formDespachos frmDevolucion = new formDespachos(this, true);
+        frmDevolucion.setVisible(true);
+        
     }//GEN-LAST:event_btnDespachosActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed

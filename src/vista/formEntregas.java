@@ -505,7 +505,7 @@ public class formEntregas extends javax.swing.JDialog {
    
       
         modelo.setColumnIdentifiers(new Object[]{
-            "ID SERVICIO","CLIENTE","ID CLIENTE","PAQUETE ", " CIUDAD ORIGEN"," CIUDAD DESTINO"});
+            "ID SERVICIO","CLIENTE","ID CLIENTE","PAQUETE ", " CIUDAD ORIGEN"," CIUDAD DESTINO", "FECHA ENTREGA"});
  
        if(rs!=null)
         {
@@ -521,6 +521,7 @@ public class formEntregas extends javax.swing.JDialog {
                         rs.getString("PAQUE_NOMBRE"),
                         rs.getString("CIUD_NOMBRE"),
                         rs.getString("SERV_CIUDAD_DESTINO"),
+                        rs.getString("SERVI_FECHA_ENTREGA"),
                                    
                       
                 });

@@ -161,7 +161,7 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
    
         ////////////////////////////////////////////////////////////////////////////////////
         
-        //METODO QUE ACTUALIZA EL ESTADO DEL SERVICIOS ES DEVIR SI SE DESPACHO O SE ENTREGO 
+        //METODO QUE ACTUALIZA EL ESTADO DEL SERVICIOS ¿ENTREGADOS 
  public  boolean actualizarEstado(ServiciosModel servi)
  {
       PreparedStatement ps = null;
@@ -263,10 +263,12 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
             String consultaSql = "SELECT \n" +
 "  `tbl_servicios`.`SERVI_ID`,\n" +
 "  `tbl_servicios`.`SERV_CIUDAD_DESTINO`,\n" +
+"  `tbl_servicios`.`SERVI_FECHA_ENTREGA`,\n" +
 "  `tbl_ciudades`.`CIUD_NOMBRE`,\n" +
 "  `tbl_CLIENTES`.`CLIE_ID`,\n" +
 "  `tbl_paquetes`.`PAQUE_NOMBRE`,\n" +
-"  `tbl_clientes`.`CLIE_NOMBRE`\n" +
+"  `tbl_clientes`.`CLIE_NOMBRE`,  `tbl_servicios`.`SERVI_FECHA_ENTREGA`\n" +
+                    
 "FROM\n" +
 "  `tbl_ciudades`\n" +
 "  INNER JOIN `tbl_sedes` ON (`tbl_ciudades`.`CIUD_NOMBRE` = `tbl_sedes`.`CIUD_NOMBRE`)\n" +
@@ -286,7 +288,7 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
 "  tbl_servicios.SERVI_ESTADO,\n" +
 "  tbl_ciudades.CIUD_NOMBRE,\n" +
 "  tbl_sedes.SEDES_NOMBRE";
-
+            
             try
         {
             //1. se manda a preparar la consulta
@@ -327,7 +329,7 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
    //======================================================================================
     ////////////////////////////////////////////////////////////////////////////////////////
     //ListarClientes
-        public static ResultSet getServciosEntregados( String campo)
+        public static ResultSet getServciosDevueltos( String campo)
     {
      
         PreparedStatement ps = null;
@@ -336,31 +338,7 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
         
         
         //CONSULTA SQL 
-            String consultaSql = "SELECT \n" +
-                                "  `tbl_servicios`.`SERVI_ID`,\n" +
-                                "  `tbl_servicios`.`SERV_CIUDAD_DESTINO`,\n" +
-                                "  `tbl_ciudades`.`CIUD_NOMBRE` ,\n" +
-                                "  `tbl_paquetes`.`PAQUE_NOMBRE`,\n" +
-                                "  `tbl_clientes`.`CLIE_NOMBRE`\n" +
-                                "FROM\n" +
-                                "  `tbl_ciudades`\n" +
-                                "  INNER JOIN `tbl_sedes` ON (`tbl_ciudades`.`CIUD_NOMBRE` = `tbl_sedes`.`CIUD_NOMBRE`)\n" +
-                                "  INNER JOIN `tbl_trabajadores` ON (`tbl_sedes`.`SEDES_ID` = `tbl_trabajadores`.`SEDE_ID`)\n" +
-                                "  INNER JOIN `tbl_servicios` ON (`tbl_trabajadores`.`TRABA_ID` = `tbl_servicios`.`TRABA_ID`)\n" +
-                                "  INNER JOIN `tbl_clien_servicios` ON (`tbl_servicios`.`SERVI_ID` = `tbl_clien_servicios`.`SERVI_ID`)\n" +
-                                "  INNER JOIN `tipo_cliente` ON (`tbl_clien_servicios`.`TICI_ID` = `tipo_cliente`.`TICI_ID`)\n" +
-                                "  INNER JOIN `tbl_paquetes` ON (`tbl_servicios`.`PAQUE_ID` = `tbl_paquetes`.`PAQUE_ID`)\n" +
-                                "  INNER JOIN `tbl_clientes` ON (`tbl_clien_servicios`.`CLIE_ID` = `tbl_clientes`.`CLIE_ID`)\n" +
-                                "WHERE\n" +
-                                "  `tbl_servicios`.`SERVI_ESTADO` = 'Ingresado a  Bodega' AND \n" +
-                                "  `tbl_clien_servicios`.`CLIE_ID` = ? AND \n" +
-                                "  `tipo_cliente`.`TICI_NOMBRE` = 'Cliente Receptor'\n" +
-                                "GROUP BY\n" +
-                                "  tbl_servicios.SERVI_ID,\n" +
-                                "  tbl_servicios.SERV_CIUDAD_DESTINO,\n" +
-                                "  tbl_servicios.SERVI_ESTADO,\n" +
-                                "  tbl_ciudades.CIUD_NOMBRE,\n" +
-                                "  tbl_sedes.SEDES_NOMBRE";
+            String consultaSql = "";
 
             try
         {

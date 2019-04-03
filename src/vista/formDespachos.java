@@ -5,6 +5,20 @@
  */
 package vista;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import misClases.Validacion;
+import modelo.ServiciosCRUD;
+import modelo.ServiciosModel;
+
 /**
  *
  * @author JUAN_PC
@@ -21,6 +35,10 @@ public class formDespachos extends javax.swing.JDialog {
         initComponents();
          
          this.setLocationRelativeTo(null);
+            // mostrarServiciosNoEntregados("", "Entregado",jtableUsuarios1);
+             //mostrarServiciosNoEntregados("", "Despachado",jtableUsuarios2);
+               mostrarServiciosDespachados(txtBuscar2.getText(),"Ingresado a Bodega",jtableUsuarios1);
+               mostrarServiciosDespachados(txtBuscar3.getText(),"Despachado",jtableUsuarios2);
     }
 
     /**
@@ -32,22 +50,53 @@ public class formDespachos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        txtBuscar = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jtableUsuarios = new javax.swing.JTable();
-        jLabel20 = new javax.swing.JLabel();
-        jConboBuscar = new javax.swing.JComboBox<>();
+        jPopopMenu1 = new javax.swing.JPopupMenu();
+        popoDetallle1 = new javax.swing.JMenuItem();
         jLabel3 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        txtBuscar2 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtableUsuarios1 = new javax.swing.JTable();
+        btnBuscar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        txtBuscar3 = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jtableUsuarios2 = new javax.swing.JTable();
+        btnBuscarserv1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+
+        popoDetallle1.setText("ENTREGAR");
+        popoDetallle1.setName("hola"); // NOI18N
+        popoDetallle1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popoDetallle1ActionPerformed(evt);
+            }
+        });
+        jPopopMenu1.add(popoDetallle1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel3.setText("DESPACHOS DE PAQUETES");
+        jLabel3.setAlignmentX(0.5F);
 
-        jLabel6.setText("Busqueda de usuarios por nombre");
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
 
-        jtableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel8.setText("ID SERVICIO :");
+
+        txtBuscar2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscar2KeyReleased(evt);
+            }
+        });
+
+        jtableUsuarios1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -55,112 +104,250 @@ public class formDespachos extends javax.swing.JDialog {
 
             }
         ));
-        jtableUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jtableUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtableUsuarios1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtableUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtableUsuariosMouseClicked(evt);
+                jtableUsuarios1MouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(jtableUsuarios);
+        jScrollPane3.setViewportView(jtableUsuarios1);
 
-        jLabel20.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 153, 102));
-        jLabel20.setText("Clic derecho robre el elemento para mas detalle");
+        btnBuscar.setText("REGISTRAR DESPACHO");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
-        jConboBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar por ID", "Buscar por Nombre" }));
-        jConboBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.setText("lISTADO DE TODAS LAS ENTREGAS EFECTUADAS ");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel20))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+        jLabel4.setText("LISTADO DE SERVICIOS SIN DESPACHAR");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jConboBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel6))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 322, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 898, Short.MAX_VALUE))))
+                .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jConboBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addGap(33, 33, 33)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel3.setText("DESPACHOS");
-        jLabel3.setAlignmentX(0.5F);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("DESPACHOS", jPanel1);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+
+        jLabel9.setText("ID SERVICIO:");
+
+        txtBuscar3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscar3KeyReleased(evt);
+            }
+        });
+
+        jtableUsuarios2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jtableUsuarios2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtableUsuarios2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtableUsuarios2MouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jtableUsuarios2);
+
+        btnBuscarserv1.setText("BUSCAR");
+        btnBuscarserv1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarserv1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("lISTADO DE TODAS LAS ENTREGAS QUE SE ENCUENTRAN PENDIENTES POR ENTREGAR");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtBuscar3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscarserv1)))
+                        .addGap(0, 399, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtBuscar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarserv1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("DESPACHOS EFECTUADOS ", jPanel5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(258, 258, 258)
-                        .addComponent(jLabel3)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(324, 324, 324))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableUsuariosMouseClicked
+    private void popoDetallle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popoDetallle1ActionPerformed
+ 
+       
+      
+    }//GEN-LAST:event_popoDetallle1ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    
+       ServiciosCRUD actualizar = new ServiciosCRUD();
+       ServiciosModel modelo = new ServiciosModel();
+       
+        //aggarra la fecha y hora del sistema para saber la ultima sesion del usuario
+       Date fecha = new Date();
+       DateFormat fechaHoraSistema = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       //2.2 se llena en el modelo la  hora actual del sistema como ultima sesion activa
+      
+   if(txtBuscar2.getText().equals(""))
+   {
+        JOptionPane.showMessageDialog(null, "Deve ingresar un id de servicio", " ", JOptionPane.WARNING_MESSAGE);
+   }else
+   {
+       //llena el modelo 
+       modelo.setServi_id(Integer.parseInt(txtBuscar2.getText()));
+       modelo.setServi_estado("Despachado");
+       modelo.setServi_fecha_entrega(fechaHoraSistema.format(fecha).toString()); 
+       
+       //mensaje de advertencia de entrega del servicio
+       int respuesta= JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea registrar el despacho de  este servicio?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+     
+            if(respuesta==0)
+            {
+                
+                //agrega al modelo los parametros necesarios para la consulta
+                if( actualizar.actualizarEstado(modelo))
+                JOptionPane.showMessageDialog(null, "Servicio despachado con exito ", " ", JOptionPane.INFORMATION_MESSAGE);
+                mostrarServiciosDespachados("","Ingreso a Bodega",jtableUsuarios1);
+                mostrarServiciosDespachados(txtBuscar3.getText(),"Despachado",jtableUsuarios2);
+               
+            }
+       
+   }
+        
+        
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void jtableUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableUsuarios1MouseClicked
         // TODO add your handling code here:
+    }//GEN-LAST:event_jtableUsuarios1MouseClicked
+
+    private void txtBuscar2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar2KeyReleased
+        Validacion validar= new Validacion ();
+        validar.isNumeric(evt);
+    }//GEN-LAST:event_txtBuscar2KeyReleased
+
+    private void btnBuscarserv1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarserv1ActionPerformed
+        // mostrarServiciosDespachados(txtBuscar3.getText(), "Ingresado a Bodega",jtableUsuarios2);
+    }//GEN-LAST:event_btnBuscarserv1ActionPerformed
+
+    private void jtableUsuarios2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableUsuarios2MouseClicked
         // TODO add your handling code here:
-        // toma la  fila se la seleccion
-        //int seleccion =table.rowAtPoint(evt.getPoint());
-        //        int seleccion=jtableUsuarios.getSelectedRow();
-        //
-        //        //pasa los  datos de la jtable a los campos de texto de acuerdo al indice de la columna
-        //
-        //        txtIdentificacion.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 0)));
-        //        txtNombre.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 2)));
-        //        txtTelenofo.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 3)));
-        //        txtDireccion.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 4)));
-        //        cmbSexo.addItem(String.valueOf(jtableUsuarios.getValueAt(seleccion, 6)));
-        //        txtEmail.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 5)));
-        //        txtFechaNa.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 7)));
-        //
-        //        //habilitar y deshabilitar botones
-        //        btnGuardar.setEnabled(false);
-        //        btnModificar.setEnabled(true);
-        //        btnEliminar.setEnabled(true);
-    }//GEN-LAST:event_jtableUsuariosMouseClicked
+    }//GEN-LAST:event_jtableUsuarios2MouseClicked
+
+    private void txtBuscar3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar3KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscar3KeyReleased
 
     /**
      * @param args the command line arguments
@@ -189,6 +376,12 @@ public class formDespachos extends javax.swing.JDialog {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -204,15 +397,73 @@ public class formDespachos extends javax.swing.JDialog {
             }
         });
     }
+   
+    
+    //    ===============================================================================================
+    //SERVICIOS NO ENTREGADOS
+    public void mostrarServiciosDespachados( String valor,String estado_sevicio,JTable tabla) 
+   {
+             
+        DefaultTableModel modelo = new  DefaultTableModel();
+
+        
+     // instancia de la clase serviioscud
+     ServiciosCRUD servi= new ServiciosCRUD();
+     ResultSet rs=servi.getServcioNoEntregado(valor,estado_sevicio);
+   
+      
+        modelo.setColumnIdentifiers(new Object[]{
+            "ID SERVICIO","CLIENTE","ID CLIENTE","PAQUETE ", " CIUDAD ORIGEN"," CIUDAD DESTINO","FECHA DESPACHO"});
+ 
+       if(rs!=null)
+        {
+            try 
+            {
+              
+            while(rs.next())
+            {
+                      modelo.addRow(new Object[]{
+                        rs.getString("SERVI_ID"),
+                        rs.getString("clie_nombre"),               
+                        rs.getString("clie_ID"),   
+                        rs.getString("PAQUE_NOMBRE"),
+                        rs.getString("CIUD_NOMBRE"),
+                        rs.getString("SERV_CIUDAD_DESTINO"),
+                        rs.getString("SERVI_FECHA_ENTREGA"),
+                                   
+                      
+                });
+            }
+            tabla.setModel(modelo);
+            }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+      
+            } 
+        }
+     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jConboBuscar;
-    private javax.swing.JLabel jLabel20;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuscarserv1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane2;
-    public javax.swing.JTable jtableUsuarios;
-    public javax.swing.JTextField txtBuscar;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    public javax.swing.JPopupMenu jPopopMenu1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jtableUsuarios1;
+    private javax.swing.JTable jtableUsuarios2;
+    public javax.swing.JMenuItem popoDetallle1;
+    private javax.swing.JTextField txtBuscar2;
+    private javax.swing.JTextField txtBuscar3;
     // End of variables declaration//GEN-END:variables
 }
