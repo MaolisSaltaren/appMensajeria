@@ -84,7 +84,7 @@ public class formReportes extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(jtableUsuarios);
 
-        jConboCiudadConsulta1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        jConboCiudadConsulta1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
         jConboCiudadConsulta1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jConboCiudadConsulta1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,7 +94,7 @@ public class formReportes extends javax.swing.JDialog {
 
         jLabel1.setText("CIUDAD ORIGEN:");
 
-        jConboEstadoServicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Despachado", "Entregado", "Ingreso a Bodega" }));
+        jConboEstadoServicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Despachado", "Entregado", "Ingresado a Bodega" }));
         jConboEstadoServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jConboEstadoServicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

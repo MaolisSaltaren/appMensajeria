@@ -115,7 +115,7 @@ public class formEntregas extends javax.swing.JDialog {
 
         jLabel20.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 153, 102));
-        jLabel20.setText("Clic derecho robre el elemento para mas detalle");
+        jLabel20.setText("clic derecho robre el elemento seleccionado para realizar la entrega");
 
         jButton1.setText("BUSCAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -117,7 +117,7 @@ public class formUsuarios extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 153, 102));
-        jLabel20.setText("Clic derecho robre el elemento para mas detalle");
+        jLabel20.setText("clic derecho sobre un registro para mas detalles y acciones ");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

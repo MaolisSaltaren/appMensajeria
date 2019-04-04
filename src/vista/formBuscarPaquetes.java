@@ -85,7 +85,7 @@ public class formBuscarPaquetes extends javax.swing.JDialog {
 
         jLabel20.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 153, 102));
-        jLabel20.setText("seleccione un paquete danto clic sobre el registro ");
+        jLabel20.setText("clic sobre un registro para seleccionarlo ");
 
         jLabel1.setText("Buscar Paquetes por nombre:");
 

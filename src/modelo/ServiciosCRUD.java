@@ -249,6 +249,69 @@ public class ServiciosCRUD extends ConexionBD{// herencia de la clase conecion
     }
  
    //======================================================================================
+   //busca en la base de datos si un servicio s encuentra registrado 
+      ////////////////////////////////////////////////////////////////////////////////////////
+    //METODO DE logueo del usuario 
+        public boolean buscarServicio(int id_servicio)
+    {
+     
+        PreparedStatement ps = null;
+        Connection con=getConexion();
+        ResultSet rs = null ; 
+        
+
+        //CONSULTA SQL 
+        String consultaSql= "select  servi_id from TBL_SERVICIOS where servi_id = ? and servi_estado ='Ingresado a Bodega'";
+        
+         
+  
+          try
+        {
+            
+            // SE BUSCA EN LA BASE DE DATOS SI EL USUARIO SE ENCUENTRA REGISTRADO
+            
+            //1. se manda a preparar la consulta
+            ps = getConexion().prepareStatement(consultaSql);
+            
+            //2.se le enbian los parametros a la consulta sql
+            ps.setInt(1,id_servicio);
+   
+            
+             //.3 se ejecuta la consulta 
+            rs= ps.executeQuery();
+            
+            //4.llena el modelo con los datos de la bd
+            if(rs.next())
+            {
+               //ACTUALIZA LA FECHA Y HORA EN QUE INRESO EL USUARIO AL SISTEMA
+    
+
+                return true;
+                
+            }
+           
+                    
+            return false;
+            
+        }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error al iniciar logueo, detalle del error="+e.toString());
+            return false;
+        } 
+        finally
+        {
+            try{
+                con.close();
+            }
+            catch(SQLException e)
+            {
+                JOptionPane.showMessageDialog(null,"Error"+e.toString());
+            } 
+
+        }
+    }
+ 
+   //======================================================================================
     ////////////////////////////////////////////////////////////////////////////////////////
     //ListarClientes
         public static ResultSet getServcioNoEntregado( String campo,String estado_servicio)

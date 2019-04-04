@@ -38,7 +38,7 @@ public class formDespachos extends javax.swing.JDialog {
             // mostrarServiciosNoEntregados("", "Entregado",jtableUsuarios1);
              //mostrarServiciosNoEntregados("", "Despachado",jtableUsuarios2);
                mostrarServiciosDespachados(txtBuscar2.getText(),"Ingresado a Bodega",jtableUsuarios1);
-               mostrarServiciosDespachados(txtBuscar3.getText(),"Despachado",jtableUsuarios2);
+               mostrarServiciosDespachados("","Despachado",jtableUsuarios2);
     }
 
     /**
@@ -64,11 +64,8 @@ public class formDespachos extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        txtBuscar3 = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         jtableUsuarios2 = new javax.swing.JTable();
-        btnBuscarserv1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         popoDetallle1.setText("ENTREGAR");
@@ -185,14 +182,6 @@ public class formDespachos extends javax.swing.JDialog {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
 
-        jLabel9.setText("ID SERVICIO:");
-
-        txtBuscar3.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscar3KeyReleased(evt);
-            }
-        });
-
         jtableUsuarios2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -209,14 +198,7 @@ public class formDespachos extends javax.swing.JDialog {
         });
         jScrollPane4.setViewportView(jtableUsuarios2);
 
-        btnBuscarserv1.setText("BUSCAR");
-        btnBuscarserv1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarserv1ActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("lISTADO DE TODAS LAS ENTREGAS QUE SE ENCUENTRAN PENDIENTES POR ENTREGAR");
+        jLabel2.setText("LISTADO DE LOS SERVICIOS DESPACHADOS ");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -227,14 +209,7 @@ public class formDespachos extends javax.swing.JDialog {
                     .addComponent(jScrollPane4)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtBuscar3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBuscarserv1)))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 399, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -243,12 +218,7 @@ public class formDespachos extends javax.swing.JDialog {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
-                .addGap(24, 24, 24)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtBuscar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarserv1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -303,25 +273,45 @@ public class formDespachos extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(null, "Deve ingresar un id de servicio", " ", JOptionPane.WARNING_MESSAGE);
    }else
    {
+       try
+       {
        //llena el modelo 
        modelo.setServi_id(Integer.parseInt(txtBuscar2.getText()));
        modelo.setServi_estado("Despachado");
        modelo.setServi_fecha_entrega(fechaHoraSistema.format(fecha).toString()); 
        
-       //mensaje de advertencia de entrega del servicio
-       int respuesta= JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea registrar el despacho de  este servicio?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-     
-            if(respuesta==0)
-            {
-                
-                //agrega al modelo los parametros necesarios para la consulta
-                if( actualizar.actualizarEstado(modelo))
-                JOptionPane.showMessageDialog(null, "Servicio despachado con exito ", " ", JOptionPane.INFORMATION_MESSAGE);
-                mostrarServiciosDespachados("","Ingreso a Bodega",jtableUsuarios1);
-                mostrarServiciosDespachados(txtBuscar3.getText(),"Despachado",jtableUsuarios2);
+       
+        //busca si el servicio ingresado esta en la base de datos
+                 if( actualizar.buscarServicio(Integer.parseInt(txtBuscar2.getText())))
+                 {
+
+                        //mensaje de advertencia de entrega del servicio
+                        int respuesta= JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea registrar el despacho de  este servicio?", "Alerta de eliminacion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+
+
+                             if(respuesta==0)
+                             {
+
+                                     //agrega al modelo los parametros necesarios para la consulta
+                                     if( actualizar.actualizarEstado(modelo))
+                                     {
+                                     JOptionPane.showMessageDialog(null, "Servicio despachado con exito ", " ", JOptionPane.INFORMATION_MESSAGE);
+                                     mostrarServiciosDespachados("","Ingresado a Bodega",jtableUsuarios1);
+
+                                     txtBuscar2.setText("");
+                                     }
+                                  }
+                   
                
             }
-       
+                 else 
+                JOptionPane.showMessageDialog(null, "No se encontro el servicio ingresado, o ya se realizó su despacho  ", " ", JOptionPane.ERROR_MESSAGE);
+       }
+    catch (Exception e )
+    {
+        JOptionPane.showMessageDialog(null, "Solo se pueden ingresar numeros ", " ", JOptionPane.WARNING_MESSAGE);
+        txtBuscar2.setText("");
+    }
    }
         
         
@@ -333,21 +323,14 @@ public class formDespachos extends javax.swing.JDialog {
     }//GEN-LAST:event_jtableUsuarios1MouseClicked
 
     private void txtBuscar2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar2KeyReleased
-        Validacion validar= new Validacion ();
-        validar.isNumeric(evt);
+       
+   
+      
     }//GEN-LAST:event_txtBuscar2KeyReleased
-
-    private void btnBuscarserv1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarserv1ActionPerformed
-        // mostrarServiciosDespachados(txtBuscar3.getText(), "Ingresado a Bodega",jtableUsuarios2);
-    }//GEN-LAST:event_btnBuscarserv1ActionPerformed
 
     private void jtableUsuarios2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableUsuarios2MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jtableUsuarios2MouseClicked
-
-    private void txtBuscar3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscar3KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscar3KeyReleased
 
     /**
      * @param args the command line arguments
@@ -446,13 +429,11 @@ public class formDespachos extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnBuscarserv1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -460,10 +441,9 @@ public class formDespachos extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jtableUsuarios1;
-    private javax.swing.JTable jtableUsuarios2;
+    public javax.swing.JTable jtableUsuarios1;
+    public javax.swing.JTable jtableUsuarios2;
     public javax.swing.JMenuItem popoDetallle1;
-    private javax.swing.JTextField txtBuscar2;
-    private javax.swing.JTextField txtBuscar3;
+    public javax.swing.JTextField txtBuscar2;
     // End of variables declaration//GEN-END:variables
 }

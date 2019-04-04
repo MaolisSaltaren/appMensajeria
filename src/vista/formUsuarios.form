@@ -205,7 +205,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="99" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Clic derecho robre el elemento para mas detalle"/>
+            <Property name="text" type="java.lang.String" value="clic derecho sobre un registro para mas detalles y acciones "/>
           </Properties>
         </Component>
       </SubComponents>

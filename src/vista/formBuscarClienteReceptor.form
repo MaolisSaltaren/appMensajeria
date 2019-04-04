@@ -157,7 +157,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="99" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Clic sobre un registro para seleccionar un elemento "/>
+            <Property name="text" type="java.lang.String" value="clic sobre un registro para seleccionarlo "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jConboBuscar">
