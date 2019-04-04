@@ -509,6 +509,8 @@ public class formPrincipal extends javax.swing.JFrame {
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
+        formReportes form = new formReportes(this, true);
+        form.setVisible(true);
     }//GEN-LAST:event_btnReportesActionPerformed
 
     /**

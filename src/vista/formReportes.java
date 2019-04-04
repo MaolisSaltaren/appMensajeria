@@ -5,6 +5,15 @@
  */
 package vista;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.CiudadesCRUD;
+import modelo.CiudadesModel;
+import modelo.ClientesCRUD;
+import modelo.ReportesModel;
+
 /**
  *
  * @author JUAN_PC
@@ -21,6 +30,8 @@ public class formReportes extends javax.swing.JDialog {
         initComponents();
          
          this.setLocationRelativeTo(null);
+         cargarCiudades();
+
     }
 
     /**
@@ -32,20 +43,30 @@ public class formReportes extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        txtBuscar = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtableUsuarios = new javax.swing.JTable();
-        jLabel20 = new javax.swing.JLabel();
-        jConboBuscar = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
+        jConboCiudadConsulta1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jConboEstadoServicio = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jConboCiudadConsulta2 = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        lblCantidadClientes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
-
-        jLabel6.setText("Busqueda de usuarios por nombre");
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel3.setText(" REPORTES");
+        jLabel3.setAlignmentX(0.5F);
 
         jtableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,103 +84,212 @@ public class formReportes extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(jtableUsuarios);
 
-        jLabel20.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 153, 102));
-        jLabel20.setText("Clic derecho robre el elemento para mas detalle");
+        jConboCiudadConsulta1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        jConboCiudadConsulta1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jConboCiudadConsulta1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConboCiudadConsulta1ActionPerformed(evt);
+            }
+        });
 
-        jConboBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar por ID", "Buscar por Nombre" }));
-        jConboBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.setText("CIUDAD ORIGEN:");
+
+        jConboEstadoServicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Despachado", "Entregado", "Ingreso a Bodega" }));
+        jConboEstadoServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jConboEstadoServicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConboEstadoServicioActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("ESTADO DEL SERVICIO:");
+
+        jLabel8.setText("Muestra todos los servicios de una ciudad origen y que tienen un estado de servicio indicado");
+
+        jButton1.setText("Ejecutar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jConboCiudadConsulta1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jConboEstadoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton1)))
+                .addContainerGap(718, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jConboCiudadConsulta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jConboEstadoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Despachos por ciudad", jPanel1);
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel4.setText("La cantidad de usuarios en la ciudad seleccionada es :");
+
+        jConboCiudadConsulta2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        jConboCiudadConsulta2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jConboCiudadConsulta2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConboCiudadConsulta2ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel7.setText("CIUDAD:");
+
+        jLabel9.setText("Muestra la cantidad de clientes de una ciudad determinada");
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblCantidadClientes.setFont(new java.awt.Font("Ebrima", 1, 18)); // NOI18N
+        lblCantidadClientes.setForeground(new java.awt.Color(0, 153, 51));
+        lblCantidadClientes.setText("...");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel20))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jConboBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel6))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(lblCantidadClientes)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jConboBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+                .addGap(8, 8, 8)
+                .addComponent(lblCantidadClientes)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel3.setText("BUSQUEDA DE REPORTES");
-        jLabel3.setAlignmentX(0.5F);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jConboCiudadConsulta2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(778, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel9)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel9)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jConboCiudadConsulta2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(313, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Clientes por Ciudad", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(378, 378, 378)
                 .addComponent(jLabel3)
-                .addGap(171, 171, 171))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtableUsuariosMouseClicked
-        // TODO add your handling code here:
-        // TODO add your handling code here:
-        // toma la  fila se la seleccion
-        //int seleccion =table.rowAtPoint(evt.getPoint());
-        //        int seleccion=jtableUsuarios.getSelectedRow();
-        //
-        //        //pasa los  datos de la jtable a los campos de texto de acuerdo al indice de la columna
-        //
-        //        txtIdentificacion.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 0)));
-        //        txtNombre.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 2)));
-        //        txtTelenofo.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 3)));
-        //        txtDireccion.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 4)));
-        //        cmbSexo.addItem(String.valueOf(jtableUsuarios.getValueAt(seleccion, 6)));
-        //        txtEmail.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 5)));
-        //        txtFechaNa.setText(String.valueOf(jtableUsuarios.getValueAt(seleccion, 7)));
-        //
-        //        //habilitar y deshabilitar botones
-        //        btnGuardar.setEnabled(false);
-        //        btnModificar.setEnabled(true);
-        //        btnEliminar.setEnabled(true);
+
     }//GEN-LAST:event_jtableUsuariosMouseClicked
+
+    private void jConboCiudadConsulta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConboCiudadConsulta1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jConboCiudadConsulta1ActionPerformed
+
+    private void jConboEstadoServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConboEstadoServicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jConboEstadoServicioActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        //llama la funcion 
+    ejecutaConsulta(jConboCiudadConsulta1.getSelectedItem().toString(), jConboEstadoServicio.getSelectedItem().toString());
+   
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jConboCiudadConsulta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConboCiudadConsulta2ActionPerformed
+
+        ejecutaConsul2(jConboCiudadConsulta2.getSelectedItem().toString());
+
+    }//GEN-LAST:event_jConboCiudadConsulta2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,15 +333,134 @@ public class formReportes extends javax.swing.JDialog {
             }
         });
     }
+    
+        
+   //carga en el jcombo todas las ciudades que estan registradas en la base de datos 
+   public void cargarCiudades() 
+   {
+        //crea una instancia de la clase ClientesCrud
+        CiudadesCRUD ciudCR= new CiudadesCRUD();
+        ResultSet rs =ciudCR.getAllCiudad();
+     
+        
+       if(rs!=null)
+        {
+            try 
+            {
+            while(rs.next())
+            {
+                
+                String resul=rs.getString("ciud_nombre");
+                jConboCiudadConsulta1.addItem(resul);
+                jConboCiudadConsulta2.addItem(resul);
+
+            }
+       
+            }catch(SQLException e){
+           
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+      
+            } 
+        }
+     }
+   
+   // realiza la visualizacion de la consulta en la jtable seleccionada
+   public  void ejecutaConsulta(String param1, String param2)
+   {
+         ReportesModel ejecutaReporte = new ReportesModel();
+        DefaultTableModel modelo = new  DefaultTableModel();
+        
+        if(param1 =="Todos")
+            param1="";
+        if (param2== "Todos")
+            param2="";
+        
+        
+                ResultSet rs =ejecutaReporte.getSeviciosDespachados(param1,param2);
+                modelo.setColumnIdentifiers(new Object[]{
+                    "ID SERVICIO","PAQUETE ", " ESTADO DEL SERVICIO","DIRECCION" ,"CIUDAD ORIGEN","CIUDAD DESTINO","FECHA DEL SERVICIO","ID TRABAJADOR","NOMBRE TRABAJADOR"});
+
+               if(rs!=null)
+                {
+                    try 
+                    {
+                    while(rs.next())
+                    {
+                              modelo.addRow(new Object[]{
+                                rs.getString("SERVI_ID"),
+                                rs.getString("PAQUE_NOMBRE"),
+                                rs.getString("SERVI_ESTADO"),
+                                rs.getString("SERVI_DIRECCION"),
+                                rs.getString("CIUD_NOMBRE"),
+                                rs.getString("SERV_CIUDAD_DESTINO"),
+                                rs.getString("SERVI_FECHA"),
+                                rs.getString("TRABA_ID"),
+                                rs.getString("TRABA_NOMBRE"),
+
+
+        //                    
+
+                        });
+                    }
+                    jtableUsuarios.setModel(modelo);
+                    }catch(SQLException e){
+
+                    JOptionPane.showMessageDialog(null,"Error"+e.toString());
+
+                    } 
+                }
+               
+               //ejecuta la consulta de clientes por usuarios 
+               
+               
+              
+       
+   }
+   public  void ejecutaConsul2(String parametro)
+   {
+       String resultado ;
+       //instancia de la clase de reportes model 
+       ReportesModel ejecutar = new ReportesModel();
+      
+        //validacion de que el id del usuario no este vacion 
+        if (jConboCiudadConsulta2.getSelectedItem().equals("Seleccione")) {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione una ciudad", " ", JOptionPane.WARNING_MESSAGE);
+        
+        }
+        else{
+            // instancia de la clase reportes model 
+            
+            resultado = ejecutar.getclientesCiudad(parametro);
+            
+            if (resultado !=" ")
+            {
+               
+               // lleva los datos a las cjas de texto
+                this.lblCantidadClientes.setText(resultado);            
+            }
+            else
+                JOptionPane.showMessageDialog(null, "No se encontraron resultados", " Sin resultados", JOptionPane.ERROR_MESSAGE);        
+        }
+   }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jConboBuscar;
-    private javax.swing.JLabel jLabel20;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jConboCiudadConsulta1;
+    private javax.swing.JComboBox<String> jConboCiudadConsulta2;
+    private javax.swing.JComboBox<String> jConboEstadoServicio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTable jtableUsuarios;
-    public javax.swing.JTextField txtBuscar;
+    private javax.swing.JLabel lblCantidadClientes;
     // End of variables declaration//GEN-END:variables
 }
