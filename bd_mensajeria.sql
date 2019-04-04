@@ -70,7 +70,7 @@ CREATE TABLE `tbl_clien_servicios` (
 
 LOCK TABLES `tbl_clien_servicios` WRITE;
 /*!40000 ALTER TABLE `tbl_clien_servicios` DISABLE KEYS */;
-INSERT INTO `tbl_clien_servicios` VALUES (1,13,1),(1,14,1),(1,15,1),(2,14,2),(2,15,2);
+INSERT INTO `tbl_clien_servicios` VALUES (1099765,21,1),(3214567,29,1),(3214567,30,1),(16789045,22,1),(17685247,23,1),(17685247,34,1),(36789065,27,1),(36789065,32,1),(88562478,24,1),(88562478,26,1),(1117456123,25,1),(1117456123,28,1),(1117456123,31,1),(1117456123,33,1),(1099765,31,2),(1099765,32,2),(3214567,21,2),(3214567,22,2),(3214567,23,2),(16789045,26,2),(16789045,28,2),(17685247,24,2),(17685247,33,2),(36789065,25,2),(36789065,29,2),(88562478,27,2),(88562478,30,2),(88562478,34,2);
 /*!40000 ALTER TABLE `tbl_clien_servicios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +100,7 @@ CREATE TABLE `tbl_clientes` (
 
 LOCK TABLES `tbl_clientes` WRITE;
 /*!40000 ALTER TABLE `tbl_clientes` DISABLE KEYS */;
-INSERT INTO `tbl_clientes` VALUES (1,'rosana acosta de leon ','000','1980-01-01','111','PAIPA'),(2,'JULIAN PEREZ','000','1980-01-01','111','SOGAMOSO'),(5,'santiago rafael ','1515','1990-01-18','111','DUITAMA'),(6,'jose maria muñoz','000','1980-01-01','111','BOGOTA'),(7,'juan david redondo robles','72711010','1991-05-23','calle 49','DUITAMA'),(8,'kendris joana','730','1993-11-06','730','SOGAMOSO');
+INSERT INTO `tbl_clientes` VALUES (1099765,'Lucia Acuña','6789054','1980-09-25','Cra 25 Nro 45-125','BOGOTA'),(3214567,'Zulia Vega','7245678','1983-04-07','AV 115 25-40','BOGOTA'),(16789045,'Elizabeth Rincón','7896543','1985-10-10','Cra 25 Nro 76-25','DUITAMA'),(17685247,'Carlos Esteban Franco','6875241','1982-02-01','Manzana 25 Casa 545','IBAGUE'),(36789065,'Alexander Otálora','6543213','1980-05-25','Cra 24 Nro 38-18','IBAGUE'),(88562478,'Francisco Medina','9638524','1984-01-22','Cra 10 No12-05','SOGAMOSO'),(109845678,'Carlos Medina','6441934','1978-04-25','Cra 21 15-02','PAIPA'),(1117456123,'Taliana Vargas','6789032','2019-08-10','Diag 25 Nro 12-45','IBAGUE');
 /*!40000 ALTER TABLE `tbl_clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +149,7 @@ CREATE TABLE `tbl_paquetes` (
 
 LOCK TABLES `tbl_paquetes` WRITE;
 /*!40000 ALTER TABLE `tbl_paquetes` DISABLE KEYS */;
-INSERT INTO `tbl_paquetes` VALUES (1,'juan','paquete pequeño',15000),(3,'carta','',2000);
+INSERT INTO `tbl_paquetes` VALUES (1,'invitaciones','paquete pequeño',3000),(3,'cartas','',2000);
 /*!40000 ALTER TABLE `tbl_paquetes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +176,7 @@ CREATE TABLE `tbl_sedes` (
 
 LOCK TABLES `tbl_sedes` WRITE;
 /*!40000 ALTER TABLE `tbl_sedes` DISABLE KEYS */;
-INSERT INTO `tbl_sedes` VALUES (1,'sede 1','CALLE 149','BOGOTA'),(2,'sede 2','calle 900','paipa'),(5,'sede cuatro','calle av','SOGAMOSO');
+INSERT INTO `tbl_sedes` VALUES (1,'TRANSPORTES DE COLOMBIA SEDE UNO ','CALLE 149','BOGOTA'),(2,'sede 2','calle 900','paipa'),(5,'sede cuatro','calle av','SOGAMOSO');
 /*!40000 ALTER TABLE `tbl_sedes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +202,7 @@ CREATE TABLE `tbl_servicios` (
   KEY `FK_PAQUETES_idx` (`PAQUE_ID`),
   CONSTRAINT `FK_PAQUETES` FOREIGN KEY (`PAQUE_ID`) REFERENCES `tbl_paquetes` (`PAQUE_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_TRABAJADORES` FOREIGN KEY (`TRABA_ID`) REFERENCES `tbl_trabajadores` (`TRABA_ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,7 +211,7 @@ CREATE TABLE `tbl_servicios` (
 
 LOCK TABLES `tbl_servicios` WRITE;
 /*!40000 ALTER TABLE `tbl_servicios` DISABLE KEYS */;
-INSERT INTO `tbl_servicios` VALUES (6,'2019-03-31 05:15:59',1119,1,'Ingresado a  Bodega','11','SOGAMOSO',NULL,NULL),(8,'2019-03-31 05:19:57',1119,1,'Ingresado a  Bodega','1','IBAGUE',NULL,NULL),(9,'2019-03-31 05:24:23',1119,1,'Ingresado a  Bodega','1','BOGOTA',NULL,NULL),(10,'2019-03-31 05:25:56',1119,1,'Ingresado a  Bodega','1','SOGAMOSO',NULL,NULL),(12,'2019-03-31 05:30:48',1119,1,'Ingresado a  Bodega','1','DUITAMA',NULL,NULL),(13,'2019-03-31 05:32:03',1118,1,'Ingresado a  Bodega','1','SOGAMOSO',NULL,NULL),(14,'2019-03-31 05:33:08',1118,1,'Ingresado a  Bodega','','PAIPA',NULL,NULL),(15,'2019-03-31 05:37:04',1118,1,'Ingresado a  Bodega','1','PAIPA',NULL,NULL);
+INSERT INTO `tbl_servicios` VALUES (21,'2019-04-01 13:08:36',1119,3,'Entregado','calle 50','BOGOTA','2019-04-01 17:16:18',NULL),(22,'2019-04-01 13:29:51',1119,1,'Entregado','1','IBAGUE','2019-04-01 17:27:24',NULL),(23,'2019-04-01 15:46:36',1119,3,'Entregado','calle 89','IBAGUE','2019-04-01 17:27:11',NULL),(24,'2019-04-01 15:49:16',11120,3,'Entregado','1223','SOGAMOSO','2019-04-01 18:18:02',NULL),(25,'2019-04-01 17:25:36',1119,3,'Entregado','sss','BOGOTA','2019-04-01 18:18:27',NULL),(26,'2019-04-01 17:49:14',1119,3,'Entregado','444','BOGOTA','2019-04-03 15:20:22',NULL),(27,'2019-04-03 15:09:59',1118,3,'Entregado','calle 50','SOGAMOSO','2019-04-03 15:28:34',NULL),(28,'2019-04-03 15:22:07',1119,3,'Entregado','3030','PAIPA','2019-04-03 15:40:04',NULL),(29,'2019-04-03 15:32:26',1119,1,'Despachado','66','PAIPA','2019-04-03 15:33:10',NULL),(30,'2019-04-03 18:26:42',1119,3,'Entregado','ccc','DUITAMA','2019-04-03 20:02:44',NULL),(31,'2019-04-03 18:32:51',1119,3,'Entregado','55','IBAGUE','2019-04-03 20:12:19',NULL),(32,'2019-04-03 19:24:38',1119,3,'Despachado','calle 59','BOGOTA','2019-04-03 19:57:31',NULL),(33,'2019-04-03 20:01:34',1119,3,'Despachado','calle 98','BOGOTA','2019-04-03 20:01:56',NULL),(34,'2019-04-03 20:11:30',1119,3,'Despachado','calle 56','BOGOTA','2019-04-03 20:11:43',NULL);
 /*!40000 ALTER TABLE `tbl_servicios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,7 +232,7 @@ CREATE TABLE `tbl_trabajadores` (
   `SEDE_ID` int(11) NOT NULL,
   `TRAB_FECHA_NAC` date DEFAULT NULL,
   `TRABA_DIRECCION` varchar(45) DEFAULT NULL,
-  `TRABA_LAST_SESION` datetime DEFAULT '2000-01-01 00:00:00',
+  `TRABA_LAST_SESION` datetime DEFAULT NULL,
   PRIMARY KEY (`TRABA_ID`),
   UNIQUE KEY `TRABA_USU_UNIQUE` (`TRABA_USU`),
   KEY `FK_CIUDADES_idx` (`SEDE_ID`),
@@ -246,7 +246,7 @@ CREATE TABLE `tbl_trabajadores` (
 
 LOCK TABLES `tbl_trabajadores` WRITE;
 /*!40000 ALTER TABLE `tbl_trabajadores` DISABLE KEYS */;
-INSERT INTO `tbl_trabajadores` VALUES (1118,'juan david redondo robles','1','juan','b49a5780a99ea81284fc0746a78f84a30e4d5c73','Cajero',1,'1991-05-23','calle 49','2019-03-31 05:36:40'),(1119,'maolis saltaren','1','mao','f3d17dc763f95e629a7e71f9e2a2ee9df43c8746','Admin',1,'2019-03-14','calle 50','2019-03-31 05:35:36'),(1120,'Carlos Gómez','1','carlos','ab5e2bca84933118bbc9d48ffaccce3bac4eeb64','Conductor',1,'1978-04-25','calle1','2019-03-26 23:48:57'),(1121,'Carlos Gómez','3','kendris','3d0cef9d4536a461b0be2488d21ee9982d223af2','Cajero',2,'1978-04-25','555','2019-03-28 00:53:27'),(1122,'Carlos Gómez','2','cesar','CAGOMEZ','Conductor',2,'1978-04-25','22','2019-03-26 23:48:57'),(1123,'Carlos Gómez','2','ximena','CAGOMEZ','Conductor',2,'1978-04-25','1','2019-03-26 23:48:57'),(1124,'Carlos Gómez','2','rioka','CAGOMEZ','Conductor',2,'1978-04-25','6','2019-03-26 23:48:57'),(1125,'jesus alberto redondo','222','jesu','dc72056b56f05659a45bfc2ae38db18ab387e28a','Mensajero',1,'2019-08-08','222','2019-03-28 15:40:12'),(3636,'empleado sede dos','2','sede2','b9a085bda1b6003f50e59d320b705222c60d02d3','Admin',2,'2019-03-08','direccion emple sede 2','2019-03-28 01:03:28'),(5050,'cicuenta','50','usu','7c174401f411ad683cb590ea3a5b73688defd95b','Admin',2,'2019-03-05','50','2019-03-27 16:47:16'),(100000,'santi','4545','santi','8da22c45572ff7532871766932ae66e63da3e927','Bodeguero',1,'2016-07-19','54','2019-03-28 00:47:00');
+INSERT INTO `tbl_trabajadores` VALUES (1118,'juan redondo','3015555566','juan','b49a5780a99ea81284fc0746a78f84a30e4d5c73','Admin',1,'1990-04-30','calle 49','2019-04-03 15:24:39'),(1119,'maolis saltaren','7285010','mao','f3d17dc763f95e629a7e71f9e2a2ee9df43c8746','Admin',1,'1990-05-13','calle 50','2019-04-03 20:25:00'),(3030,'kedris johana','5656','kendris','3d0cef9d4536a461b0be2488d21ee9982d223af2','Cajero',1,'2019-04-18','5656',NULL),(11120,'santiago redondo ','123','santi','8da22c45572ff7532871766932ae66e63da3e927','Admin',2,'2019-04-19','123','2019-04-01 15:47:36'),(369874,'Sebastián Cortes','9857411','scortes','9e6a16966f4eb131b0a705a245a37f32eb8e2298','Bodeguero',1,'1985-10-05','calle 20','2000-01-01 00:00:00'),(526478,'Pepita Mendieta','5478921','pmendieta','a28b5516d12a084cb08cffb2653e551f3b1fe7ea','Cajero',1,'1985-10-05','calle 50','2000-01-01 00:00:00'),(578925,'Salomón González','6897462','sgonzalez','9e6a16966f4eb131b0a705a245a37f32eb8e2298','Mensajero',1,'1978-04-07','6897462','2000-01-01 00:00:00'),(635789,'Jorge Pérez','3685478','jperez','87f178e94b3fdd36214ec284a05ae162e59fefe4','Cajero',2,'1982-02-01','calle 1','2000-01-01 00:00:00'),(3245689,'pedro fernandez','3333333','pfernandez','1bb4cd88d9fa74d44bfafd6dc37e242d4de40a8e','Bodeguero',1,'1983-04-03','calle 25','2019-04-01 12:42:46'),(9852471,'Carlos Gómez','2065874','cagomez','7cc2d569ab9d7156b0c9396a76e277ccd9392f4f','Conductor',1,'1978-04-20','calle 20','2000-01-01 00:00:00');
 /*!40000 ALTER TABLE `tbl_trabajadores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,4 +292,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-31  6:14:35
+-- Dump completed on 2019-04-03 20:29:24
