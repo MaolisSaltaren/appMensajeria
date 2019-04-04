@@ -3,6 +3,7 @@ package misClases;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 public class Validacion {  
    //COMIT DE PARTIDA 4
     //ESTE ES UNA MODIFICACION DESDE EL COMMIT DE PARTIDA 
@@ -13,6 +14,15 @@ public class Validacion {
          char caracter = e.getKeyChar();
         if((caracter < '0') ||(caracter > '9') && (caracter != e.VK_BACK_SPACE))
           e.consume(); 
+     }
+    
+    //VALIDA LA CANTIDAD DE CARACTERES A UNA CAJA DE TEXTO
+    
+    public void limitCaja(KeyEvent e,JTextField cajaTxt)
+    {
+      if (cajaTxt.getText().length()== 10) 
+
+         e.consume(); 
      }
     
     //COMIT DE PARTIDA 

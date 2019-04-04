@@ -60,6 +60,7 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
         
         //coloca los texbox a la escucha del evento de presionar un boton 
         this.frmUsuario.txtIdSede.addKeyListener(this);
+        this.frmUsuario.txtIdUsuario.addKeyListener(this);
         this.frmUsuario.txtNombreUsuario.addKeyListener(this);
        
         this.frmUsuario.txtDireccionUsuario.addKeyListener(this);
@@ -488,6 +489,9 @@ public class UsuariosController implements ActionListener,KeyListener,MouseListe
         if( e.getSource()==frmUsuario.txtIdUsuario|| e.getSource()==frmUsuario.txtTelefonoUsuario)
      
             validarCaja.isNumeric(e);
+        if( e.getSource()==frmUsuario.txtIdUsuario)
+     
+            validarCaja.limitCaja(e, frmUsuario.txtIdUsuario);
            
         else if (e.getSource ()==frmUsuario.txtNombreUsuario) 
             validarCaja.isLetter(e);

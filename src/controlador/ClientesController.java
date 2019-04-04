@@ -358,9 +358,18 @@ public class ClientesController  extends javax.swing.JDialog implements ActionLi
     @Override
     public void keyTyped(KeyEvent e) {
         
-        if( e.getSource()==frmCliente.txtIdCliente|| e.getSource()==frmCliente.txtTelefonoCliente)
-     
+        if( e.getSource()==frmCliente.txtIdCliente)
+               validarCaja.isNumeric(e); 
+        
+         if ( e.getSource()==frmCliente.txtIdCliente)
+            validarCaja.limitCaja(e,frmCliente.txtIdCliente);
+         
+        else if( e.getSource()==frmCliente.txtTelefonoCliente)
             validarCaja.isNumeric(e);
+        
+      
+        else if( e.getSource()==frmCliente.txtNombreCliente)
+            validarCaja.isLetter(e);
            
         else if (e.getSource ()==frmCliente.txtNombreCliente) 
             validarCaja.isLetter(e);
