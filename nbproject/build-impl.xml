@@ -1391,10 +1391,10 @@ is divided into following sections:
     </target>
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>
-        <delete dir="${dist.dir}" followsymlinks="false" includeemptydirs="true"/>
+      <!-- <delete dir="${dist.dir}" followsymlinks="false" includeemptydirs="true"/>-->
     </target>
     <target name="-post-clean">
-        <!-- Empty placeholder for easier customization. -->
+       <!--  Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="init,deps-clean,-do-clean,-post-clean" description="Clean build products." name="clean"/>
